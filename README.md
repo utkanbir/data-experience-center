@@ -75,3 +75,8 @@ GitHub Actions aynı kontrolleri push ve pull request üzerinde çalıştırır.
 | `scripts` | Geliştirme sunucuları ve domain kontrolleri |
 
 Marka görselleri ve sunum içerikleri Komtaş çalışma içeriğidir; bu proje genel bir açık kaynak lisansı atamaz. Kullanılan üçüncü taraf paket ve logoların kendi lisans/marka koşulları geçerlidir.
+
+## Ortak senaryo ve deney
+
+Ortak iş senaryosu menüsü ve her referans mimarideki Senaryo & deney sekmesi aynı iş sorusunu, beklenen sonuçları ve kapsam sınırlarını gösterir. RM1 ZIP'i DENEY.md, Run-Scenario.ps1 ve üç iş SQL sorgusu içerir. Script pod içindeki psql ile SET ROLE rm1_bi kullanır; yerel psql gerektirmez. Hedef Kubernetes uçtan uca testi henüz yapılmadı.
+
