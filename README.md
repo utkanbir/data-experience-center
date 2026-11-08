@@ -87,3 +87,7 @@ RM1 ZIP artık Windows PowerShell ve Linux Bash scriptlerini birlikte içerir. K
 ## Deney raporu ve ortam kaldırma
 
 RM1 Run-Scenario artık reports/run-… altında çevrimdışı HTML raporu, sonuc.json ve kanıt dosyaları üretir. JSON, uygulamanın ortak senaryo veya RM1 Senaryo & deney bölümünden içe aktarılır. Tasarım puanı ile deney kontrolleri ayrı gösterilir; Power BI otomatik doğrulanmaz. Windows Remove-Environment.ps1 ve Linux remove-environment.sh lab sahiplik etiketi ve yazılı namespace onayıyla ortamı kaldırır. Stop veriyi koruyarak durdurur. Rapor üretimi ve silme akışı simüle kubectl ile test edildi; gerçek cluster üzerinde bu yeni adımlar henüz çalıştırılmadı.
+
+## Deney rehberi
+
+Sol menüde Deney rehberi (#guide) mimari seçimi → paket → kurulum/deney → HTML raporu → JSON içe aktarımı → karşılaştırma akışını görsel olarak anlatır. Kurulum modalında rapor.html, sonuc.json ve kanitlar için görünür adımlar ve ilgili bölüme geçiş düğmeleri bulunur. Rehber aynı kurulum bileşenini kullanır; komutlar iki yerde birlikte güncellenir.
