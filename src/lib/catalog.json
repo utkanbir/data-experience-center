@@ -128,9 +128,9 @@
       "key": "rm-3",
       "category": "local",
       "grade": 16.7,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · Kubernetes doğrulandı"
     },
     {
       "id": 4,
@@ -677,15 +677,15 @@
       "id": "mf",
       "name": "MetricFlow yerel motor",
       "deployment": "Docker / job imajı",
-      "needs": "Yerel CLI / Python. dbt, adapter ve MetricFlow sürümleri birlikte sabitlenecek.",
+      "needs": "dbt Core 1.10.15, dbt-postgres 1.9.1 ve dbt-metricflow 0.11.0. Yerel CLI / Job; yönetilen API değil.",
       "layer": "semantic",
       "docker": true,
       "access": "local",
-      "edition": "Yerel MetricFlow motoru",
+      "edition": "MetricFlow 0.209.0 · yerel motor",
       "source": "https://github.com/dbt-labs/metricflow",
-      "license": "Açık kaynak sürüm kontrolü gerekir",
+      "license": "Apache 2.0 · seçilen 0.209.0 sürümü",
       "reviewed": "2026-11-08",
-      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+      "evidence": "RM3 testinde PostgreSQL üzerinde yerel metrik sorgusu, SQL üretimi ve altı ay/kanal referans eşleşmesi doğrulandı."
     },
     {
       "id": "cube",

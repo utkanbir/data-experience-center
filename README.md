@@ -114,3 +114,7 @@ PostgreSQL portu, Kubernetes içindeki 5432 portunu değiştirmez; localhost por
 Ana kanonik mimari, canonical-roles.json üzerinden üretilen vendor agnostic SVG kullanır. Genel mimaride ürün veya vendor adı bulunmaz; ürün isimleri ve logoları yalnız seçili referans mimarilerde ve kullanıcı taslaklarında gösterilir.
 
 Mimari gösterimi artık tektir: üstte Tümü / Data360 / Business360 / Agent360 odak filtresi, kutularda kalıcı yetenek etiketleri ve tüm mimariyi kesen Strategy/Governance şeritleri bulunur. Birden fazla alana ait roller iki etiket taşır. Etiketler rol alanını belirtir, kurulum veya deney doğrulaması iddiası değildir. Arayüz Komtaş turuncusu, beyaz/açık gri zemin ve koyu nötr menüyle düzenlenmiştir.
+
+## Referans Mimari 3 · yerel MetricFlow
+
+RM3 paketinde dbt Core 1.10.15, dbt-postgres 1.9.1, dbt-metricflow 0.11.0 ve MetricFlow 0.209.0 birlikte sabittir. SQL modellerinin üstüne metrik YAML tanımı eklenir. Yerel CLI sorgusu, explain SQL ve altı ay/kanal satırının gelir/litre/oran eşleşmesi raporlanır. Yönetilen metric API veya hazır Power BI bağlantısı kurulmaz; S2 kısmi puanı korunur. Set-MetricFault ile brüt/net tanım hatası, dbt testleri geçerken semantik karşılaştırmanın başarısız olması üzerinden gösterilir. Kurulum, erişim ve kaldırma akışı RM1/RM2 ile aynıdır.

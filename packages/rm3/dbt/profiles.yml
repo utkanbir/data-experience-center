@@ -1,0 +1,13 @@
+komtas_rm3:
+  target: demo
+  outputs:
+    demo:
+      type: postgres
+      host: "{{ env_var('PGHOST') }}"
+      port: 5432
+      user: "{{ env_var('PGUSER') }}"
+      password: "{{ env_var('PGPASSWORD') }}"
+      dbname: komtas_rm3
+      schema: dwh
+      threads: 2
+      connect_timeout: 15

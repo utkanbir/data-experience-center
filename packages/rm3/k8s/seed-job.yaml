@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rm3-seed
+  namespace: komtas-rm3
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 300
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rm3-seed
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: seed
+          image: postgres:17.11-bookworm
+          command: [psql, --no-psqlrc, -v, ON_ERROR_STOP=1, -f, /sql/seed.sql]
+          env:
+            - name: PGHOST
+              value: postgres
+            - name: PGDATABASE
+              value: komtas_rm3
+            - name: PGUSER
+              value: rm3_admin
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rm3-credentials
+                  key: admin-password
+            - name: PBI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rm3-credentials
+                  key: bi-password
+            - name: DBT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rm3-credentials
+                  key: dbt-password
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: '1'
+              memory: 256Mi
+          volumeMounts:
+            - name: sql
+              mountPath: /sql
+              readOnly: true
+      volumes:
+        - name: sql
+          configMap:
+            name: rm3-sql

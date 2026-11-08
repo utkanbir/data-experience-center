@@ -17,3 +17,5 @@ Logos identify the technologies selected in an architecture. MetricFlow and dbt 
 - bq: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlebigquery.svg
 
 Devicon distribution: https://github.com/devicons/devicon/blob/master/LICENSE (MIT). Simple Icons distribution: https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md (CC0; brand rights remain with their owners). Microsoft Power BI icons: https://github.com/microsoft/PowerBI-Icons (CC BY 4.0 documentation assets). Other logos are from the linked product/vendor repositories or official website; brand rights remain with their owners.
+
+Komtaş wordmark: extracted unchanged from user-provided Komtas_Salesforce_AI_Innovation_Day_11.11.2026.pptx, ppt/media/image6.svg → public/assets/brand/komtas.svg.
