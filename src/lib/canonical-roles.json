@@ -1,0 +1,232 @@
+[
+  {
+    "id": "gov1",
+    "name": "İş anlamı ve metrik kaydı",
+    "body": "Tanım · owner · onay · sürüm",
+    "x": 50,
+    "y": 137,
+    "w": 227,
+    "h": 78,
+    "layer": "governance"
+  },
+  {
+    "id": "gov2",
+    "name": "Kalite ve contract",
+    "body": "Kurallar · eşikler · ihlal",
+    "x": 288,
+    "y": 137,
+    "w": 227,
+    "h": 78,
+    "layer": "governance"
+  },
+  {
+    "id": "gov3",
+    "name": "Observability",
+    "body": "Freshness · hacim · schema",
+    "x": 526,
+    "y": 137,
+    "w": 227,
+    "h": 78,
+    "layer": "governance"
+  },
+  {
+    "id": "gov4",
+    "name": "Ürün keşfi ve erişim",
+    "body": "Yayın · erişim talebi · politika",
+    "x": 764,
+    "y": 137,
+    "w": 227,
+    "h": 78,
+    "layer": "governance"
+  },
+  {
+    "id": "gov5",
+    "name": "İş ve teknik metadata bağı",
+    "body": "Kimlik · sürüm · lineage",
+    "x": 1002,
+    "y": 137,
+    "w": 227,
+    "h": 78,
+    "layer": "governance"
+  },
+  {
+    "id": "source1",
+    "name": "Müşteri ve dağıtım",
+    "body": "Customer · outlet · distributor",
+    "x": 48,
+    "y": 286,
+    "w": 178,
+    "h": 80,
+    "layer": "data"
+  },
+  {
+    "id": "source2",
+    "name": "Sipariş, fatura ve iade",
+    "body": "Order · invoice · return",
+    "x": 48,
+    "y": 378,
+    "w": 178,
+    "h": 80,
+    "layer": "data"
+  },
+  {
+    "id": "source3",
+    "name": "Ürün, fiyat ve promosyon",
+    "body": "Product · price · promotion",
+    "x": 48,
+    "y": 470,
+    "w": 178,
+    "h": 90,
+    "layer": "data"
+  },
+  {
+    "id": "batch",
+    "name": "Batch / CDC",
+    "body": "Veri taşıma ve senkronizasyon",
+    "x": 273,
+    "y": 286,
+    "w": 178,
+    "h": 80,
+    "layer": "engineering"
+  },
+  {
+    "id": "stream",
+    "name": "Streaming",
+    "body": "Olaylar ve güncel değişimler",
+    "x": 273,
+    "y": 378,
+    "w": 178,
+    "h": 80,
+    "layer": "access"
+  },
+  {
+    "id": "federation",
+    "name": "Federation",
+    "body": "İhtiyaca göre kaynağında ortak sorgu",
+    "x": 273,
+    "y": 470,
+    "w": 178,
+    "h": 90,
+    "layer": "access"
+  },
+  {
+    "id": "raw",
+    "name": "Ham katman",
+    "body": "",
+    "x": 501,
+    "y": 288,
+    "w": 250,
+    "h": 43,
+    "layer": "data"
+  },
+  {
+    "id": "curated",
+    "name": "Curated domain modelleri",
+    "body": "Anahtar uyumu · iş kuralları",
+    "x": 501,
+    "y": 341,
+    "w": 250,
+    "h": 70,
+    "layer": "data"
+  },
+  {
+    "id": "execution",
+    "name": "Warehouse / lakehouse",
+    "body": "Tablo · view · ortak execution",
+    "x": 501,
+    "y": 421,
+    "w": 250,
+    "h": 70,
+    "layer": "data"
+  },
+  {
+    "id": "products",
+    "name": "Domain veri ürünleri",
+    "body": "Sahiplik · output portları",
+    "x": 501,
+    "y": 501,
+    "w": 250,
+    "h": 58,
+    "layer": "governance"
+  },
+  {
+    "id": "metric",
+    "name": "Executable metrik",
+    "body": "Ortak hesaplama · boyut · join",
+    "x": 797,
+    "y": 276,
+    "w": 192,
+    "h": 137,
+    "layer": "semantic"
+  },
+  {
+    "id": "graph",
+    "name": "Ontology ve graph",
+    "body": "Türler · ilişkiler · eşlemeler Graph: gerçek varlık örnekleri",
+    "x": 797,
+    "y": 431,
+    "w": 192,
+    "h": 139,
+    "layer": "context"
+  },
+  {
+    "id": "bi",
+    "name": "BI ve raporlama",
+    "body": "Ortak metrikleri tüketir",
+    "x": 1022,
+    "y": 276,
+    "w": 220,
+    "h": 137,
+    "layer": "consumption"
+  },
+  {
+    "id": "ai",
+    "name": "AI agent ve API",
+    "body": "Metrik + ilişki + kaynak kanıtı",
+    "x": 1022,
+    "y": 431,
+    "w": 220,
+    "h": 139,
+    "layer": "consumption"
+  },
+  {
+    "id": "engineering",
+    "name": "Veri modelleme",
+    "body": "Logical / physical model",
+    "x": 49,
+    "y": 619,
+    "w": 288,
+    "h": 56,
+    "layer": "engineering"
+  },
+  {
+    "id": "git",
+    "name": "Git ve CI/CD",
+    "body": "Versiyon · test · deploy",
+    "x": 348,
+    "y": 619,
+    "w": 288,
+    "h": 56,
+    "layer": "engineering"
+  },
+  {
+    "id": "contract",
+    "name": "Data contract kontrolleri",
+    "body": "Schema · compatibility · kalite",
+    "x": 647,
+    "y": 619,
+    "w": 288,
+    "h": 56,
+    "layer": "engineering"
+  },
+  {
+    "id": "ops",
+    "name": "İş akışı ve operasyon",
+    "body": "Onay · incident · audit",
+    "x": 946,
+    "y": 619,
+    "w": 288,
+    "h": 56,
+    "layer": "engineering"
+  }
+]
