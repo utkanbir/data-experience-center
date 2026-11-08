@@ -99,3 +99,8 @@ RM2 için Kurulum paketini hazırla ZIP üretir. Namespace komtas-rm2 ve port 15
 ## Tasarım ve bileşen erişimi
 
 Ana ekran Komtaş renklerinde yeniden düzenlendi; mimari haritası önceliklidir. Hazır RM1/RM2 paketlerine hızlı geçiş, okunaklı kartlar, mobil görünüm ve kurulum/rapor stilleri güncellendi. Deploy sonunda Show-Access ile PostgreSQL bağlantısı ve Power BI veri alma adımları gösterilir. RM2 dbt dokümanı ClusterIP servisi ve yalnız localhost port-forward üzerinden açılır: Connect-Docs.ps1 / connect-docs.sh. dbt Core yönetim UI olarak sunulmaz. Seçilen PostgreSQL portuna göre doküman portu türetilir. Var olan RM2 ortamına docs servisini eklemek için güncel paketle Deploy tekrar çalıştırılır.
+
+## Mimari üzerindeki ürün logoları
+
+Seçili referans mimari ve özel taslak çizimlerinde aktif rol kutuları ürün logolarıyla gösterilir. Kullanılmayan alanlarda logo görünmez. Teknoloji anahtarı her mimarinin seçili bileşenlerinden üretilir. PostgreSQL, Power BI, dbt, OpenMetadata, Informatica, Cube, Trino, Neo4j, BigQuery, Snowflake, Databricks, Python ve Streamlit SVG varlıkları yerelde tutulur; kaynaklar docs/brand-assets.md içindedir. Tam kapsam kanonik görünüm teknoloji seçimi belirtmediği için rol çizimi olarak kalır.
+
