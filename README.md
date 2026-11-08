@@ -83,3 +83,7 @@ Ortak iş senaryosu menüsü ve her referans mimarideki Senaryo & deney sekmesi 
 
 RM1 ZIP artık Windows PowerShell ve Linux Bash scriptlerini birlikte içerir. Kurulum ekranında ve Bileşenler & kurulum sekmesinde ZIP sonrası adımlar gösterilir: önce Deploy / deploy.sh, sonra Run-Scenario / run-scenario.sh. Linux profili Docker Desktop Kubernetes, kubectl, Bash ve OpenSSL gerektirir; Power BI Desktop Windows'ta kalır. Ayrıntılar paket içindeki KURULUM.md dosyasındadır.
 
+
+## Deney raporu ve ortam kaldırma
+
+RM1 Run-Scenario artık reports/run-… altında çevrimdışı HTML raporu, sonuc.json ve kanıt dosyaları üretir. JSON, uygulamanın ortak senaryo veya RM1 Senaryo & deney bölümünden içe aktarılır. Tasarım puanı ile deney kontrolleri ayrı gösterilir; Power BI otomatik doğrulanmaz. Windows Remove-Environment.ps1 ve Linux remove-environment.sh lab sahiplik etiketi ve yazılı namespace onayıyla ortamı kaldırır. Stop veriyi koruyarak durdurur. Rapor üretimi ve silme akışı simüle kubectl ile test edildi; gerçek cluster üzerinde bu yeni adımlar henüz çalıştırılmadı.
