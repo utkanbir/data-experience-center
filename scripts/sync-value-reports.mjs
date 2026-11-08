@@ -15,4 +15,4 @@ function patch(html,id){
 const rm1=JSON.parse(await fs.readFile('src/lib/rm1-template.json','utf8'));
 rm1['report-template.html']=patch(rm1['report-template.html'],1);
 await fs.writeFile('src/lib/rm1-template.json',JSON.stringify(rm1,null,2)+'\n');
-for(const id of [2,3]){const file='packages/rm'+id+'/report-template.html';await fs.writeFile(file,patch(await fs.readFile(file,'utf8'),id));}
+for(const id of [2,3,4]){const file='packages/rm'+id+'/report-template.html';await fs.writeFile(file,patch(await fs.readFile(file,'utf8'),id));}

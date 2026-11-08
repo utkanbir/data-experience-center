@@ -155,7 +155,8 @@
         "pg",
         "core",
         "cube",
-        "py"
+        "py",
+        "cli"
       ],
       "goal": "Yerelde ortak metric servisi kurup aynı hesabı dashboard ve Python’da kullanmak.",
       "flow": "dbt Core modelleri hazırlar. Cube Core ortak metrik, boyut ve join tanımlarını REST üzerinden sunar. Streamlit ve Python aynı API’yi tüketir.",
@@ -173,9 +174,9 @@
       "key": "rm-4",
       "category": "local",
       "grade": 23.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · Kubernetes doğrulandı"
     },
     {
       "scores": [
@@ -695,11 +696,11 @@
       "layer": "semantic",
       "docker": true,
       "access": "local",
-      "edition": "Cube Core",
+      "edition": "Cube Core + Cube Store v1.6.77",
       "source": "https://cube.dev/docs/product/deployment/core",
-      "license": "Core sürümü; Cloud özellikleri ayrı",
+      "license": "Apache-2.0 · Core; Cloud özellikleri ayrı",
       "reviewed": "2026-11-08",
-      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+      "evidence": "RM4: PostgreSQL üzerinde authenticated REST API, SQL üretimi ve Streamlit/Python tüketicileri gerçek Kubernetes ortamında çalıştırıldı. Pre-aggregation performansı ve SQL/BI connector kapsam dışı."
     },
     {
       "id": "om",

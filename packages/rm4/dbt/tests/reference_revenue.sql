@@ -1,0 +1,1 @@
+select 1 as failure where (select sum(gross_revenue_eur-discount_amount_eur-return_amount_eur) from {{ ref('v_sales_detail') }} where month_start=date '2025-02-01' and channel='HoReCa') is distinct from 3628.80::numeric

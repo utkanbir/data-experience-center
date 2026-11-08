@@ -128,12 +128,6 @@
       "text": "dbt null, tekillik, ilişki ve referans gelir testleri. Sürekli izleme, ihlal yönetimi ve kurumsal governance yok."
     },
     {
-      "name": "BI tüketimi · Power BI",
-      "checks": [],
-      "scope": "pending",
-      "text": "Power BI model, DAX ve rapor bağlantısı bu script tarafından çalıştırılmaz."
-    },
-    {
       "name": "Ortak executable semantic katman",
       "checks": [
         "mf_query",

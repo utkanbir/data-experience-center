@@ -1,7 +1,8 @@
 import profile from './experience-profile.json';
 import rm2Profile from './experience-profile-rm2.json';
 import rm3Profile from './experience-profile-rm3.json';
-export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
+import rm4Profile from './experience-profile-rm4.json';
+export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;if(architecture==='rm-4')return rm4Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
 export {profile};
 export const executionFiles=['01-kanal-geliri.sql','02-horeca-degisim.sql','03-distributor-urun.sql','verify.sql'];
 export type ResultStatus='passed'|'failed'|'not_tested';

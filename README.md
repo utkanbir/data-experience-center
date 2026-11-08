@@ -118,3 +118,5 @@ Mimari gösterimi artık tektir: üstte Tümü / Data360 / Business360 / Agent36
 ## Referans Mimari 3 · yerel MetricFlow
 
 RM3 paketinde dbt Core 1.10.15, dbt-postgres 1.9.1, dbt-metricflow 0.11.0 ve MetricFlow 0.209.0 birlikte sabittir. SQL modellerinin üstüne metrik YAML tanımı eklenir. Yerel CLI sorgusu, explain SQL ve altı ay/kanal satırının gelir/litre/oran eşleşmesi raporlanır. Yönetilen metric API veya hazır Power BI bağlantısı kurulmaz; S2 kısmi puanı korunur. Set-MetricFault ile brüt/net tanım hatası, dbt testleri geçerken semantik karşılaştırmanın başarısız olması üzerinden gösterilir. Kurulum, erişim ve kaldırma akışı RM1/RM2 ile aynıdır.
+
+RM4: PostgreSQL + dbt Core + authenticated Cube Core REST service + Cube Store + Streamlit/Python consumers. Lifecycle scripts, SQL/API reference checks and offline HTML/JSON evidence are included under packages/rm4. See VALIDATION.md for measured scope.

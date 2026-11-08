@@ -1,13 +1,12 @@
 [CmdletBinding()]
 param()
 Write-Host ''
-Write-Host '=== REFERANS MIMARI 2 | ERISIM REHBERI ==='
+Write-Host '=== REFERANS MIMARI 3 | ERISIM REHBERI ==='
 Write-Host 'PostgreSQL: 127.0.0.1:15434 | Database: komtas_rm3 | User: rm3_bi'
 Write-Host '1. Ayri terminalde .\Connect.ps1 calistirin; terminal acik kalsin.'
 Write-Host '2. Parolayi gormek icin .\Get-Connection.ps1 calistirin.'
 Write-Host 'SQL istemcisi: DBeaver / pgAdmin / psql kullanabilirsiniz; istemci pakete dahil degildir.'
-Write-Host 'Istege bagli Power BI Desktop (bu mimariye dahil degil): Veri al > PostgreSQL veritabani'
-Write-Host 'Sunucu: 127.0.0.1:15434 | Veritabani: komtas_rm3 | Kimlik: Veritabani > rm3_bi'
+Write-Host 'Sunucu: 127.0.0.1:15434 | Veritabani: komtas_rm3 | Kullanici: rm3_bi'
 Write-Host 'Parola: Get-Connection.ps1 ciktisindaki parola. Connect.ps1 tuneli acik kalmali.'
 Write-Host ''
 Write-Host 'dbt Core: CLI / Kubernetes Job; ayri bir yonetim web ekrani yoktur.'
