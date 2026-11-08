@@ -95,3 +95,7 @@ Sol menüde Deney rehberi (#guide) mimari seçimi → paket → kurulum/deney �
 ## Referans Mimari 2
 
 RM2 için Kurulum paketini hazırla ZIP üretir. Namespace komtas-rm2 ve port 15433 varsayılandır. packages/rm2 kaynakları build/test öncesi otomatik olarak paket şablonuna aktarılır. PostgreSQL kaynak veriyi saklar; Kubernetes Job içinde dbt-core 1.9.10 ve dbt-postgres 1.9.1 yedi model ve on iki veri testi çalıştırır. İlk Job çalışmasında PyPI internet erişimi gerekir. Manifest, build_results, katalog ve statik dbt dokümanı rapor kanıtlarına alınır. Ortak semantic API ve merkezi governance kapsam dışında kalır. Windows/Linux lifecycle scriptleri ve isteğe bağlı bozuk ürün anahtarı deneyi KURULUM.md içinde açıklanır.
+
+## Tasarım ve bileşen erişimi
+
+Ana ekran Komtaş renklerinde yeniden düzenlendi; mimari haritası önceliklidir. Hazır RM1/RM2 paketlerine hızlı geçiş, okunaklı kartlar, mobil görünüm ve kurulum/rapor stilleri güncellendi. Deploy sonunda Show-Access ile PostgreSQL bağlantısı ve Power BI veri alma adımları gösterilir. RM2 dbt dokümanı ClusterIP servisi ve yalnız localhost port-forward üzerinden açılır: Connect-Docs.ps1 / connect-docs.sh. dbt Core yönetim UI olarak sunulmaz. Seçilen PostgreSQL portuna göre doküman portu türetilir. Var olan RM2 ortamına docs servisini eklemek için güncel paketle Deploy tekrar çalıştırılır.

@@ -11,7 +11,7 @@ test('RM2 package is isolated and contains actual dbt models and lifecycle scrip
  assert(files[root+'Deploy.ps1'].includes('Build-Models.ps1'));
  assert(files[root+'sql/seed.sql'].includes('raw.sales_line'));assert(!files[root+'sql/seed.sql'].includes('CREATE TABLE IF NOT EXISTS dwh.fact_sales'));
  assert(files[root+'dbt/models/marts/fact_sales.sql'].includes("ref('stg_sales')"));
- assert(files[root+'k8s/dbt-job.yaml'].includes('rm2_dbt'));assert(files[root+'Remove-Environment.ps1']);assert(files[root+'remove-environment.sh']);
+ assert(files[root+'k8s/dbt-job.yaml'].includes('rm2_dbt'));assert(files[root+'Show-Access.ps1'].includes('127.0.0.1:15444'));assert(files[root+'Connect-Docs.ps1'].includes('18093'));assert(files[root+'k8s/dbt-docs.yaml'].includes('type: ClusterIP'));assert(files[root+'Deploy.ps1'].includes('Show-Access.ps1'));assert(files[root+'Remove-Environment.ps1']);assert(files[root+'remove-environment.sh']);
  assert(files[root+'Run-Scenario.ps1'].includes('__DBT_MODELS__'));
  assert(buildPackageFiles(1,'komtas-rm1',15432)['rm1-kubernetes/Common.ps1'].includes("'komtas-rm1'"));
  assert.throws(()=>buildPackageFiles(3,'komtas-test',15444));

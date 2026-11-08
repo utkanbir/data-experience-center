@@ -36,5 +36,6 @@ Start-Rm2Job -Name 'rm2-seed' -Manifest (Join-Path $PSScriptRoot 'k8s/seed-job.y
 & (Join-Path $PSScriptRoot 'Build-Models.ps1')
 Start-Rm2Job -Name 'rm2-verify' -Manifest (Join-Path $PSScriptRoot 'k8s/verify-job.yaml')
 Invoke-Rm2Kubectl -Arguments @('-n', $Rm2Namespace, 'get', 'pods,svc,pvc,jobs') | Out-Host
-Write-Host 'Hazir. Power BI erisimi icin: .\Connect.ps1'
-Write-Host 'Baglanti bilgisi icin ayri terminalde: .\Get-Connection.ps1'
+Invoke-Rm2Kubectl -Arguments @('apply','-f',(Join-Path $PSScriptRoot 'k8s/dbt-docs.yaml')) | Out-Host
+Invoke-Rm2Kubectl -Arguments @('-n',$Rm2Namespace,'rollout','status','deployment/dbt-docs','--timeout=180s') | Out-Host
+& (Join-Path $PSScriptRoot 'Show-Access.ps1')

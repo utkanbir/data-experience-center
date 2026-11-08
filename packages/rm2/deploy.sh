@@ -30,3 +30,7 @@ bash "$RM2_DIR/build-models.sh"
 run_job rm2-verify "$RM2_DIR/k8s/verify-job.yaml"
 k -n "$RM2_NAMESPACE" get pods,svc,pvc,jobs
 printf '%s\n' 'Kurulum tamamlandi. Deney: bash run-scenario.sh'
+
+k apply -f "$RM2_DIR/k8s/dbt-docs.yaml"
+k -n "$RM2_NAMESPACE" rollout status deployment/dbt-docs --timeout=180s
+bash "$RM2_DIR/show-access.sh"

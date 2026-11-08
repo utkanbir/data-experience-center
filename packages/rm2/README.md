@@ -28,3 +28,9 @@ Windows `.\Connect.ps1`, diğer terminalde `.\Get-Connection.ps1`; Linux `bash c
 Stop.ps1 / stop.sh PostgreSQL'i durdurur, veri kalır. Remove-Environment.ps1 / remove-environment.sh namespace, tüm PVC'ler ve Secret'ları kaldırır; sahiplik etiketi ve yazılı namespace onayı ister. Önce yedek alın. Diskin fiziksel temizliği StorageClass reclaim politikasına bağlıdır.
 
 Kaynaklar: https://docs.getdbt.com/docs/local/connect-data-platform/postgres-setup ve https://docs.getdbt.com/docs/build/data-tests
+
+## Kurulan bilesenlere erisim
+
+Deploy sonunda erisim rehberi goruntulenir. Tekrar acmak icin Windows `.\Show-Access.ps1`, Linux `bash show-access.sh`. PostgreSQL'e baglanmak icin Connect tunelini baslatin; kullanici/parola Get-Connection ile yerelde gorulur. SQL istemcisinde sunucu 127.0.0.1, port 15433, DB komtas_rm2, kullanici rm2_bi. Power BI Desktop Windows'ta ayrica kurulur: Veri al > PostgreSQL veritabani > sunucu 127.0.0.1:15433, DB komtas_rm2, Veritabani kimlik dogrulama.
+
+dbt Core bir CLI/Job'dur, yonetim web arayuzu yoktur. Dokumani ve model bagimlilik grafigini acmak icin Windows `.\Connect-Docs.ps1`, Linux `bash connect-docs.sh`; sonra http://127.0.0.1:18082/static_index.html (varsayilan port). Tünel terminali acik kalmali. Dokuman dbt Job tamamlaninca hazir olur. Yerel rapordaki kanitlar/static_index.html dosyasi da acilabilir. Build-Models ile yeniden uretilebilir.
