@@ -14,7 +14,7 @@ test('RM2 package is isolated and contains actual dbt models and lifecycle scrip
  assert(files[root+'k8s/dbt-job.yaml'].includes('rm2_dbt'));assert(files[root+'Show-Access.ps1'].includes('127.0.0.1:15444'));assert(files[root+'Connect-Docs.ps1'].includes('18093'));assert(files[root+'k8s/dbt-docs.yaml'].includes('type: ClusterIP'));assert(files[root+'Deploy.ps1'].includes('Show-Access.ps1'));assert(files[root+'Remove-Environment.ps1']);assert(files[root+'remove-environment.sh']);
  assert(files[root+'Run-Scenario.ps1'].includes('__DBT_MODELS__'));
  assert(buildPackageFiles(1,'komtas-rm1',15432)['rm1-kubernetes/Common.ps1'].includes("'komtas-rm1'"));
- assert.throws(()=>buildPackageFiles(5,'komtas-test',15444));
+ assert.throws(()=>buildPackageFiles(6,'komtas-test',15444));
 });
 test('RM2 report requires dbt evidence and keeps governance out of scope',()=>{
  const p=getExperienceProfile('rm-2');const r={schemaVersion:1,architecture:'rm-2',architectureVersion:p.architectureVersion,scenario:p.scenario,namespace:'komtas-rm2',generatedAt:'2026-11-08T22:00:00Z',executions:executionFiles.map(file=>({file,status:'passed'})),observation:{checks:p.checks.map(([id])=>({id,status:'passed'})),metrics:{janRevenue:8164.8,febRevenue:3628.8,janLiters:1844.64,febLiters:819.84,change:-4536}}};

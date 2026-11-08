@@ -1,0 +1,238 @@
+{
+  "architecture": "rm-5",
+  "architectureVersion": "1.0",
+  "scenario": "beverage-revenue-v1",
+  "designGrade": 43.3,
+  "checks": [
+    [
+      "schemas",
+      "Kaynak ve ambar şemaları",
+      "raw ve dwh şemaları mevcut"
+    ],
+    [
+      "rows",
+      "Veri hacmi",
+      "Fact tablosunda 2.016 satır"
+    ],
+    [
+      "months",
+      "Aylık gelir toplamları",
+      "Ocak 27820.80; Şubat 23284.80 EUR"
+    ],
+    [
+      "horeca",
+      "HoReCa gelir değişimi",
+      "8164.80 → 3628.80 EUR"
+    ],
+    [
+      "volume",
+      "HoReCa net hacim",
+      "1844.640 → 819.840 litre"
+    ],
+    [
+      "price",
+      "Hacim / fiyat ayrıştırması",
+      "Ortalama fiyat değişmiyor; net gelir farkı −4536 EUR"
+    ],
+    [
+      "bi_role",
+      "Sorgu rolü",
+      "current_user = rm1_bi"
+    ],
+    [
+      "no_insert",
+      "INSERT yetkisi",
+      "BI rolünde fact INSERT yetkisi yok"
+    ],
+    [
+      "dbt_models",
+      "dbt model üretimi",
+      "Model sonuçlarının tamamı success"
+    ],
+    [
+      "dbt_tests",
+      "dbt veri testleri",
+      "Test sonuçlarının tamamı pass"
+    ],
+    [
+      "dbt_docs",
+      "dbt dokümanı ve bağımlılık grafiği",
+      "Docs generate tamamlandı; static_index.html oluştu"
+    ],
+    [
+      "cube_api",
+      "Cube API sorgusu",
+      "Ortak API 6 ay/kanal satırı döndürür"
+    ],
+    [
+      "cube_sql",
+      "Cube SQL üretimi",
+      "API’nin ürettiği SQL kanıtı saklanır"
+    ],
+    [
+      "cube_match",
+      "Semantic hesap doğruluğu",
+      "6 satır × 3 metrik bağımsız referansla eşleşir"
+    ],
+    [
+      "two_consumers",
+      "İki tüketicide aynı metrik",
+      "Python CLI ve gerçek dashboard kod yolu aynı API’yi kullanır; ekran servisi sağlıklı"
+    ],
+    [
+      "api_auth",
+      "API kimlik doğrulaması",
+      "Tokensiz isteğin 401/403 ile reddedildiği ölçülür"
+    ],
+    [
+      "om_catalog",
+      "Teknik katalog",
+      "PostgreSQL görünümü ve gerçek kolonları katalogda bulunur"
+    ],
+    [
+      "om_owner",
+      "Sahiplik",
+      "Satış görünümü ve üç metrik SalesStewards ekibine bağlıdır"
+    ],
+    [
+      "om_glossary",
+      "İş terimi ve metrik bağı",
+      "Üç iş tanımı metrik kayıtlarına glossary etiketiyle bağlıdır"
+    ],
+    [
+      "om_lineage",
+      "dbt model lineage",
+      "Fact → tüketim görünümü ilişkisi dbt manifest bağımlılığından kaydedilir"
+    ],
+    [
+      "om_metric",
+      "Tanım / hesap eşleşmesi",
+      "Katalog SQL tanımı ile Cube model ifadesi beklenen sözleşmeyle eşleşir"
+    ],
+    [
+      "om_quality",
+      "Katalogda gerçek kalite sonucu",
+      "Fact satır sayısı testi SQL ile çalışır; güncel sonuç OpenMetadata’ya yazılır ve geri okunur"
+    ],
+    [
+      "om_product",
+      "Data product kaydı",
+      "Domain, owner, metrik ve görünüm bağlantılarıyla ürün kaydı bulunur; tam yaşam döngüsü değildir"
+    ]
+  ],
+  "layers": [
+    {
+      "name": "Veri platformu",
+      "checks": [
+        "schemas",
+        "rows"
+      ],
+      "scope": "full",
+      "text": "Tek PostgreSQL içinde raw ve dwh şemaları. İki bağımsız kaynak veya federasyon gösterilmez."
+    },
+    {
+      "name": "Modelleme ve veri ambarı",
+      "checks": [
+        "dbt_models",
+        "dbt_tests",
+        "dbt_docs"
+      ],
+      "scope": "full",
+      "text": "dbt staging, dimension ve fact modelleri; build/test çıktıları ve model bağımlılık grafiği doğrulanır. CI/CD bu demoya dahil değildir."
+    },
+    {
+      "name": "Raporlama hesapları",
+      "checks": [
+        "months",
+        "horeca",
+        "volume",
+        "price"
+      ],
+      "scope": "full",
+      "text": "SQL net gelir, hacim ve ortalama fiyat hesabı referans sonuçlarla karşılaştırılır. Ticari kök neden kanıtlanmaz."
+    },
+    {
+      "name": "Erişim kontrolü",
+      "checks": [
+        "bi_role",
+        "no_insert",
+        "api_auth"
+      ],
+      "scope": "partial",
+      "text": "BI rolü ve INSERT yetkisinin yokluğu kontrol edilir; tam güvenlik denetimi veya RLS testi değildir. Cube JWT ve tokensiz ret kontrol edilir; token claim bazlı satır yetkilendirme uygulanmaz."
+    },
+    {
+      "name": "Kalite ve değişim yönetimi",
+      "checks": [
+        "rows",
+        "months",
+        "horeca",
+        "volume",
+        "dbt_tests",
+        "om_quality"
+      ],
+      "scope": "partial",
+      "text": "dbt null, tekillik, ilişki ve referans gelir testleri. Sürekli izleme, ihlal yönetimi ve kurumsal governance yok. Gerçek SQL satır sayısı sonucu kataloğa taşınır. Planlanmış profiler veya freshness izleme kurulmaz."
+    },
+    {
+      "name": "API tüketimi · Streamlit ve Python",
+      "checks": [
+        "cube_api",
+        "two_consumers"
+      ],
+      "scope": "full",
+      "text": "Aynı Cube API iki tüketici kod yolundan sorgulanır. Tarayıcı görsel doğrulaması rapor scriptinin dışında yapılır."
+    },
+    {
+      "name": "Ortak executable semantic katman",
+      "checks": [
+        "cube_api",
+        "cube_sql",
+        "cube_match",
+        "two_consumers"
+      ],
+      "scope": "full",
+      "text": "Metrik, boyut ve oran Cube modelinde. İki tüketici formül kopyalamadan REST servisini kullanır. Kurumsal owner/onay ve glossary yoktur."
+    },
+    {
+      "name": "Governance ve metrik sahipliği",
+      "checks": [
+        "om_catalog",
+        "om_owner",
+        "om_glossary",
+        "om_lineage",
+        "om_metric"
+      ],
+      "scope": "partial",
+      "text": "Teknik metadata, iş tanımı, owner ve dbt manifest lineage API Job ile bağlanır. Gerçek insan onayı, kurumsal politika ve sürekli denetim akışı uygulanmaz."
+    },
+    {
+      "name": "Güvenilir data product",
+      "checks": [
+        "om_product",
+        "om_owner",
+        "om_quality"
+      ],
+      "scope": "partial",
+      "text": "Domain, owner, görünüm ve metriklere bağlı ürün kaydı vardır. Contract/SLO enforcement, erişim onayı ve yaşam döngüsü otomasyonu yoktur."
+    },
+    {
+      "name": "Federasyon",
+      "checks": [],
+      "scope": "absent",
+      "text": "İki bağımsız veri kaynağı üzerinden ortak sorgu yok."
+    },
+    {
+      "name": "Ontology ve knowledge graph",
+      "checks": [],
+      "scope": "absent",
+      "text": "Kavram modeli, kimlik eşleme ve graph sorguları yok."
+    },
+    {
+      "name": "Kanıta dayalı AI",
+      "checks": [],
+      "scope": "absent",
+      "text": "AI yanıtı ve kaynak doğrulama zinciri yok."
+    }
+  ]
+}

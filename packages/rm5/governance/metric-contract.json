@@ -1,0 +1,36 @@
+{
+  "ownerTeam": "SalesStewards",
+  "domain": "BeverageSales",
+  "product": "BeverageRevenue",
+  "glossary": "BeverageBusiness",
+  "service": "RM5Postgres",
+  "metrics": [
+    {
+      "name": "NetRevenue",
+      "cubeName": "netRevenue",
+      "sql": "SUM(gross_revenue_eur - discount_amount_eur - return_amount_eur)",
+      "cubeSql": "gross_revenue_eur - discount_amount_eur - return_amount_eur",
+      "description": "Net gelir = brüt satış − iskonto − iade. EUR. Aylık kanal bazında toplanır.",
+      "term": "NetGelir",
+      "type": "SUM"
+    },
+    {
+      "name": "NetLiters",
+      "cubeName": "netLiters",
+      "sql": "SUM(net_volume_liters)",
+      "cubeSql": "net_volume_liters",
+      "description": "Net hacim: iadeler çıkarıldıktan sonra satılan toplam litre.",
+      "term": "NetHacim",
+      "type": "SUM"
+    },
+    {
+      "name": "AveragePrice",
+      "cubeName": "averagePrice",
+      "sql": "SUM(gross_revenue_eur - discount_amount_eur - return_amount_eur) / NULLIF(SUM(net_volume_liters), 0)",
+      "cubeSql": "${netRevenue} / NULLIF(${netLiters}, 0)",
+      "description": "Ağırlıklı ortalama fiyat = toplam net gelir / toplam net litre. EUR/litre.",
+      "term": "OrtalamaFiyat",
+      "type": "RATIO"
+    }
+  ]
+}

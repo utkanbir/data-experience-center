@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+printf '%s\n' '=== REFERANS MIMARI 5 | ERISIM REHBERI ===' 'PostgreSQL: 127.0.0.1:15436 | DB: komtas_rm5 | User: rm5_bi' 'SQL: bash connect.sh | parola: bash get-connection.sh' 'dbt: bash build-models.sh | dokuman tuneli: bash connect-docs.sh' 'dbt dokumani: http://127.0.0.1:18085/static_index.html' 'Streamlit: bash connect-dashboard.sh | http://127.0.0.1:8505' 'Cube REST: bash connect-cube.sh | http://127.0.0.1:4005/cubejs-api/v1/meta' '5 dakikalik JWT: bash get-api-token.sh | Python: bash query-metrics.sh' 'API/iki tuketici kontrolu: bash test-cube.sh' 'Cube Store kume ici destek servisidir, ayri UI yoktur.' 'Deney: bash run-scenario.sh | Tam silme: bash remove-environment.sh'
+
+printf '%s\n' 'OpenMetadata: bash connect-catalog.sh | http://127.0.0.1:8585' 'Giris: bash get-catalog-login.sh' 'Metadata sync: bash sync-catalog.sh | Governance kontrolu: bash verify-catalog.sh' 'Katalog: RM5Postgres > komtas_rm5 > dwh > v_sales_detail; Metrics: NetRevenue / NetLiters / AveragePrice'
+
+printf '%s\n' 'Metadata PostgreSQL: kume ici metadata-postgres:5432; OpenMetadata depolamasi, ikinci is veri kaynagi degildir.' 'Elasticsearch: kume ici elasticsearch:9200; katalog arama destegi, ayri kullanici ekrani yoktur.'

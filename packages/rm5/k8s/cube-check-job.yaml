@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata: {name: rm5-cube-check, namespace: komtas-rm5}
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 900
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: check
+          image: python:3.12.12-slim-bookworm
+          command: [sh, -c, 'pip install --disable-pip-version-check --no-cache-dir -r /consumer/requirements.txt && exec python /consumer/verify.py']
+          env:
+            - name: CUBEJS_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rm5-api
+                  key: api-secret
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+          volumeMounts:
+            - {name: consumer, mountPath: /consumer, readOnly: true}
+            - {name: artifacts, mountPath: /artifacts}
+      volumes:
+        - name: consumer
+          configMap: {name: rm5-consumers}
+        - name: artifacts
+          persistentVolumeClaim: {claimName: dbt-artifacts}

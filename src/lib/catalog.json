@@ -200,29 +200,30 @@
         "core",
         "cube",
         "om",
-        "py"
+        "py",
+        "cli"
       ],
       "id": 5,
       "title": "Cube Core + OpenMetadata",
-      "goal": "Ortak metriği teknik katalog, governed anlam, veri ürünü ve kalite beklentileriyle bağlamak.",
-      "flow": "PostgreSQL ve dbt Core modellerini Cube Core tüketir. OpenMetadata teknik metadata, iş tanımı ve contract kayıtlarını tutar; eşleme ve test sonucu akışı ayrıca yapılandırılır.",
+      "goal": "Ortak metriği teknik katalog, iş tanımı, sahiplik ve temel kalite kanıtıyla bağlamak.",
+      "flow": "dbt Core modellerini Cube Core tüketir. Açık lab API Job’u PostgreSQL metadata ve dbt manifest lineage bilgisini OpenMetadata’ya gönderir. Katalog iş tanımı, owner, metrik ve kalite sonucunu bağlar; hesap Cube REST servisinde kalır.",
       "plus": [
-        "Yerel katalog ve semantic servis birlikte incelenir.",
-        "Ürün, owner, contract ve test sonuçları ortak çerçeveye alınır.",
-        "Aynı veri üzerinde semantic-only varyanta göre ek değer ölçülür."
+        "Cube hesabı ile OpenMetadata iş tanımı ve metrik sahipliği birlikte kontrol edilir.",
+        "Gerçek PostgreSQL kolonları, dbt manifest lineage ve SQL kalite sonucu katalogda izlenir.",
+        "Hesap doğru kalırken metrik sahibini kaldıran governance hata deneyi ayrı raporlanır."
       ],
       "minus": [
-        "Executable metriklerin katalog temsili ve lineage kapsamı doğrulanmalıdır.",
-        "İş onayı ve eşlemelerin bir bölümü manuel/entegrasyon gerektirir.",
-        "Stack işletimi ve test sonucu taşıma yükü artar."
+        "Metadata aktarımı açık lab API Job’udur; native Cube connector veya otomatik ingestion scheduler kurulmaz.",
+        "İnsan onayı, politika işletimi ve data product contract/SLO enforcement uygulanmaz.",
+        "OpenMetadata, ayrı metadata PostgreSQL’i ve Elasticsearch ek işletim ve kaynak yükü getirir."
       ],
-      "decision": "Yerel governance ve semantic karşılaştırması için ana başlangıç. Tam puan, yalnız ürünlerin kurulmasına değil çalışan eşleme ve hata testlerine bağlıdır.",
+      "decision": "RM4’ün ortak metrik servisine katalog ve iş bağlamı ekler. Hesap doğruluğu ile governance bütünlüğü ayrı kanıtlarla değerlendirilir; başarılı test oranı tasarım kapsam notu değildir.",
       "key": "rm-5",
       "category": "local",
       "grade": 43.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · Kubernetes doğrulandı"
     },
     {
       "id": 6,
@@ -710,11 +711,11 @@
       "layer": "governance",
       "docker": true,
       "access": "local",
-      "edition": "OpenMetadata",
+      "edition": "OpenMetadata 2.0.7",
       "source": "https://docs.open-metadata.org/latest/quick-start/local-docker-deployment",
       "license": "Açık kaynak; sürüm ve eklentiler kontrol edilir",
-      "reviewed": "2026-11-08",
-      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+      "reviewed": "2026-11-09",
+      "evidence": "RM5 API bridge: PostgreSQL metadata, dbt manifest lineage, metrik/owner/glossary ve gerçek SQL kalite sonucu. Native Cube connector ve otomatik ingestion scheduler bu lab’da kurulmaz."
     },
     {
       "id": "py",

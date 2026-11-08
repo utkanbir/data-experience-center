@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rm5-dbt
+  namespace: komtas-rm5
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 1200
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: dbt
+          image: python:3.12.12-slim-bookworm
+          command: [python, /runner/runner.py]
+          env:
+            - name: PGHOST
+              value: postgres
+            - name: PGUSER
+              value: rm5_dbt
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rm5-credentials
+                  key: dbt-password
+            - name: DBT_SEND_ANONYMOUS_USAGE_STATS
+              value: 'false'
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: '2'
+              memory: 1Gi
+          volumeMounts:
+            - name: runner
+              mountPath: /runner
+              readOnly: true
+            - name: artifacts
+              mountPath: /artifacts
+      volumes:
+        - name: runner
+          configMap:
+            name: rm5-dbt
+        - name: artifacts
+          persistentVolumeClaim:
+            claimName: dbt-artifacts

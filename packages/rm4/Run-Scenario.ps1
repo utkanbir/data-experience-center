@@ -15,9 +15,12 @@ try {
     if ($taskStatusLines.Count -eq 3 -and @($taskStatusLines | Where-Object { $_ -notin @('passed','failed','not_tested') }).Count -eq 0) { $taskDbtStates = $taskStatusLines }
 } catch { Write-Warning 'dbt evidence unavailable.' }
 foreach ($taskArtifact in @('manifest.json','build_results.json','catalog.json','static_index.html','dbt-checks.json','cube-checks.json','cube-results.json','cube-sql.json','python-results.json','dashboard-results.json')) {
-    $ErrorActionPreference = 'Continue'
-    & kubectl --context $Rm4Context -n $Rm4Namespace cp "rm4-artifacts:/artifacts/$taskArtifact" (Join-Path $taskEvidenceDir $taskArtifact) 2>$null
-    $ErrorActionPreference = 'Stop'
+    Push-Location -LiteralPath $taskEvidenceDir
+    try {
+        $ErrorActionPreference = 'Continue'
+        & kubectl --context $Rm4Context -n $Rm4Namespace cp "rm4-artifacts:/artifacts/$taskArtifact" ("./" + $taskArtifact) 2>$null
+        if ($LASTEXITCODE -ne 0) { Write-Warning "Evidence file unavailable: $taskArtifact" }
+    } finally { Pop-Location; $ErrorActionPreference = 'Stop' }
 }
 
 foreach ($taskFile in @('01-kanal-geliri.sql','02-horeca-degisim.sql','03-distributor-urun.sql','verify.sql')) {
