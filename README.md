@@ -80,3 +80,6 @@ Marka görselleri ve sunum içerikleri Komtaş çalışma içeriğidir; bu proje
 
 Ortak iş senaryosu menüsü ve her referans mimarideki Senaryo & deney sekmesi aynı iş sorusunu, beklenen sonuçları ve kapsam sınırlarını gösterir. RM1 ZIP'i DENEY.md, Run-Scenario.ps1 ve üç iş SQL sorgusu içerir. Script pod içindeki psql ile SET ROLE rm1_bi kullanır; yerel psql gerektirmez. Hedef Kubernetes uçtan uca testi henüz yapılmadı.
 
+
+RM1 ZIP artık Windows PowerShell ve Linux Bash scriptlerini birlikte içerir. Kurulum ekranında ve Bileşenler & kurulum sekmesinde ZIP sonrası adımlar gösterilir: önce Deploy / deploy.sh, sonra Run-Scenario / run-scenario.sh. Linux profili Docker Desktop Kubernetes, kubectl, Bash ve OpenSSL gerektirir; Power BI Desktop Windows'ta kalır. Ayrıntılar paket içindeki KURULUM.md dosyasındadır.
+
