@@ -1,0 +1,158 @@
+{
+  "architecture": "rm-2",
+  "architectureVersion": "1.0",
+  "scenario": "beverage-revenue-v1",
+  "designGrade": 13.3,
+  "checks": [
+    [
+      "schemas",
+      "Kaynak ve ambar şemaları",
+      "raw ve dwh şemaları mevcut"
+    ],
+    [
+      "rows",
+      "Veri hacmi",
+      "Fact tablosunda 2.016 satır"
+    ],
+    [
+      "months",
+      "Aylık gelir toplamları",
+      "Ocak 27820.80; Şubat 23284.80 EUR"
+    ],
+    [
+      "horeca",
+      "HoReCa gelir değişimi",
+      "8164.80 → 3628.80 EUR"
+    ],
+    [
+      "volume",
+      "HoReCa net hacim",
+      "1844.640 → 819.840 litre"
+    ],
+    [
+      "price",
+      "Hacim / fiyat ayrıştırması",
+      "Ortalama fiyat değişmiyor; net gelir farkı −4536 EUR"
+    ],
+    [
+      "bi_role",
+      "Sorgu rolü",
+      "current_user = rm1_bi"
+    ],
+    [
+      "no_insert",
+      "INSERT yetkisi",
+      "BI rolünde fact INSERT yetkisi yok"
+    ],
+    [
+      "dbt_models",
+      "dbt model üretimi",
+      "Model sonuçlarının tamamı success"
+    ],
+    [
+      "dbt_tests",
+      "dbt veri testleri",
+      "Test sonuçlarının tamamı pass"
+    ],
+    [
+      "dbt_docs",
+      "dbt dokümanı ve bağımlılık grafiği",
+      "Docs generate tamamlandı; static_index.html oluştu"
+    ]
+  ],
+  "layers": [
+    {
+      "name": "Veri platformu",
+      "checks": [
+        "schemas",
+        "rows"
+      ],
+      "scope": "full",
+      "text": "Tek PostgreSQL içinde raw ve dwh şemaları. İki bağımsız kaynak veya federasyon gösterilmez."
+    },
+    {
+      "name": "Modelleme ve veri ambarı",
+      "checks": [
+        "dbt_models",
+        "dbt_tests",
+        "dbt_docs"
+      ],
+      "scope": "full",
+      "text": "dbt staging, dimension ve fact modelleri; build/test çıktıları ve model bağımlılık grafiği doğrulanır. CI/CD bu demoya dahil değildir."
+    },
+    {
+      "name": "Raporlama hesapları",
+      "checks": [
+        "months",
+        "horeca",
+        "volume",
+        "price"
+      ],
+      "scope": "full",
+      "text": "SQL net gelir, hacim ve ortalama fiyat hesabı referans sonuçlarla karşılaştırılır. Ticari kök neden kanıtlanmaz."
+    },
+    {
+      "name": "Erişim kontrolü",
+      "checks": [
+        "bi_role",
+        "no_insert"
+      ],
+      "scope": "partial",
+      "text": "BI rolü ve INSERT yetkisinin yokluğu kontrol edilir; tam güvenlik denetimi veya RLS testi değildir."
+    },
+    {
+      "name": "Kalite ve değişim yönetimi",
+      "checks": [
+        "rows",
+        "months",
+        "horeca",
+        "volume",
+        "dbt_tests"
+      ],
+      "scope": "partial",
+      "text": "dbt null, tekillik, ilişki ve referans gelir testleri. Sürekli izleme, ihlal yönetimi ve kurumsal governance yok."
+    },
+    {
+      "name": "BI tüketimi · Power BI",
+      "checks": [],
+      "scope": "pending",
+      "text": "Power BI model, DAX ve rapor bağlantısı bu script tarafından çalıştırılmaz."
+    },
+    {
+      "name": "Ortak executable semantic katman",
+      "checks": [],
+      "scope": "absent",
+      "text": "Metrik formülü SQL içinde. Bağımsız tüketicilerin kullandığı merkezi metrik servisi yok."
+    },
+    {
+      "name": "Governance ve metrik sahipliği",
+      "checks": [],
+      "scope": "absent",
+      "text": "Owner, onay, glossary ve merkezi lineage akışı yok."
+    },
+    {
+      "name": "Güvenilir data product",
+      "checks": [],
+      "scope": "absent",
+      "text": "Contract, sahiplik, tüketim arayüzü ve yaşam döngüsü birlikte uygulanmadı."
+    },
+    {
+      "name": "Federasyon",
+      "checks": [],
+      "scope": "absent",
+      "text": "İki bağımsız veri kaynağı üzerinden ortak sorgu yok."
+    },
+    {
+      "name": "Ontology ve knowledge graph",
+      "checks": [],
+      "scope": "absent",
+      "text": "Kavram modeli, kimlik eşleme ve graph sorguları yok."
+    },
+    {
+      "name": "Kanıta dayalı AI",
+      "checks": [],
+      "scope": "absent",
+      "text": "AI yanıtı ve kaynak doğrulama zinciri yok."
+    }
+  ]
+}

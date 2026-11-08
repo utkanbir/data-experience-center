@@ -91,3 +91,7 @@ RM1 Run-Scenario artık reports/run-… altında çevrimdışı HTML raporu, son
 ## Deney rehberi
 
 Sol menüde Deney rehberi (#guide) mimari seçimi → paket → kurulum/deney → HTML raporu → JSON içe aktarımı → karşılaştırma akışını görsel olarak anlatır. Kurulum modalında rapor.html, sonuc.json ve kanitlar için görünür adımlar ve ilgili bölüme geçiş düğmeleri bulunur. Rehber aynı kurulum bileşenini kullanır; komutlar iki yerde birlikte güncellenir.
+
+## Referans Mimari 2
+
+RM2 için Kurulum paketini hazırla ZIP üretir. Namespace komtas-rm2 ve port 15433 varsayılandır. packages/rm2 kaynakları build/test öncesi otomatik olarak paket şablonuna aktarılır. PostgreSQL kaynak veriyi saklar; Kubernetes Job içinde dbt-core 1.9.10 ve dbt-postgres 1.9.1 yedi model ve on iki veri testi çalıştırır. İlk Job çalışmasında PyPI internet erişimi gerekir. Manifest, build_results, katalog ve statik dbt dokümanı rapor kanıtlarına alınır. Ortak semantic API ve merkezi governance kapsam dışında kalır. Windows/Linux lifecycle scriptleri ve isteğe bağlı bozuk ürün anahtarı deneyi KURULUM.md içinde açıklanır.

@@ -83,9 +83,9 @@
       "key": "rm-2",
       "category": "local",
       "grade": 13.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · Kubernetes doğrulandı"
     },
     {
       "id": 3,
@@ -671,7 +671,7 @@
       "source": "https://github.com/dbt-labs/dbt-core",
       "license": "Apache 2.0, 1.x hattı",
       "reviewed": "2026-11-08",
-      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+      "evidence": "RM2: dbt Core 1.9.10 + dbt-postgres 1.9.1, Docker Desktop Kubernetes üzerinde 7 model, 12 veri testi ve doküman üretimi doğrulandı. Diğer adapter ve profiller ayrıca test edilmelidir."
     },
     {
       "id": "mf",
