@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "node scripts/sync-rm2.mjs && tsc --noEmit && vite build",
+    "build": "node scripts/sync-value-reports.mjs && node scripts/sync-rm2.mjs && tsc --noEmit && vite build",
     "start": "node server/index.mjs",
-    "test": "node scripts/sync-rm2.mjs && node scripts/check-domain.mjs && node --test tests/*.test.mjs",
+    "test": "node scripts/sync-value-reports.mjs && node scripts/sync-rm2.mjs && node scripts/check-domain.mjs && node --test tests/*.test.mjs",
     "check": "npm test && npm run build"
   },
   "dependencies": {

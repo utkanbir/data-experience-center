@@ -104,3 +104,9 @@ Ana ekran Komtaş renklerinde yeniden düzenlendi; mimari haritası önceliklidi
 
 Seçili referans mimari ve özel taslak çizimlerinde aktif rol kutuları ürün logolarıyla gösterilir. Kullanılmayan alanlarda logo görünmez. Teknoloji anahtarı her mimarinin seçili bileşenlerinden üretilir. PostgreSQL, Power BI, dbt, OpenMetadata, Informatica, Cube, Trino, Neo4j, BigQuery, Snowflake, Databricks, Python ve Streamlit SVG varlıkları yerelde tutulur; kaynaklar docs/brand-assets.md içindedir. Tam kapsam kanonik görünüm teknoloji seçimi belirtmediği için rol çizimi olarak kalır.
 
+
+## Komtaş değer haritası
+
+Mimari çizimindeki Teknik mimari / Komtaş değer haritası seçicisi Data360, Business360 ve Agent360 yeteneklerini aynı rol modeli üzerinde gösterir. Strategy ve Governance kesen şeritlerdir. Katkı bir ürün adına göre otomatik tamamlanmış sayılmaz; mevcut profillerde Python/LLM erişimi Agent360 kanıtı değildir. Deney JSON'u yüklenince değer kartları gerçek kontrol durumlarını ayrı anlatır. Aynı hesaplama modülü RM1/RM2 çevrimdışı HTML raporlarına build/test öncesi eklenir. Kaynak çerçeve: Komtas_Salesforce_AI_Innovation_Day_11.11.2026.pptx, slayt 6–9. Eşleme laboratuvar yorumudur; yeni yüzde puanı yoktur.
+
+PostgreSQL portu, Kubernetes içindeki 5432 portunu değiştirmez; localhost port-forward erişimini belirler. Bu ayar kurulum modalında Gelişmiş bağlantı ayarları altında varsayılanıyla sunulur. dbt doküman bağlantısı Connect-Docs tüneli açıkken erişilebilir; rehber bu iki adımı ayrı gösterir.
