@@ -107,8 +107,10 @@ Seçili referans mimari ve özel taslak çizimlerinde aktif rol kutuları ürün
 
 ## Komtaş değer haritası
 
-Mimari çizimindeki Teknik mimari / Komtaş değer haritası seçicisi Data360, Business360 ve Agent360 yeteneklerini aynı rol modeli üzerinde gösterir. Strategy ve Governance kesen şeritlerdir. Katkı bir ürün adına göre otomatik tamamlanmış sayılmaz; mevcut profillerde Python/LLM erişimi Agent360 kanıtı değildir. Deney JSON'u yüklenince değer kartları gerçek kontrol durumlarını ayrı anlatır. Aynı hesaplama modülü RM1/RM2 çevrimdışı HTML raporlarına build/test öncesi eklenir. Kaynak çerçeve: Komtas_Salesforce_AI_Innovation_Day_11.11.2026.pptx, slayt 6–9. Eşleme laboratuvar yorumudur; yeni yüzde puanı yoktur.
+Mimari çizimindeki Tümü / Data360 / Business360 / Agent360 odak seçicisi Data360, Business360 ve Agent360 yeteneklerini aynı rol modeli üzerinde gösterir. Strategy ve Governance kesen şeritlerdir. Katkı bir ürün adına göre otomatik tamamlanmış sayılmaz; mevcut profillerde Python/LLM erişimi Agent360 kanıtı değildir. Deney JSON'u yüklenince değer kartları gerçek kontrol durumlarını ayrı anlatır. Aynı hesaplama modülü RM1/RM2 çevrimdışı HTML raporlarına build/test öncesi eklenir. Kaynak çerçeve: Komtas_Salesforce_AI_Innovation_Day_11.11.2026.pptx, slayt 6–9. Eşleme laboratuvar yorumudur; yeni yüzde puanı yoktur.
 
 PostgreSQL portu, Kubernetes içindeki 5432 portunu değiştirmez; localhost port-forward erişimini belirler. Bu ayar kurulum modalında Gelişmiş bağlantı ayarları altında varsayılanıyla sunulur. dbt doküman bağlantısı Connect-Docs tüneli açıkken erişilebilir; rehber bu iki adımı ayrı gösterir.
 
 Ana kanonik mimari, canonical-roles.json üzerinden üretilen vendor agnostic SVG kullanır. Genel mimaride ürün veya vendor adı bulunmaz; ürün isimleri ve logoları yalnız seçili referans mimarilerde ve kullanıcı taslaklarında gösterilir.
+
+Mimari gösterimi artık tektir: üstte Tümü / Data360 / Business360 / Agent360 odak filtresi, kutularda kalıcı yetenek etiketleri ve tüm mimariyi kesen Strategy/Governance şeritleri bulunur. Birden fazla alana ait roller iki etiket taşır. Etiketler rol alanını belirtir, kurulum veya deney doğrulaması iddiası değildir. Arayüz Komtaş turuncusu, beyaz/açık gri zemin ve koyu nötr menüyle düzenlenmiştir.
