@@ -1,0 +1,859 @@
+{
+  "architectures": [
+    {
+      "id": 1,
+      "title": "PostgreSQL veri ambarı + Power BI",
+      "engine": "bi",
+      "gov": "none",
+      "backend": "pg",
+      "scores": [
+        3,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "pb"
+      ],
+      "goal": "Tek veri ambarından doğru satış raporu oluşturmak ve diğer mimariler için kontrol grubu sağlamak.",
+      "flow": "Sentetik satış ve iade verisi PostgreSQL içinde fact/dimension modeline yüklenir. Power BI Desktop metrikleri kendi semantic modelinde hesaplar.",
+      "plus": [
+        "Az bileşenle anlaşılır ve tekrar kurulabilir bir başlangıç.",
+        "Satış ve iade kuralları ile rapor kırılımları doğrudan incelenir.",
+        "Sonraki mimarilerin katkısını ölçmek için kontrol grubu."
+      ],
+      "minus": [
+        "Metrik hesabı BI modelinde kalır; ortak metric API yok.",
+        "Katalog, owner/onay, contract ve yönetilen kalite akışı yok.",
+        "Federasyon, ontology, knowledge graph ve agent yok."
+      ],
+      "decision": "Raporlama için dar kapsamlı bir temel. Geniş ortak iş senaryosunun tamamını karşılamayı hedeflemez.",
+      "key": "rm-1",
+      "category": "local",
+      "grade": 10,
+      "ready": true,
+      "version": "1.0",
+      "status": "Paket hazır"
+    },
+    {
+      "id": 2,
+      "title": "PostgreSQL + dbt Core + Power BI",
+      "engine": "bi",
+      "gov": "none",
+      "backend": "pg",
+      "scores": [
+        3,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "pb"
+      ],
+      "goal": "SQL modellerini ve temel veri testlerini kodla yönetmek; BI hesaplarını şimdilik korumak.",
+      "flow": "Sentetik veri PostgreSQL’e yüklenir. dbt Core fact/dimension modellerini ve temel testleri çalıştırır. Power BI ölçüleri kendi semantic modelinde hesaplar.",
+      "plus": [
+        "Model ve testler tekrarlanabilir kod olarak yönetilir.",
+        "Temel null, tekillik ve ilişki kontrolleri modele bağlanır.",
+        "Ücretli dbt Semantic servisi gerektirmez."
+      ],
+      "minus": [
+        "Core tek başına ortak executable metric API sunmaz.",
+        "Metrik tanımı BI’da kalır; katalog ve onay akışı yoktur.",
+        "Test çıktısı tek başına contract, alarm ve tüketici durum yönetimi değildir."
+      ],
+      "decision": "Referans Mimari 1’e modelleme/test disiplini ekler. Ortak metrik reuse ihtiyacını ayrıca semantic motor veya servisle karşılamak gerekir.",
+      "key": "rm-2",
+      "category": "local",
+      "grade": 13.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "id": 3,
+      "title": "PostgreSQL + yerel MetricFlow",
+      "engine": "mf",
+      "gov": "none",
+      "backend": "pg",
+      "scores": [
+        3,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "mf",
+        "cli"
+      ],
+      "goal": "Metrikleri yerel açık kaynak motorla tanımlayıp CLI/Python üzerinden sorgulamak.",
+      "flow": "dbt Core curated modelleri hazırlar. Yerel MetricFlow semantic tanımlardan SQL üretir; PostgreSQL çalıştırır. Python/CLI beklenen sonuçları karşılaştırır.",
+      "plus": [
+        "Metrik ve entity tanımları BI’dan bağımsız kodlanır.",
+        "Yerel metric sorgusu ücretli dbt servisinden ayrı denenir.",
+        "Üretilen SQL ve hesaplama davranışı incelenebilir."
+      ],
+      "minus": [
+        "Yönetilen dbt Semantic API ve hazır BI entegrasyonları bu motorda varsayılmaz.",
+        "Paylaşılan online servis için özel bir adapter/API eklemek ayrı kapsamdır.",
+        "Paket/adapter uyumu ve işletimi bizim sorumluluğumuzdadır."
+      ],
+      "decision": "Yerel hesap motorunun katkısını gösterir. S2 kısmi puanlıdır; bu varyantta iki tüketiciye hazır online metric servisi kurulmaz.",
+      "key": "rm-3",
+      "category": "local",
+      "grade": 16.7,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "id": 4,
+      "title": "PostgreSQL + Cube Core",
+      "engine": "cube",
+      "gov": "none",
+      "backend": "pg",
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "cube",
+        "py"
+      ],
+      "goal": "Yerelde ortak metric servisi kurup aynı hesabı dashboard ve Python’da kullanmak.",
+      "flow": "dbt Core modelleri hazırlar. Cube Core ortak metrik, boyut ve join tanımlarını REST üzerinden sunar. Streamlit ve Python aynı API’yi tüketir.",
+      "plus": [
+        "Yerel self-hosted semantic servis ve iki bağımsız tüketici hedeflenir.",
+        "Metrik mantığı Streamlit ve Python’a kopyalanmaz.",
+        "Veri ve servisler Docker’da kurulabilir."
+      ],
+      "minus": [
+        "Katalog, iş onayı, data product ve contract işletimi henüz yoktur.",
+        "Cube Cloud özellikleri ve Power BI entegrasyonu Core’a otomatik atfedilmez.",
+        "Cache, API erişimi ve refresh davranışı ayrıca yönetilir."
+      ],
+      "decision": "Ortak executable semantic ihtiyacını yerelde karşılayan ana açık kaynak servis alternatifi. Power BI yerine REST tüketicileriyle sınanır.",
+      "key": "rm-4",
+      "category": "local",
+      "grade": 23.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "pg",
+      "components": [
+        "pg",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 5,
+      "title": "Cube Core + OpenMetadata",
+      "goal": "Ortak metriği teknik katalog, governed anlam, veri ürünü ve kalite beklentileriyle bağlamak.",
+      "flow": "PostgreSQL ve dbt Core modellerini Cube Core tüketir. OpenMetadata teknik metadata, iş tanımı ve contract kayıtlarını tutar; eşleme ve test sonucu akışı ayrıca yapılandırılır.",
+      "plus": [
+        "Yerel katalog ve semantic servis birlikte incelenir.",
+        "Ürün, owner, contract ve test sonuçları ortak çerçeveye alınır.",
+        "Aynı veri üzerinde semantic-only varyanta göre ek değer ölçülür."
+      ],
+      "minus": [
+        "Executable metriklerin katalog temsili ve lineage kapsamı doğrulanmalıdır.",
+        "İş onayı ve eşlemelerin bir bölümü manuel/entegrasyon gerektirir.",
+        "Stack işletimi ve test sonucu taşıma yükü artar."
+      ],
+      "decision": "Yerel governance ve semantic karşılaştırması için ana başlangıç. Tam puan, yalnız ürünlerin kurulmasına değil çalışan eşleme ve hata testlerine bağlıdır.",
+      "key": "rm-5",
+      "category": "local",
+      "grade": 43.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "id": 6,
+      "title": "Yönetilen dbt Semantic + PostgreSQL",
+      "engine": "paid",
+      "gov": "none",
+      "backend": "pg",
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "paid",
+        "pb",
+        "cli"
+      ],
+      "goal": "Ücretli yönetilen semantic servis ve API’leri, yerel motor alternatiflerinden ayrı değerlendirmek.",
+      "flow": "dbt modelleri PostgreSQL üzerinde hazırlanır. Yönetilen dbt Semantic servisi hesaplama taleplerini platforma gönderir. Power BI/Python bağlantıları desteklenen erişim yöntemiyle doğrulanır.",
+      "plus": [
+        "Yönetilen semantic API ve tüketici entegrasyonları ayrı test edilir.",
+        "Metrik tanımı iki tüketicide tekrar yazılmadan kullanılabilir.",
+        "Yerel motor geliştirme yükü ile servis bağımlılığı karşılaştırılır."
+      ],
+      "minus": [
+        "dbt hesabı/planı, token ve PostgreSQL’e servis erişimi gereklidir.",
+        "Yönetilen servis Docker imajı gibi yerel kurulmaz.",
+        "Core ve MetricFlow’dan farklı abonelik/erişim bağımlılığı vardır."
+      ],
+      "decision": "Bu senaryo korunur; açık kaynak senaryolarının yerine geçmez. Harici hesap ve ağ erişimi sağlanmadan hazır lab sayılmaz.",
+      "key": "rm-6",
+      "category": "hybrid",
+      "grade": 23.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "id": 7,
+      "title": "Cube Core + Informatica CDGC",
+      "engine": "cube",
+      "gov": "infa",
+      "backend": "pg",
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        3,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "cube",
+        "infa",
+        "py"
+      ],
+      "goal": "Yerel semantic hesabı, dış Informatica ortamındaki resmî metrik tanımı ve onaya bağlamak.",
+      "flow": "Cube Core ortak hesapları sunar. Informatica CDGC iş terimi, metric kaydı, owner ve onayı taşır. İş/teknik kimlik eşlemesi bu lab için ayrıca tasarlanır.",
+      "plus": [
+        "Kurumsal iş anlamı ve onay, çalışan metric hesabından ayrı gözlemlenir.",
+        "Aynı semantic temel ile OpenMetadata varyantı karşılaştırılır.",
+        "Mevcut Informatica org’u olan ortam için entegrasyon yaklaşımı gösterilir."
+      ],
+      "minus": [
+        "CDGC org’u ve servis yetkileri dışarıdan gerekir.",
+        "CDQ ve Marketplace bu varyantta otomatik dahil sayılmaz.",
+        "Contract uygulaması ve metric eşlemesi ek geliştirme gerektirebilir."
+      ],
+      "decision": "CDGC kapsamını diğer Informatica servisleriyle karıştırmadan puanlar. Yerel servisler ve kurumsal governance ortamı ayrı sağlanır.",
+      "key": "rm-7",
+      "category": "hybrid",
+      "grade": 40,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "id": 8,
+      "title": "Cube Core + Informatica + OpenMetadata",
+      "engine": "cube",
+      "gov": "both",
+      "backend": "pg",
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        3,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        "pg",
+        "core",
+        "cube",
+        "om",
+        "infa",
+        "py"
+      ],
+      "goal": "Kurumsal iş anlamını yerel teknik metadata ve contract/test sonuçlarıyla birlikte yönetmek.",
+      "flow": "Informatica resmî tanım ve onay için asıl kaynak olur. OpenMetadata teknik asset ve contract sonuçlarını ilişkilendirir. Cube Core hesapları sunar; kimlik/sürüm eşleme akışı ayrıca geliştirilir.",
+      "plus": [
+        "İş tanımı, hesap ve teknik güven durumu arasında bağlantı hedeflenir.",
+        "Tek ürünlü varyantta eksik kalan test veya manuel adım ölçülür.",
+        "Her bilgi türünün asıl kaynağı ve güncelleme yönü belirlenir."
+      ],
+      "minus": [
+        "Hazır çift yönlü senkronizasyon varsayılmaz.",
+        "Çakışma, silme, retry ve audit yükü artar.",
+        "Aynı çıktıyı tekrar ediyorsa ikinci kataloğa ek yetenek puanı verilmez."
+      ],
+      "decision": "Beklenen ek değer somut eşleme ve değişim testleriyle kanıtlanmalı. Informatica erişimi olmadan yalnız yerel bölüm hazırlanabilir.",
+      "key": "rm-8",
+      "category": "hybrid",
+      "grade": 50,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        3,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "multi",
+      "components": [
+        "pg",
+        "trino",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 9,
+      "title": "İki PostgreSQL + Trino + Cube Core",
+      "goal": "İki bağımsız PostgreSQL kaynağını merkezi hub’a taşımadan ortak hesapta kullanmak.",
+      "flow": "Trino iki PostgreSQL için ayrı catalog açar. Ortak view/domain modeli üzerinden Cube Core metriği sunar; OpenMetadata kayıt ve kalite bağlantıları eklenir.",
+      "plus": [
+        "Cross-source join ve ortak metric tanımı ayrı katmanlarda incelenir.",
+        "Kaynak verileri kendi DB’lerinde kalır.",
+        "Tamamı yerel Docker servisleriyle kurgulanabilir."
+      ],
+      "minus": [
+        "Pushdown, join maliyeti ve kaynak yükü ölçülmelidir.",
+        "Trino bağlantıları ve dbt/connector uyumu sabitlenecektir.",
+        "Federasyon veri kalitesini veya ortak anahtarları kendiliğinden düzeltmez."
+      ],
+      "decision": "Merkezi hub alternatifiyle aynı veri ve hesap üzerinden karşılaştırılır. S4 veri yerleşimi tercihidir; sırf federasyon var diye ek toplam puan verilmez.",
+      "key": "rm-9",
+      "category": "local",
+      "grade": 53.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        2,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "pg",
+      "components": [
+        "pg",
+        "core",
+        "cube",
+        "om",
+        "neo",
+        "py"
+      ],
+      "id": 10,
+      "title": "Yerel ontology + Neo4j graph",
+      "graph": true,
+      "goal": "Ortak metriklerle birlikte varlık türleri, gerçek ilişkiler ve kaynak kanıtlarını sorgulamak.",
+      "flow": "Ontology Customer/Outlet/Distributor/Product/Promotion ilişkilerini tanımlar. Python yükleyici PostgreSQL kayıtlarını Neo4j Community graph’ına taşır. Metrik Cube Core’dan, ilişki sonucu Neo4j’den alınır.",
+      "plus": [
+        "Ontology modeli ile gerçek instance graph ayrı doğrulanır.",
+        "Çok adımlı ilişki soruları kaynak kimlikleriyle yanıtlanır.",
+        "Semantic hesap ve graph bağlamı aynı varlık kimlikleri üzerinden bağlanır."
+      ],
+      "minus": [
+        "Kimlik uzlaştırma, graph güncelliği ve provenance yükü oluşur.",
+        "Graph ilişkisi nedensellik kanıtı değildir.",
+        "Bu varyantta LLM/agent yoktur; S11 otomatik kazanılmaz."
+      ],
+      "decision": "Önce graph’ın kendi katkısı ölçülür. Agent ve harici LLM erişimi sonraki ayrı varyant olarak ele alınabilir.",
+      "key": "rm-10",
+      "category": "local",
+      "grade": 63.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "bq",
+      "components": [
+        "bq",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 11,
+      "title": "İleri: BigQuery + yerel semantic",
+      "goal": "Aynı semantik ve governance tasarımını gerçek BigQuery üzerinde doğrulamak.",
+      "flow": "Gerçek BigQuery dataset’inde sentetik veri hazırlanır. Yerel dbt Core, Cube Core ve OpenMetadata uygun connector/kimliklerle bulut ortamına bağlanır.",
+      "plus": [
+        "Yerel prototip ile gerçek bulut execution davranışı karşılaştırılır.",
+        "Aynı metric ve test verisinin taşınabilirliği denenir.",
+        "Semantic ve governance servisleri self-hosted kalabilir."
+      ],
+      "minus": [
+        "GCP proje/dataset, IAM, API erişimi ve sorgu bütçesi gerekir.",
+        "BigQuery’nin kendisi Docker’a kurulmaz; yerel istemci ayrı bileşendir.",
+        "Yerel PostgreSQL sonuçları BigQuery performans ve maliyet kanıtı sayılmaz."
+      ],
+      "decision": "GCP erişimi sağlandıktan sonra uygulanacak ileri varyant. Yeni platform tek başına yeni governance veya AI puanı sağlamaz.",
+      "key": "rm-11",
+      "category": "cloud",
+      "grade": 43.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "snow",
+      "components": [
+        "snow",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 12,
+      "title": "İleri: Snowflake + yerel semantic",
+      "goal": "Aynı ortak metrik ve governance ihtiyaçlarını gerçek Snowflake hesabında test etmek.",
+      "flow": "Snowflake warehouse ve şemasına sentetik veri yüklenir. dbt Core dönüşümleri, Cube Core REST metrik servisini, OpenMetadata metadata/contract ilişkilerini yönetir.",
+      "plus": [
+        "Veri platformu değişse de iş tanımı ve metric davranışı karşılaştırılabilir.",
+        "Yerel servisler ve dış warehouse açık biçimde ayrılır.",
+        "Warehouse başlatma, rol ve ağ davranışı gerçek ortamda gözlemlenir."
+      ],
+      "minus": [
+        "Snowflake hesabı, warehouse, rol ve kimlik gerekir.",
+        "Docker’da çalışan driver/client, gerçek Snowflake servisi değildir.",
+        "Emülatör kullanımı gerçek platform testi yerine geçmez."
+      ],
+      "decision": "Gerçek hesap erişimi sağlandığında çalıştırılır. Trial veya kota, platformun yerelde Docker’a kurulabildiği anlamına gelmez.",
+      "key": "rm-12",
+      "category": "cloud",
+      "grade": 43.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        0,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "dbx",
+      "components": [
+        "dbx",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 13,
+      "title": "İleri: Databricks + yerel semantic",
+      "goal": "Lakehouse verisi üzerinde aynı metrik, keşif ve governance davranışını değerlendirmek.",
+      "flow": "Databricks workspace/SQL warehouse ve catalog/schema üzerinde sentetik veri hazırlanır. Yerel dbt, Cube ve OpenMetadata servisleri desteklenen bağlantı ve yetkilerle erişir.",
+      "plus": [
+        "Lakehouse execution ve SQL warehouse tüketimi karşılaştırılır.",
+        "Yerel model/servis ile gerçek platform sınırı görünür olur.",
+        "Kimlik, veri tipi ve metric taşınabilirliği test edilir."
+      ],
+      "minus": [
+        "Workspace, SQL warehouse, catalog/schema izinleri ve kimlik gerekir.",
+        "Yerel Spark/Delta kurulumu gerçek Databricks platformu olarak sayılmaz.",
+        "Connector, SQL warehouse ve native metadata kapsamı ayrıca doğrulanır."
+      ],
+      "decision": "Gerçek Databricks erişimi gerektiren ileri senaryo. Native platform özellikleri yapılandırılmadan karşılanmış sayılmaz.",
+      "key": "rm-13",
+      "category": "cloud",
+      "grade": 43.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    },
+    {
+      "scores": [
+        3,
+        3,
+        3,
+        null,
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "gov": "om",
+      "engine": "cube",
+      "backend": "cloudmulti",
+      "components": [
+        "bq",
+        "snow",
+        "trino",
+        "core",
+        "cube",
+        "om",
+        "py"
+      ],
+      "id": 14,
+      "title": "İleri: BigQuery + Snowflake federasyonu",
+      "goal": "İki gerçek bulut kaynağını ortak federation ve metric yüzeyinde birlikte kullanmak.",
+      "flow": "Trino BigQuery ve Snowflake catalog’ları üzerinden kaynakları sorgular. Cube Core ortak metrik sunar; OpenMetadata bağlantıları aynı iş tanımı ve test çerçevesiyle ilişkilendirilir.",
+      "plus": [
+        "Heterojen kaynaklarda ortak join ve metric davranışı test edilir.",
+        "Yerel Trino ve semantic servis, gerçek kaynaklara bağlanır.",
+        "Cross-cloud egress ve kaynak maliyeti görünür hale gelir."
+      ],
+      "minus": [
+        "Her iki bulutta hesap, yetki, kimlik ve ağ erişimi gerekir.",
+        "Trino Docker’da olsa da BigQuery ve Snowflake dış servis olarak kalır.",
+        "Pushdown, veri tipi, gecikme ve egress sonucu ölçülmeden üstünlük iddiası kurulmaz."
+      ],
+      "decision": "En ileri veri erişim varyantı. Databricks tek-platform senaryosu ayrıca korunur; bu varyant iki bulut kaynağıyla sınırlandırılır.",
+      "key": "rm-14",
+      "category": "cloud",
+      "grade": 53.3,
+      "ready": false,
+      "version": "1.0",
+      "status": "Kurulum planı"
+    }
+  ],
+  "technologies": [
+    {
+      "id": "pg",
+      "name": "PostgreSQL",
+      "deployment": "Docker / yerel",
+      "needs": "Veri DB’si ve volume. Tek DB veya ayrı kaynak instance’ları, senaryoya göre.",
+      "layer": "data",
+      "docker": true,
+      "access": "local",
+      "edition": "PostgreSQL 17",
+      "source": "https://hub.docker.com/_/postgres",
+      "license": "PostgreSQL License",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "core",
+      "name": "dbt Core 1.x + adapter",
+      "deployment": "Docker / job imajı",
+      "needs": "Açık kaynak modelleme ve test CLI’ı. Kalıcı semantic API servisi değildir.",
+      "layer": "engineering",
+      "docker": true,
+      "access": "local",
+      "edition": "dbt Core 1.x",
+      "source": "https://github.com/dbt-labs/dbt-core",
+      "license": "Apache 2.0, 1.x hattı",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "mf",
+      "name": "MetricFlow yerel motor",
+      "deployment": "Docker / job imajı",
+      "needs": "Yerel CLI / Python. dbt, adapter ve MetricFlow sürümleri birlikte sabitlenecek.",
+      "layer": "semantic",
+      "docker": true,
+      "access": "local",
+      "edition": "Yerel MetricFlow motoru",
+      "source": "https://github.com/dbt-labs/metricflow",
+      "license": "Açık kaynak sürüm kontrolü gerekir",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "cube",
+      "name": "Cube Core + Cube Store",
+      "deployment": "Docker / yerel",
+      "needs": "Self-hosted API, refresh ve store bileşenleri. Bu lab’da REST tüketimi kullanılır.",
+      "layer": "semantic",
+      "docker": true,
+      "access": "local",
+      "edition": "Cube Core",
+      "source": "https://cube.dev/docs/product/deployment/core",
+      "license": "Core sürümü; Cloud özellikleri ayrı",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "om",
+      "name": "OpenMetadata stack",
+      "deployment": "Docker / yerel",
+      "needs": "Server, metadata DB, arama ve ingestion bileşenleri; connector yetkileri gerekir.",
+      "layer": "governance",
+      "docker": true,
+      "access": "local",
+      "edition": "OpenMetadata",
+      "source": "https://docs.open-metadata.org/latest/quick-start/local-docker-deployment",
+      "license": "Açık kaynak; sürüm ve eklentiler kontrol edilir",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "py",
+      "name": "Streamlit + Python istemcisi",
+      "deployment": "Docker / kendi imajımız",
+      "needs": "REST ile iki tüketici. Streamlit yalnız görselleştirir; metriği yeniden hesaplamaz.",
+      "layer": "consumption",
+      "docker": true,
+      "access": "local",
+      "edition": "Streamlit + Python",
+      "source": "https://docs.streamlit.io/deploy/tutorials/docker",
+      "license": "Kullandığımız paket sürümlerine göre",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "cli",
+      "name": "Python / CLI istemcisi",
+      "deployment": "Docker / kendi imajımız",
+      "needs": "MetricFlow sorgusu ve referans karşılaştırması. Yönetilen BI bağlantısı içermez.",
+      "layer": "consumption",
+      "docker": true,
+      "access": "local",
+      "edition": "Python CLI",
+      "source": "https://hub.docker.com/_/python",
+      "license": "Python ve kullanılan paketler",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "pb",
+      "name": "Power BI Desktop",
+      "deployment": "Docker dışı / masaüstü",
+      "needs": "Windows uygulaması ve DB/servis bağlantısı. Yayınlama lisansı ayrı konudur.",
+      "layer": "consumption",
+      "docker": false,
+      "access": "desktop",
+      "edition": "Power BI Desktop",
+      "source": "https://learn.microsoft.com/en-us/power-query/connectors/postgresql",
+      "license": "Masaüstü; yayınlama lisansı ayrıca",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "paid",
+      "name": "dbt Semantic Layer servisi",
+      "deployment": "Dış servis / hesap gerekir",
+      "needs": "Uygun dbt planı, token ve veri platformuna güvenli ağ erişimi sağlanacak.",
+      "layer": "semantic",
+      "docker": false,
+      "access": "service",
+      "edition": "Yönetilen dbt Semantic Layer",
+      "source": "https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl",
+      "license": "Uygun ücretli plan ve servis erişimi",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "infa",
+      "name": "Informatica CDGC",
+      "deployment": "Dış servis / org gerekir",
+      "needs": "Kurum/partner org’u, servis yetkisi ve metadata tarama erişimi sağlanacak.",
+      "layer": "governance",
+      "docker": false,
+      "access": "service",
+      "edition": "Informatica CDGC",
+      "source": "https://www.informatica.com/products/data-governance.html",
+      "license": "Kurumsal org ve servis yetkisi",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "trino",
+      "name": "Trino + connector’lar",
+      "deployment": "Docker / yerel",
+      "needs": "Her kaynak için catalog, sürücü, kimlik ve ağ erişimi yapılandırılacak.",
+      "layer": "access",
+      "docker": true,
+      "access": "local",
+      "edition": "Trino",
+      "source": "https://trino.io/docs/current/installation/containers.html",
+      "license": "Apache 2.0",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "neo",
+      "name": "Neo4j Community + graph yükleyici",
+      "deployment": "Docker / yerel",
+      "needs": "Graph DB, volume ve Python yükleme işi. Ontology/eşleme modelini biz hazırlayacağız.",
+      "layer": "context",
+      "docker": true,
+      "access": "local",
+      "edition": "Neo4j Community",
+      "source": "https://neo4j.com/docs/operations-manual/current/docker/",
+      "license": "Community; Enterprise kapsamı ayrı",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "bq",
+      "name": "Gerçek Google BigQuery",
+      "deployment": "Dış servis / GCP gerekir",
+      "needs": "Proje, dataset, IAM, kimlik, API erişimi ve sorgu bütçesi/kota sağlanacak.",
+      "layer": "data",
+      "docker": false,
+      "access": "cloud",
+      "edition": "Google BigQuery",
+      "source": "https://cloud.google.com/bigquery/docs/introduction",
+      "license": "Gerçek bulut hesabı ve kullanım maliyeti",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "snow",
+      "name": "Gerçek Snowflake",
+      "deployment": "Dış servis / hesap gerekir",
+      "needs": "Account, warehouse, database/schema, rol, kimlik ve ağ erişimi sağlanacak.",
+      "layer": "data",
+      "docker": false,
+      "access": "cloud",
+      "edition": "Snowflake",
+      "source": "https://docs.snowflake.com/en/developer-guide/snowflake-cli/connecting/configure-connections",
+      "license": "Gerçek hesap ve warehouse maliyeti",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    },
+    {
+      "id": "dbx",
+      "name": "Gerçek Databricks SQL",
+      "deployment": "Dış servis / workspace gerekir",
+      "needs": "Workspace, SQL warehouse, catalog/schema izinleri ve kimlik sağlanacak.",
+      "layer": "data",
+      "docker": false,
+      "access": "cloud",
+      "edition": "Databricks SQL",
+      "source": "https://docs.databricks.com/en/compute/sql-warehouse/index.html",
+      "license": "Gerçek workspace ve SQL warehouse",
+      "reviewed": "2026-11-08",
+      "evidence": "Sunumda incelendi; her connector/edition çalışma testi anlamına gelmez."
+    }
+  ]
+}
