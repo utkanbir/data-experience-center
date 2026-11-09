@@ -51,3 +51,10 @@ main.view-catalog,main.view-detail,main.view-scenarios{height:auto!important;fle
 .diagram-compact .canonical-scroll{height:calc(min(var(--canvas-height,36dvh),calc(100cqw / 2.0819)) + 2px)}
 .diagram-compact .diagram-zoom-controls button>span{display:inline;width:auto;height:auto;background:none;border-radius:0;margin:0;white-space:nowrap}
 @media(max-width:560px){.diagram-compact .diagram-zoom-controls .diagram-fit span,.diagram-compact .diagram-zoom-controls .diagram-expand span{display:none}}
+.canonical-hotspot .role-value-tag:not(.planned){background:color-mix(in srgb,var(--tag-color) 80%,#1d2b34);border-color:color-mix(in srgb,var(--tag-color) 75%,#1d2b34);color:#fff;font-weight:750;font-size:clamp(6px,.76cqw,12px);padding:.18cqw .4cqw;border-radius:.32cqw;box-shadow:0 1px 3px #172a3d22;letter-spacing:.01em}
+.canonical-hotspot .role-value-tag.planned{background:#e6eaee;border-color:#ccd3da;color:#6b7782;font-weight:600;box-shadow:none}
+.canonical-hotspot.value-role-in-scope .role-tag-list,.canonical-hotspot.value-role-focus .role-tag-list{opacity:1;filter:none}
+.value-focus-tabs>button:not(:first-child){background:color-mix(in srgb,var(--value-color) 11%,white);border-color:color-mix(in srgb,var(--value-color) 35%,white);color:color-mix(in srgb,var(--value-color) 82%,#1d2b34);font-weight:650}
+.value-focus-tabs>button:not(:first-child)[aria-pressed=true]{background:color-mix(in srgb,var(--value-color) 80%,#1d2b34);border-color:color-mix(in srgb,var(--value-color) 80%,#1d2b34);color:white;box-shadow:none}
+.value-focus-tabs>button:not(:first-child)[aria-pressed=true]>span{background:white}
+.value-focus-tabs>button:not(:first-child)[aria-pressed=true]>small{color:#ffffffd9}
