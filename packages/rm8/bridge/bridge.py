@@ -74,6 +74,10 @@ def main():
     token=os.environ.get('INFA_TOKEN','');host=os.environ.get('INFA_HOST','');org=os.environ.get('INFA_ORG','')
     try:
         settings=json.loads(Path('/cdgc/settings.json').read_text());mapping=json.loads(Path('/bridge/settings.json').read_text());contract=json.loads(Path('/catalog/metric-contract.json').read_text());model=Path('/cube-model/Sales.js').read_text()
+        mode_path=Path('/cdgc/connection-mode.txt')
+        if mode_path.exists() and mode_path.read_text().strip()=='later':
+            if mode=='sync':raise GovernanceError('Local-only mode selected. Use Set-InformaticaConnection to enable external access before explicit synchronization.')
+            evidence['reason']='Local-only execution selected; existing external credentials were not used.';save();return 0
         if not token or not host or not org or len(settings['metrics'])!=3 or any(not m.get('assetId') for m in settings['metrics']):
             evidence['reason']='External CDGC connection or metric identities missing. Local OM registration does not prove cross-catalog integration.'
             if mode=='verify':save();print(evidence['reason']);return 0

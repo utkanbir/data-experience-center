@@ -140,3 +140,7 @@ RM8 yerel teknik katalog/lineage/SQL kalite kanıtını CDGC iş bağlamından a
 ## Senaryoda bileşenlerin görevi
 
 Senaryo merkezindeki **Bileşenlerin görevi** sekmesi ve referans mimarinin **Senaryo & deney** bölümü; her seçili bileşenin girdisini, yaptığı işi, çıktısını, somut içecek örneğini, dosya/ekran inceleme adımlarını ve kapsam sınırını gösterir. Geniş okuma penceresi ve görev/inceleme/kanıt görünümleri aynı rehberi kullanır. Henüz paketlenmeyen mimariler tasarım hedefi olarak işaretlenir; özel senaryo açıklaması çalışan implementasyon sayılmaz. Uygulamadan üretilen hazır kurulum ZIP'leri aynı içerikten oluşturulan BILESENLER.md dosyasını içerir.
+
+## Dış servis bağlantı tanımı
+
+Kurulum ekranı mimariye göre CDGC, yönetilen dbt, Snowflake, BigQuery ve Databricks alanlarını gösterir. Kamuya açık host/hesap/kimlik ve isteğe bağlı CDGC varlık eşlemeleri yalnız ilgili mimarinin dosyalarına aktarılır; token/parola/private key web formuna alınmaz. Hazır RM6–RM8 paketlerinde bağlan seçimi Deploy sırasında yerel gizli bilgi adımını etkinleştirir. Yerel-only seçimi mevcut credential olsa da dış sorguyu atlar. Hazır olmayan bulut mimarileri yalnız ortam JSON’u üretir. Power BI Desktop ayrı kullanıcı ön koşulu olarak gösterilir.

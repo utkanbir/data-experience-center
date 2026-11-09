@@ -7,6 +7,7 @@ if ! k get storageclass -o 'jsonpath={range .items[*]}{.metadata.annotations.sto
   echo 'Varsayilan StorageClass gerekli.' >&2; exit 1
 fi
 k apply -f "$RM6_DIR/k8s/namespace.yaml"
+bash "$RM6_DIR/initialize-external-connection.sh"
 existing="$(k -n "$RM6_NAMESPACE" get secret rm6-credentials --ignore-not-found=true -o name)"
 if [[ -z "$existing" ]]; then
   pvc="$(k -n "$RM6_NAMESPACE" get pvc data-postgres-0 --ignore-not-found=true -o name)"

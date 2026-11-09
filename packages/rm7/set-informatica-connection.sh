@@ -15,3 +15,5 @@ printf '%s' "$api_host" > "$credential_dir/api-host"
 printf '%s' "$org_id" > "$credential_dir/org-id"
 k -n "$RM7_NAMESPACE" create secret generic rm7-informatica --from-file="$credential_dir" --dry-run=client -o yaml | k apply -f -
 printf '%s\n' 'JWT yerel Secret icinde. Varlik eslemesi: governance/settings.json. Test: bash run-governance.sh'
+
+printf 'connect\n' > "$RM7_DIR/governance/connection-mode.txt"

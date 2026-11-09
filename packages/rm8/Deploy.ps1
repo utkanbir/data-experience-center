@@ -7,6 +7,7 @@ $taskClasses = (Invoke-Rm8Kubectl -Arguments @('get', 'storageclass', '-o', 'jso
 $taskDefault = @($taskClasses.items | Where-Object { $_.metadata.annotations.'storageclass.kubernetes.io/is-default-class' -eq 'true' -or $_.metadata.annotations.'storageclass.beta.kubernetes.io/is-default-class' -eq 'true' })
 if ($taskDefault.Count -eq 0) { throw 'Varsayilan StorageClass bulunamadi. Docker Desktop Kubernetes depolamasi hazir olmali.' }
 Invoke-Rm8Kubectl -Arguments @('apply', '-f', (Join-Path $PSScriptRoot 'k8s/namespace.yaml')) | Out-Host
+& (Join-Path $PSScriptRoot 'Initialize-ExternalConnection.ps1')
 $taskExistingSecret = (Invoke-Rm8Kubectl -Arguments @('-n', $Rm8Namespace, 'get', 'secret', 'rm8-credentials', '--ignore-not-found=true', '-o', 'name') | Out-String).Trim()
 if (-not $taskExistingSecret) {
     $taskPod = (Invoke-Rm8Kubectl -Arguments @('-n', $Rm8Namespace, 'get', 'pvc', 'data-postgres-0', '--ignore-not-found=true', '-o', 'name') | Out-String).Trim()

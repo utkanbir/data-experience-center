@@ -77,3 +77,9 @@ https://docs.informatica.com/data-governance-and-quality-cloud/data-governance-a
 https://docs.informatica.com/data-governance-and-quality-cloud/data-governance-and-catalog/current-version/api-reference/search-for-assets/retrieve-details-of-multiple-assets/example-request.html
 
 CDGC istemcisi yalnız read-only bulk asset details POST çağrısını kullanır; Bearer JWT / X-INFA-ORG-ID, resmi HTTPS host ve yönlendirme engeli vardır. Gerçek dış hesap olmadan API entegrasyonu doğrulanmış sayılmaz.
+
+## Ekrandan tanımlanan dış bağlantı
+
+Kurulum paketini hazırla ekranında dış servisi seçip host/kimlik ve isteğe bağlı eşlemeleri doldurabilirsin. Bilgiler external-connections.json ve servisin settings.json dosyasına aktarılır; DIS_SERVISLER.md akışı açıklar. “Kurulumda bağlan” seçildiyse Deploy namespace oluşturulduktan sonra token’ı yerelde gizli olarak ister. Aynı host/kimliğe ait Secret varsa yeniden istemez; farklı bağlantı varsa sessizce değiştirmek yerine durur ve Set bağlantı scriptini kullanmanı ister. Token süresi dolmuşsa Set scriptiyle yenile. “Şimdilik yerel bileşenleri dene” seçimi dış servis adımını atlar; eksik kontroller denenmedi kalır. Bağlantı formu erişim testi veya dış hesabın kurulması değildir.
+
+Yerel-only seçiminde connection-mode.txt işareti, daha önce var olan Secret olsa bile dış API kullanımını engeller. Daha sonra Set bağlantı scriptini bilerek çalıştırmak bu işareti connect yapar; Run kontrolleri ConfigMap’i yenileyerek yeni modu kullanır. Formdan yeni paket üretmek seçilen modu tekrar uygular.

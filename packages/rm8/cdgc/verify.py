@@ -49,6 +49,9 @@ def main():
     save();token=os.environ.get('INFA_TOKEN','');host=os.environ.get('INFA_HOST','');org=os.environ.get('INFA_ORG','')
     try:
         settings=json.loads(Path('/cdgc/settings.json').read_text());metrics=settings.get('metrics',[])
+        mode_path=Path('/cdgc/connection-mode.txt')
+        if mode_path.exists() and mode_path.read_text().strip()=='later':
+            evidence['reason']='User selected local-only execution. External credentials, if present, were not used.';save();print(evidence['reason']);return 0
         if len(metrics)!=3 or {m.get('metricId') for m in metrics}!={'Sales.netRevenue','Sales.netLiters','Sales.averagePrice'}:raise GovernanceError('Scope must map exactly the three Cube metrics.')
         if not token or not host or not org or any(not m.get('assetId') or not m.get('expectedName') for m in metrics):
             evidence['reason']='External org/JWT or metric asset scope is missing. Local metrics are not a substitute for CDGC governance.';save();print(evidence['reason']);return 0

@@ -17,3 +17,7 @@ Yedi Python sözleşme testi: açık kimlik eşlemesi, kaynak checkpoint ayrım�
 Repo kökündeki `docs/rm8-local-result.json` ve `docs/rm8-owner-fault-result.json` gerçek yerel kontrol sonuçlarıdır. 50/100 tasarım kapsam notu, 27/38 deney kontrol sayısından farklı bir ölçüdür. İki katalog aynı çıktıyı tekrar ettiği için otomatik ek kapsam verilmez.
 
 Restore-Governance gerçek yerel kaydı geri yükledi; ardından Verify-Catalog yedi OpenMetadata kontrolünün tamamını tekrar geçti. Stop scripti lab servislerini durdurdu. Test ortamı kaldırma adımı yalnız bağımsız test namespace'ini hedefledi.
+
+## Dış bağlantı formu ve yerel kimlik bilgisi akışı
+
+Host/kimlik ve eşlemelerin dosyalara aktarımı, eksik/yanlış bağlantının reddi, bilinmeyen parola/token alanlarının pakete alınmaması ve bulut tanımının otomatik deploy sayılmaması test edildi. PowerShell initializer RM6/RM7/RM8 için simüle kubectl ile 12 durumda sınandı: yeni bağlantıda yalnız bir gizli token sorusu; sonra bağlan seçimi; mevcut aynı bağlantının yeniden kullanılabilmesi; farklı host/kimliğin reddi. Bu testler gerçek dış servis erişim kanıtı değildir. Üç Python yerel-only testi, mevcut örnek credentials olsa bile CDGC, yönetilen dbt ve çift katalog kodunun API istemcisini çağırmadığını doğruladı. Dış hesap/token sağlanmadı; canlı dış bağlantı hâlâ denenmedi.

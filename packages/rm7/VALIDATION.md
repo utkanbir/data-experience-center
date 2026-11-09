@@ -13,3 +13,7 @@ Altı Python sözleşme testi: olumlu örnek yanıt, Published/onay ayrımı, ya
 Rapor örneği: `docs/rm7-local-result.json` (repo kökünde). Tasarım kapsam notu 40/100'dür; 20/27 deney kontrol sonucu aynı ölçü değildir.
 
 `Run-Scenario.ps1 -RequireComplete` aynı gerçek ortamda yeniden çalıştırıldı: yerel 20 kontrol yine geçti; dış 7 kanıt eksik kaldığı için rapor üretildikten sonra beklenen exit code 1 ile tamamlandı. Eksik dış erişim tam başarıya dönüştürülmedi.
+
+## Dış bağlantı formu ve yerel kimlik bilgisi akışı
+
+Host/kimlik ve eşlemelerin dosyalara aktarımı, eksik/yanlış bağlantının reddi, bilinmeyen parola/token alanlarının pakete alınmaması ve bulut tanımının otomatik deploy sayılmaması test edildi. PowerShell initializer RM6/RM7/RM8 için simüle kubectl ile 12 durumda sınandı: yeni bağlantıda yalnız bir gizli token sorusu; sonra bağlan seçimi; mevcut aynı bağlantının yeniden kullanılabilmesi; farklı host/kimliğin reddi. Bu testler gerçek dış servis erişim kanıtı değildir. Üç Python yerel-only testi, mevcut örnek credentials olsa bile CDGC, yönetilen dbt ve çift katalog kodunun API istemcisini çağırmadığını doğruladı. Dış hesap/token sağlanmadı; canlı dış bağlantı hâlâ denenmedi.

@@ -17,3 +17,5 @@ try {
  Write-Rm8Object -Object @{apiVersion='v1';kind='Secret';metadata=@{name='rm8-informatica';namespace=$Rm8Namespace};type='Opaque';stringData=@{'api-token'=$taskToken;'api-host'=$ApiHost;'org-id'=$OrgId}}
 } finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($taskPointer);$taskToken=$null }
 Write-Host 'Kimlik bilgileri yalniz yerel Kubernetes Secret icinde. cdgc/settings.json varlik eslemesini tamamlayip Run-CDGC.ps1 calistirin.'
+
+[IO.File]::WriteAllText((Join-Path $PSScriptRoot 'cdgc/connection-mode.txt'),"connect`n",(New-Object Text.UTF8Encoding $false))

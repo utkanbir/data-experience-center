@@ -11,6 +11,9 @@ def save():
 for name in ['managed-checks.json','managed-status.txt','managed-results.json','managed-sql.txt','powerbi-results.json']:(out/name).unlink(missing_ok=True)
 save()
 token=os.environ.get('DBT_SL_TOKEN','');host=os.environ.get('DBT_SL_HOST','');env=os.environ.get('DBT_SL_ENVIRONMENT_ID','')
+mode_path=Path('/managed/connection-mode.txt')
+if mode_path.exists() and mode_path.read_text().strip()=='later':
+    evidence['reason']='Local-only execution selected; existing external credentials were not used.';save();print(evidence['reason']);sys.exit(0)
 if not token or not host or not env:
     evidence['reason']='External dbt Semantic Layer credentials are not configured. Local dbt is not used as a substitute.'
     save();print('Managed checks: not_tested. Configure the real external service with Set-DbtConnection.');sys.exit(0)

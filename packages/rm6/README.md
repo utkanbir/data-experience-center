@@ -57,3 +57,9 @@ Stop.ps1 / bash stop.sh yerel PostgreSQL ve dbt docs servisini durdurur; PVC/Sec
 Remove-Environment.ps1 / bash remove-environment.sh lab sahiplik etiketi ve namespace adını yazarak onaydan sonra yalnız yerel lab namespace’ini siler. Harici dbt hesabı, environment, token, PostgreSQL ve Power BI kaynakları silinmez. Onların yaşam döngüsünü ayrı yönet.
 
 Resmî kaynaklar: https://docs.getdbt.com/docs/use-dbt-semantic-layer/setup-sl · https://docs.getdbt.com/docs/dbt-apis/sl-graphql · https://docs.getdbt.com/docs/platform-integrations/semantic-layer/power-bi
+
+## Ekrandan tanımlanan dış bağlantı
+
+Kurulum paketini hazırla ekranında dış servisi seçip host/kimlik ve isteğe bağlı eşlemeleri doldurabilirsin. Bilgiler external-connections.json ve servisin settings.json dosyasına aktarılır; DIS_SERVISLER.md akışı açıklar. “Kurulumda bağlan” seçildiyse Deploy namespace oluşturulduktan sonra token’ı yerelde gizli olarak ister. Aynı host/kimliğe ait Secret varsa yeniden istemez; farklı bağlantı varsa sessizce değiştirmek yerine durur ve Set bağlantı scriptini kullanmanı ister. Token süresi dolmuşsa Set scriptiyle yenile. “Şimdilik yerel bileşenleri dene” seçimi dış servis adımını atlar; eksik kontroller denenmedi kalır. Bağlantı formu erişim testi veya dış hesabın kurulması değildir.
+
+Yerel-only seçiminde connection-mode.txt işareti, daha önce var olan Secret olsa bile dış API kullanımını engeller. Daha sonra Set bağlantı scriptini bilerek çalıştırmak bu işareti connect yapar; Run kontrolleri ConfigMap’i yenileyerek yeni modu kullanır. Formdan yeni paket üretmek seçilen modu tekrar uygular.

@@ -17,3 +17,5 @@ try {
  Write-Rm7Object -Object @{apiVersion='v1';kind='Secret';metadata=@{name='rm7-informatica';namespace=$Rm7Namespace};type='Opaque';stringData=@{'api-token'=$taskToken;'api-host'=$ApiHost;'org-id'=$OrgId}}
 } finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($taskPointer);$taskToken=$null }
 Write-Host 'Kimlik bilgileri yalniz yerel Kubernetes Secret icinde. governance/settings.json varlik eslemesini tamamlayip Run-Governance.ps1 calistirin.'
+
+[IO.File]::WriteAllText((Join-Path $PSScriptRoot 'governance/connection-mode.txt'),"connect`n",(New-Object Text.UTF8Encoding $false))

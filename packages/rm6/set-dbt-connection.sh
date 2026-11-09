@@ -15,3 +15,5 @@ printf '%s' "$sl_host" > "$credential_dir/host"
 printf '%s' "$sl_environment" > "$credential_dir/environment-id"
 k -n "$RM6_NAMESPACE" create secret generic rm6-dbt-service --from-file="$credential_dir" --dry-run=client -o yaml | k apply -f -
 printf '%s\n' 'Servis bilgileri yerel Kubernetes Secret icinde. Gercek servis testi: bash run-remote-checks.sh'
+
+printf 'connect\n' > "$RM6_DIR/managed/connection-mode.txt"

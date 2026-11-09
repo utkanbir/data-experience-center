@@ -17,3 +17,5 @@ try {
     Write-Rm6Object -Object @{apiVersion='v1';kind='Secret';metadata=@{name='rm6-dbt-service';namespace=$Rm6Namespace};type='Opaque';stringData=@{'api-token'=$taskToken;'host'=$HostName;'environment-id'=$EnvironmentId}}
 } finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($taskPointer);$taskToken=$null }
 Write-Host 'Harici servis bilgileri yalniz yerel Kubernetes Secret icinde saklandi. Run-RemoteChecks.ps1 ile gercek servisi sinayin.'
+
+[IO.File]::WriteAllText((Join-Path $PSScriptRoot 'managed/connection-mode.txt'),"connect`n",(New-Object Text.UTF8Encoding $false))

@@ -15,3 +15,5 @@ printf '%s' "$api_host" > "$credential_dir/api-host"
 printf '%s' "$org_id" > "$credential_dir/org-id"
 k -n "$RM8_NAMESPACE" create secret generic rm8-informatica --from-file="$credential_dir" --dry-run=client -o yaml | k apply -f -
 printf '%s\n' 'JWT yerel Secret icinde. Varlik eslemesi: cdgc/settings.json. Test: bash run-cdgc.sh'
+
+printf 'connect\n' > "$RM8_DIR/cdgc/connection-mode.txt"
