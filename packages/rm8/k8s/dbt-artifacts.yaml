@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dbt-artifacts
+  namespace: komtas-rm8
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rm8-artifacts
+  namespace: komtas-rm8
+spec:
+  containers:
+    - name: artifacts
+      image: postgres:17.11-bookworm
+      command: [sleep, infinity]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      volumeMounts:
+        - name: artifacts
+          mountPath: /artifacts
+  volumes:
+    - name: artifacts
+      persistentVolumeClaim:
+        claimName: dbt-artifacts

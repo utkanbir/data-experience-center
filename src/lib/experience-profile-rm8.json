@@ -1,0 +1,338 @@
+{
+  "architecture": "rm-8",
+  "architectureVersion": "1.0",
+  "scenario": "beverage-revenue-v1",
+  "designGrade": 50,
+  "checks": [
+    [
+      "schemas",
+      "Kaynak ve ambar şemaları",
+      "raw ve dwh şemaları mevcut"
+    ],
+    [
+      "rows",
+      "Veri hacmi",
+      "Fact tablosunda 2.016 satır"
+    ],
+    [
+      "months",
+      "Aylık gelir toplamları",
+      "Ocak 27820.80; Şubat 23284.80 EUR"
+    ],
+    [
+      "horeca",
+      "HoReCa gelir değişimi",
+      "8164.80 → 3628.80 EUR"
+    ],
+    [
+      "volume",
+      "HoReCa net hacim",
+      "1844.640 → 819.840 litre"
+    ],
+    [
+      "price",
+      "Hacim / fiyat ayrıştırması",
+      "Ortalama fiyat değişmiyor; net gelir farkı −4536 EUR"
+    ],
+    [
+      "bi_role",
+      "Sorgu rolü",
+      "current_user = rm1_bi"
+    ],
+    [
+      "no_insert",
+      "INSERT yetkisi",
+      "BI rolünde fact INSERT yetkisi yok"
+    ],
+    [
+      "dbt_models",
+      "dbt model üretimi",
+      "Model sonuçlarının tamamı success"
+    ],
+    [
+      "dbt_tests",
+      "dbt veri testleri",
+      "Test sonuçlarının tamamı pass"
+    ],
+    [
+      "dbt_docs",
+      "dbt dokümanı ve bağımlılık grafiği",
+      "Docs generate tamamlandı; static_index.html oluştu"
+    ],
+    [
+      "cube_api",
+      "Cube API sorgusu",
+      "Ortak API 6 ay/kanal satırı döndürür"
+    ],
+    [
+      "cube_sql",
+      "Cube SQL üretimi",
+      "API’nin ürettiği SQL kanıtı saklanır"
+    ],
+    [
+      "cube_match",
+      "Semantic hesap doğruluğu",
+      "6 satır × 3 metrik bağımsız referansla eşleşir"
+    ],
+    [
+      "two_consumers",
+      "İki tüketicide aynı metrik",
+      "Python CLI ve gerçek dashboard kod yolu aynı API’yi kullanır; ekran servisi sağlıklı"
+    ],
+    [
+      "api_auth",
+      "API kimlik doğrulaması",
+      "Tokensiz isteğin 401/403 ile reddedildiği ölçülür"
+    ],
+    [
+      "cdgc_assets",
+      "CDGC varlık erişimi",
+      "Üç gerçek metrik varlığı kimlik ve adlarıyla API üzerinden okunur"
+    ],
+    [
+      "cdgc_definition",
+      "İş metrik tanımları",
+      "Tanım alanlarında senaryo için beklenen açıklamalar var"
+    ],
+    [
+      "cdgc_owner",
+      "Metrik sahibi ve rol eşlemesi",
+      "Üç varlığın atanmış kimlik/rol alanları beyan edilen owner ile eşleşir"
+    ],
+    [
+      "cdgc_published",
+      "Yayın durumu",
+      "Üç metrik varlığı Published; bu durum tek başına insan onayı değildir"
+    ],
+    [
+      "cdgc_binding",
+      "Beyan edilen iş–teknik eşleme",
+      "CDGC teknik varlık kimliği ve accepted glossary bağları yerel Cube view hedefiyle eşlenir"
+    ],
+    [
+      "cdgc_product",
+      "Veri ürünü metadata kaydı",
+      "Org içinde beyan edilen ürün varlığı; Marketplace veya erişim enforcement kanıtı değildir"
+    ],
+    [
+      "cdgc_approval",
+      "Manuel onay kaydı tutarlılığı",
+      "Kullanıcı kaynaklı workflow kaydı varlık/sürüm/tarih ile eşleşir; gerçek workflow icrası doğrulanmaz"
+    ],
+    [
+      "om_catalog",
+      "Teknik katalog",
+      "PostgreSQL görünümü ve gerçek kolonları katalogda bulunur"
+    ],
+    [
+      "om_owner",
+      "Sahiplik",
+      "Satış görünümü ve üç metrik SalesStewards ekibine bağlıdır"
+    ],
+    [
+      "om_glossary",
+      "İş terimi ve metrik bağı",
+      "Üç iş tanımı metrik kayıtlarına glossary etiketiyle bağlıdır"
+    ],
+    [
+      "om_lineage",
+      "dbt model lineage",
+      "Fact → tüketim görünümü ilişkisi dbt manifest bağımlılığından kaydedilir"
+    ],
+    [
+      "om_metric",
+      "Tanım / hesap eşleşmesi",
+      "Katalog SQL tanımı ile Cube model ifadesi beklenen sözleşmeyle eşleşir"
+    ],
+    [
+      "om_quality",
+      "Katalogda gerçek kalite sonucu",
+      "Fact satır sayısı testi SQL ile çalışır; güncel sonuç OpenMetadata’ya yazılır ve geri okunur"
+    ],
+    [
+      "om_product",
+      "Data product kaydı",
+      "Domain, owner, metrik ve görünüm bağlantılarıyla ürün kaydı bulunur; tam yaşam döngüsü değildir"
+    ],
+    [
+      "dual_identity",
+      "İki katalog kimlik eşlemesi",
+      "Üç CDGC varlığı, OM metrik/terim ve Cube kimliği açık manifest ile eşlenir"
+    ],
+    [
+      "dual_definition",
+      "İş tanımı ve hesap ayrımı",
+      "Gerçek CDGC tanımı OM kopyasıyla ve yerel hesap sözleşmesiyle kontrol edilir"
+    ],
+    [
+      "dual_owner",
+      "Sistemler arası sahiplik",
+      "CDGC owner/rol kimliği açık OM ekip eşlemesiyle karşılaştırılır"
+    ],
+    [
+      "dual_revision",
+      "Kaynak sürümü ve değişim",
+      "İş tanımının CDGC sürümü son gözden geçirilmiş senkronizasyon kaydıyla eşleşir"
+    ]
+  ],
+  "layers": [
+    {
+      "name": "Veri platformu",
+      "checks": [
+        "schemas",
+        "rows"
+      ],
+      "scope": "full",
+      "text": "Tek PostgreSQL içinde raw ve dwh şemaları. İki bağımsız kaynak veya federasyon gösterilmez."
+    },
+    {
+      "name": "Modelleme ve veri ambarı",
+      "checks": [
+        "dbt_models",
+        "dbt_tests",
+        "dbt_docs"
+      ],
+      "scope": "full",
+      "text": "dbt staging, dimension ve fact modelleri; build/test çıktıları ve model bağımlılık grafiği doğrulanır. CI/CD bu demoya dahil değildir."
+    },
+    {
+      "name": "Raporlama hesapları",
+      "checks": [
+        "months",
+        "horeca",
+        "volume",
+        "price"
+      ],
+      "scope": "full",
+      "text": "SQL net gelir, hacim ve ortalama fiyat hesabı referans sonuçlarla karşılaştırılır. Ticari kök neden kanıtlanmaz."
+    },
+    {
+      "name": "Erişim kontrolü",
+      "checks": [
+        "bi_role",
+        "no_insert",
+        "api_auth"
+      ],
+      "scope": "partial",
+      "text": "BI rolü ve INSERT yetkisinin yokluğu kontrol edilir; tam güvenlik denetimi veya RLS testi değildir. Cube JWT ve tokensiz ret kontrol edilir; token claim bazlı satır yetkilendirme uygulanmaz."
+    },
+    {
+      "name": "dbt kalite ve değişim testleri",
+      "checks": [
+        "rows",
+        "months",
+        "horeca",
+        "volume",
+        "dbt_tests"
+      ],
+      "scope": "partial",
+      "text": "dbt null, tekillik, ilişki ve referans gelir testleri. Sürekli kalite izleme ve ihlal yönetimi yok; harici CDGC governance kanıtı ayrı katmanda değerlendirilir."
+    },
+    {
+      "name": "API tüketimi · Streamlit ve Python",
+      "checks": [
+        "cube_api",
+        "two_consumers"
+      ],
+      "scope": "full",
+      "text": "Aynı Cube API iki tüketici kod yolundan sorgulanır. Tarayıcı görsel doğrulaması rapor scriptinin dışında yapılır."
+    },
+    {
+      "name": "Ortak executable semantic katman",
+      "checks": [
+        "cube_api",
+        "cube_sql",
+        "cube_match",
+        "two_consumers"
+      ],
+      "scope": "full",
+      "text": "Cube metrik tanımı ve iki bağımsız tüketici yerelde çalışır. İş tanımı/onay CDGC tarafında ayrıca doğrulanır."
+    },
+    {
+      "name": "CDGC iş tanımı ve sahipliği",
+      "checks": [
+        "cdgc_assets",
+        "cdgc_definition",
+        "cdgc_owner",
+        "cdgc_published",
+        "cdgc_binding",
+        "cdgc_approval"
+      ],
+      "scope": "partial",
+      "text": "CDGC gerçek API varlıkları, tanım, owner rolü, yayın ve teknik eşleme ayrı kontrol edilir. Published insan onayı değildir; manuel workflow kaydı bağımsız icra kanıtı değildir. CDGC iş bağlamı için asıl kaynak, OM yerel teknik kayıt için kaynaktır. Hazır çift yönlü senkronizasyon yoktur."
+    },
+    {
+      "name": "CDGC ürün metadata kaydı",
+      "checks": [
+        "cdgc_product",
+        "cdgc_binding"
+      ],
+      "scope": "partial",
+      "text": "CDGC ürün metadata kaydı ve beyan edilen eşleme kontrol edilir. Marketplace, talep/onay, SLA ve contract enforcement otomatik sağlanmaz."
+    },
+    {
+      "name": "Federasyon",
+      "checks": [],
+      "scope": "absent",
+      "text": "İki bağımsız veri kaynağı üzerinden ortak sorgu yok."
+    },
+    {
+      "name": "Ontology ve knowledge graph",
+      "checks": [],
+      "scope": "absent",
+      "text": "Kavram modeli, kimlik eşleme ve graph sorguları yok."
+    },
+    {
+      "name": "Kanıta dayalı AI",
+      "checks": [],
+      "scope": "absent",
+      "text": "AI yanıtı ve kaynak doğrulama zinciri yok."
+    },
+    {
+      "name": "OpenMetadata kalite sonucu",
+      "checks": [
+        "rows",
+        "months",
+        "horeca",
+        "volume",
+        "dbt_tests",
+        "om_quality"
+      ],
+      "scope": "partial",
+      "text": "dbt null, tekillik, ilişki ve referans gelir testleri. Sürekli izleme, ihlal yönetimi ve kurumsal governance yok. Gerçek SQL satır sayısı sonucu kataloğa taşınır. Planlanmış profiler veya freshness izleme kurulmaz."
+    },
+    {
+      "name": "OpenMetadata teknik katalog ve lineage",
+      "checks": [
+        "om_catalog",
+        "om_owner",
+        "om_glossary",
+        "om_lineage",
+        "om_metric"
+      ],
+      "scope": "partial",
+      "text": "Teknik metadata, iş tanımı, owner ve dbt manifest lineage API Job ile bağlanır. Gerçek insan onayı, kurumsal politika ve sürekli denetim akışı uygulanmaz."
+    },
+    {
+      "name": "OpenMetadata yerel ürün kaydı",
+      "checks": [
+        "om_product",
+        "om_owner",
+        "om_quality"
+      ],
+      "scope": "partial",
+      "text": "Domain, owner, görünüm ve metriklere bağlı ürün kaydı vardır. Contract/SLO enforcement, erişim onayı ve yaşam döngüsü otomasyonu yoktur."
+    },
+    {
+      "name": "İki katalog arasında kanıtlı eşleme",
+      "checks": [
+        "dual_identity",
+        "dual_definition",
+        "dual_owner",
+        "dual_revision"
+      ],
+      "scope": "partial",
+      "text": "CDGC → OM yönünde açık komutla iş tanımı kopyalanır; kimlik, tanım, owner eşlemesi ve kaynak sürümü kontrol edilir. Otomatik onay, çift yönlü sync, event tabanlı CDC, silme/retry kuyruğu ve kurumsal conflict çözümü yoktur."
+    }
+  ]
+}

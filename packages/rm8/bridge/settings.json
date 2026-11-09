@@ -1,0 +1,23 @@
+{
+  "businessSource": "Informatica CDGC",
+  "technicalSource": "OpenMetadata",
+  "calculationSource": "Cube Core",
+  "ownerTeam": "SalesStewards",
+  "metrics": [
+    {
+      "metricId": "Sales.netRevenue",
+      "omMetricName": "NetRevenue",
+      "omTermFqn": "BeverageBusiness.NetGelir"
+    },
+    {
+      "metricId": "Sales.netLiters",
+      "omMetricName": "NetLiters",
+      "omTermFqn": "BeverageBusiness.NetHacim"
+    },
+    {
+      "metricId": "Sales.averagePrice",
+      "omMetricName": "AveragePrice",
+      "omTermFqn": "BeverageBusiness.OrtalamaFiyat"
+    }
+  ]
+}

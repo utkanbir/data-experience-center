@@ -132,3 +132,7 @@ RM5: OpenMetadata governance extension with PostgreSQL metadata, dbt manifest li
 ## Referans Mimari 7 — harici Informatica CDGC
 
 Yerel PostgreSQL, dbt Core, Cube Core/Store ve Streamlit/Python paketi hazır. CDGC dış org/JWT ve gerçek varlık eşlemesi ister; yerel Docker servisi olarak kurulmaz. Yedi bağımsız governance kontrolü, erişim yokken denenmedi kalır. Published insan onayı değildir; manuel workflow kaydının sürüm/tarih tutarlılığı ayrıca ölçülür. Kurulum, erişim, rapor ve silme adımları: packages/rm7/README.md.
+
+## Referans Mimari 8 — CDGC ve OpenMetadata
+
+RM8 yerel teknik katalog/lineage/SQL kalite kanıtını CDGC iş bağlamından ayırır. Açık CDGC → yerel OM iş tanımı kopyası, kimlik/hesap/owner eşlemesi ve kaynak sürümü kontrolü içerir. Dış erişim yoksa 11 kontrol denenmedi kalır. Kurulum ve sınırlar: packages/rm8/README.md.

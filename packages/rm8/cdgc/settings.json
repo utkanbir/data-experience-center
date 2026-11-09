@@ -1,0 +1,56 @@
+{
+  "apiHost": "",
+  "orgId": "",
+  "metrics": [
+    {
+      "metricId": "Sales.netRevenue",
+      "assetId": "",
+      "expectedName": "Net Revenue",
+      "descriptionContains": [
+        "discounts",
+        "returns",
+        "EUR"
+      ]
+    },
+    {
+      "metricId": "Sales.netLiters",
+      "assetId": "",
+      "expectedName": "Net Liters",
+      "descriptionContains": [
+        "net volume",
+        "liters"
+      ]
+    },
+    {
+      "metricId": "Sales.averagePrice",
+      "assetId": "",
+      "expectedName": "Average Price",
+      "descriptionContains": [
+        "Net Revenue",
+        "Net Liters",
+        "EUR/liter"
+      ]
+    }
+  ],
+  "owner": {
+    "expectedId": "",
+    "expectedRoleId": "",
+    "idPointer": "/stakeholdership/0/core.identity",
+    "rolePointer": "/stakeholdership/0/core.role"
+  },
+  "publication": {
+    "pointer": "/selfAttributes/core.assetLifecycle",
+    "expected": "Published"
+  },
+  "technical": {
+    "assetId": "",
+    "expectedExternalId": "",
+    "glossaryPointer": "/glossary"
+  },
+  "product": {
+    "assetId": "",
+    "expectedName": "",
+    "expectedClass": ""
+  },
+  "note": "API token only in local Kubernetes Secret. Fields and JSON pointers must be reviewed against the org response schema. No remote writes or automatic approval."
+}

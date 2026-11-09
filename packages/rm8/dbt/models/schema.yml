@@ -1,0 +1,39 @@
+version: 2
+models:
+  - name: stg_sales
+    description: Sentetik kaynak satis satirlari; gecersiz anahtarlar burada yakalanir.
+    columns:
+      - name: sales_line_key
+        tests: [not_null, unique]
+      - name: product_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
+  - name: fact_sales
+    description: Brut, iskonto, iade ve net litre bilesenleri. Merkezi metric API degildir.
+    columns:
+      - name: sales_line_key
+        tests: [not_null, unique]
+      - name: outlet_key
+        tests:
+          - relationships:
+              to: ref('dim_outlet')
+              field: outlet_key
+  - name: dim_product
+    description: Urun ve ambalaj litre tanimi.
+    columns:
+      - name: product_key
+        tests: [not_null, unique]
+  - name: dim_outlet
+    description: Ulke, kanal ve distributor kirilimi.
+    columns:
+      - name: outlet_key
+        tests: [not_null, unique]
+  - name: dim_date
+    description: Ocak Subat 2025 takvimi.
+  - name: dim_promotion
+    description: Sentetik promosyon etiketleri; nedensellik kaniti degildir.
+  - name: v_sales_detail
+    description: BI ve is sorgularina sunulan satis gorunumu.

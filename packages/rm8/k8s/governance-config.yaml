@@ -1,0 +1,35 @@
+{
+  "apiVersion": "v1",
+  "kind": "ConfigMap",
+  "metadata": {
+    "name": "rm8-om-config",
+    "namespace": "komtas-rm8"
+  },
+  "data": {
+    "DB_DRIVER_CLASS": "org.postgresql.Driver",
+    "DB_SCHEME": "postgresql",
+    "DB_HOST": "metadata-postgres",
+    "DB_PORT": "5432",
+    "DB_USER": "openmetadata_user",
+    "OM_DATABASE": "openmetadata_db",
+    "DB_PARAMS": "sslmode=disable",
+    "DB_CONNECTION_POOL_MAX_SIZE": "20",
+    "DB_CONNECTION_POOL_MIN_SIZE": "2",
+    "DB_CONNECTION_POOL_MIN_IDLE": "2",
+    "DB_CONNECTION_POOL_INITIAL_SIZE": "2",
+    "ELASTICSEARCH_HOST": "elasticsearch",
+    "ELASTICSEARCH_PORT": "9200",
+    "ELASTICSEARCH_SCHEME": "http",
+    "SEARCH_TYPE": "elasticsearch",
+    "AUTHENTICATION_PROVIDER": "basic",
+    "AUTHENTICATION_ENABLE_SELF_SIGNUP": "false",
+    "AUTHORIZER_ADMIN_PRINCIPALS": "[admin]",
+    "SERVER_HOST_API_URL": "http://openmetadata:8585/api",
+    "PIPELINE_SERVICE_CLIENT_ENABLED": "false",
+    "OPENMETADATA_HEAP_OPTS": "-Xms512m -Xmx1024m",
+    "JAVA_TOOL_OPTIONS": "-Xms512m -Xmx1024m",
+    "LOG_LEVEL": "WARN",
+    "SERVER_MIN_THREADS": "10",
+    "SERVER_MAX_THREADS": "50"
+  }
+}

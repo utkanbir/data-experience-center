@@ -343,27 +343,28 @@
         "cube",
         "om",
         "infa",
-        "py"
+        "py",
+        "cli"
       ],
       "goal": "Kurumsal iş anlamını yerel teknik metadata ve contract/test sonuçlarıyla birlikte yönetmek.",
-      "flow": "Informatica resmî tanım ve onay için asıl kaynak olur. OpenMetadata teknik asset ve contract sonuçlarını ilişkilendirir. Cube Core hesapları sunar; kimlik/sürüm eşleme akışı ayrıca geliştirilir.",
+      "flow": "CDGC iş tanımı ve owner için asıl kaynak, OpenMetadata teknik kayıt/lineage/kalite için kaynak, Cube metrik hesabıdır. Açık Sync-BusinessDefinitions komutu gerçek CDGC tanımını yerel OM kaydına kopyalar. Kimlik, tanım/hesap, sahiplik eşlemesi ve kaynak sürümü bağımsız kontrol edilir; dış erişim yokken entegrasyon denenmedi kalır.",
       "plus": [
-        "İş tanımı, hesap ve teknik güven durumu arasında bağlantı hedeflenir.",
-        "Tek ürünlü varyantta eksik kalan test veya manuel adım ölçülür.",
-        "Her bilgi türünün asıl kaynağı ve güncelleme yönü belirlenir."
+        "OpenMetadata yerel teknik metadata, dbt lineage ve SQL kalite sonucunu görünür yapar; CDGC iş tanımı ve kurumsal sahipliği dışarıda yönetir.",
+        "Üç metrik için açık katalog kimlikleri ve CDGC → OM yönlü kontrollü iş tanımı kopyası sağlanır.",
+        "Tanım, owner veya kaynak sürümü uyuşmazlığı, veri hesabı doğru olsa da ayrı başarısızlık üretir."
       ],
       "minus": [
-        "Hazır çift yönlü senkronizasyon varsayılmaz.",
-        "Çakışma, silme, retry ve audit yükü artar.",
-        "Aynı çıktıyı tekrar ediyorsa ikinci kataloğa ek yetenek puanı verilmez."
+        "Hazır çift yönlü entegrasyon veya otomatik onay değildir; CDGC API erişimi ve gerçek varlık eşlemesi gerekir.",
+        "Ek katalog operasyon, kimlik eşlemesi ve sürüm takibi yükü getirir. Aynı kaydı iki yerde tutmak ek kapsam puanı değildir.",
+        "CDGC silme/değişim olayları, retry kuyruğu, sürekli sync ve kurumsal conflict çözümü kapsam dışıdır."
       ],
       "decision": "Beklenen ek değer somut eşleme ve değişim testleriyle kanıtlanmalı. Informatica erişimi olmadan yalnız yerel bölüm hazırlanabilir.",
       "key": "rm-8",
       "category": "hybrid",
       "grade": 50,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Yerel paket hazır · CDGC ve çift katalog kanıtı dış erişim gerektirir"
     },
     {
       "scores": [
