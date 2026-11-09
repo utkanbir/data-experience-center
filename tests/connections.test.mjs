@@ -30,4 +30,5 @@ test('port fallback is loopback-only and stopping validates process identity',()
  assert(f[r+'Connect.ps1'].includes("ProcessName -match '^kubectl"));assert(f[r+'Connect.ps1'].includes('StartTime.ToUniversalTime().Ticks'));
  assert(f[r+'Connect.ps1'].includes('$taskBase+30'));assert(f[r+'connect.sh'].includes('task_base+task_attempt'));
  assert(f[r+'trino/properties/reference.properties'].includes('postgres-reference'));
+ assert(f[r+'trino/properties/jvm.config'].includes('-Xmx1536M'));
 });
