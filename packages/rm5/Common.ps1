@@ -3,22 +3,39 @@ $Rm5Namespace = 'komtas-rm5'
 $Rm5Context = 'docker-desktop'
 
 function Invoke-Rm5Kubectl {
-    param([string[]]$Arguments)
-    $taskResult = & kubectl --context $Rm5Context @Arguments 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        throw ($taskResult -join [Environment]::NewLine)
+    param([string[]]$Arguments,[string]$InputText)
+    $taskExecutable=(Get-Command kubectl -ErrorAction Stop).Source
+    for($taskAttempt=1;$taskAttempt -le 4;$taskAttempt++){
+        $taskErrorFile=[IO.Path]::GetTempFileName()
+        $taskPreviousPreference=$ErrorActionPreference
+        try {
+            $ErrorActionPreference='Continue'
+            if($PSBoundParameters.ContainsKey('InputText')){$taskResult=$InputText | & $taskExecutable --context $Rm5Context @Arguments 2> $taskErrorFile}
+            else{$taskResult=& $taskExecutable --context $Rm5Context @Arguments 2> $taskErrorFile}
+            $taskExitCode=$LASTEXITCODE
+        } finally {
+            $ErrorActionPreference=$taskPreviousPreference
+            $taskErrorText=Get-Content -LiteralPath $taskErrorFile -Raw -ErrorAction SilentlyContinue
+            Remove-Item -LiteralPath $taskErrorFile -Force -ErrorAction SilentlyContinue
+        }
+        if($taskExitCode -eq 0){
+            if($taskErrorText){Write-Warning $taskErrorText.Trim()}
+            return $taskResult
+        }
+        $taskFailure=(@($taskResult)+@($taskErrorText)) -join [Environment]::NewLine
+        if($taskAttempt -lt 4 -and $taskFailure -match '(?i)TLS handshake timeout|client connection lost|connection reset|unexpected EOF|ServiceUnavailable|context deadline exceeded|connection refused|i/o timeout'){
+            Write-Warning "Kubernetes baglantisi gecici kesildi; yeniden deneniyor ($taskAttempt/4)."
+            Start-Sleep -Seconds 2
+            continue
+        }
+        throw $taskFailure
     }
-    return $taskResult
 }
 
 function Write-Rm5Object {
     param($Object)
-    $taskJson = $Object | ConvertTo-Json -Depth 30 -Compress
-    $taskResult = $taskJson | & kubectl --context $Rm5Context apply -f - 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        throw ($taskResult -join [Environment]::NewLine)
-    }
-    $taskResult | ForEach-Object { Write-Host $_ }
+    $taskJson=$Object | ConvertTo-Json -Depth 30 -Compress
+    Invoke-Rm5Kubectl -Arguments @('apply','-f','-') -InputText $taskJson | Out-Host
 }
 
 function New-Rm5Password {
