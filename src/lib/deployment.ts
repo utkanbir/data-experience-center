@@ -1,4 +1,6 @@
 import {docsPortFor} from './ports';
+import {architectures} from './domain';
+import {componentStoryMarkdown} from './component-story';
 import rm1 from './rm1-template.json';
 import rm2 from './rm2-template.json';
 import rm3 from './rm3-template.json';
@@ -14,5 +16,6 @@ export function buildPackageFiles(id:number,namespace:string,port:number,managed
  const files:Record<string,string>={};
  for(const [path,text]of Object.entries(template))files['rm'+id+'-kubernetes/'+path]=text.replaceAll('komtas-rm'+id,namespace).replaceAll(String(15431+id),String(port)).replaceAll(String(18080+id),String(docsPortFor(port)));
  if(id===6)files['rm6-kubernetes/managed/settings.json']=JSON.stringify(managedSettings(managed),null,2);
+ const architecture=architectures.find(a=>a.id===id);if(architecture)files['rm'+id+'-kubernetes/BILESENLER.md']=componentStoryMarkdown(architecture);
  return files;
 }

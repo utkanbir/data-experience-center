@@ -136,3 +136,7 @@ Yerel PostgreSQL, dbt Core, Cube Core/Store ve Streamlit/Python paketi hazır. C
 ## Referans Mimari 8 — CDGC ve OpenMetadata
 
 RM8 yerel teknik katalog/lineage/SQL kalite kanıtını CDGC iş bağlamından ayırır. Açık CDGC → yerel OM iş tanımı kopyası, kimlik/hesap/owner eşlemesi ve kaynak sürümü kontrolü içerir. Dış erişim yoksa 11 kontrol denenmedi kalır. Kurulum ve sınırlar: packages/rm8/README.md.
+
+## Senaryoda bileşenlerin görevi
+
+Senaryo merkezindeki **Bileşenlerin görevi** sekmesi ve referans mimarinin **Senaryo & deney** bölümü; her seçili bileşenin girdisini, yaptığı işi, çıktısını, somut içecek örneğini, dosya/ekran inceleme adımlarını ve kapsam sınırını gösterir. Geniş okuma penceresi ve görev/inceleme/kanıt görünümleri aynı rehberi kullanır. Henüz paketlenmeyen mimariler tasarım hedefi olarak işaretlenir; özel senaryo açıklaması çalışan implementasyon sayılmaz. Uygulamadan üretilen hazır kurulum ZIP'leri aynı içerikten oluşturulan BILESENLER.md dosyasını içerir.
