@@ -31,9 +31,15 @@ spec:
             limits: {cpu: '1', memory: 512Mi}
           volumeMounts:
             - {name: consumer, mountPath: /consumer, readOnly: true}
+            - {name: governance, mountPath: /governance, readOnly: true}
+            - {name: infa, mountPath: /infa, readOnly: true}
       volumes:
         - name: consumer
           configMap: {name: rm7-consumers}
+        - name: governance
+          configMap: {name: rm7-governance}
+        - name: infa
+          secret: {secretName: rm7-informatica, optional: true}
 ---
 apiVersion: v1
 kind: Service

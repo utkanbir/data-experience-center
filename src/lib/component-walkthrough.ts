@@ -89,6 +89,11 @@ export function componentWalkthroughs(a:Architecture,port=15431+a.id):ComponentW
   ...(n===8?[step('CDGC tanımını OpenMetadata kopyasıyla karşılaştır',['Sync-BusinessDefinitions komutunu yalnız tanımı açıkça kopyalamak istediğinde çalıştır.','OpenMetadata’da ilgili metrik/terimi aç; CDGC tanımıyla karşılaştır. Son raporda dual_identity, dual_definition, dual_owner ve dual_revision durumlarını oku.'],'Kimlik, tanım, owner ve kaynak sürümüne ilişkin dört kontrol ayrı sonuç verir.','İki katalog kullanmanın somut bağlam aktarımı ve sürüm uyumu katkısını görürsün.','İki ekranın açık olması eşleşme kanıtı değildir. CDGC’ye yazılmaz; akış CDGC → yerel OM yönündedir.')]:[])
  ]}
  };
+ if(n===7){guides.py.steps=[
+ step('Önce gerçek CDGC kaydını seç',['Get-Connections çıktısındaki Streamlit adresini aç.','Kurumsal katalogdan metrik seç alanından Net Revenue kaydını seç; ad, iş tanımı, owner/rol kimlikleri ve teknik kaynak bilgisini oku.'],'CDGC’nin gerçek iş tanımı ile Sales.netRevenue açık eşlemesi aynı ekranda görünür.','Katalog kullanıcı sorgusunun girdisidir; yalnız sonradan rapor kontrolü değildir.','Katalog okunamıyorsa JWT/mod/eşlemeleri kontrol et. Bu durumda Cube çağrılmaz.'),
+ step('Seçili tanımla HoReCa analizini çalıştır',['Analizi çalıştır düğmesine bas; katalog yeniden doğrulanır.','Ocak/Şubat tutarlarını karşılaştır ve Akış kanıtını indir ile catalog-analysis.json al.'],'Net Revenue için Ocak 8.164,80 EUR ve Şubat 3.628,80 EUR beklenir; yalnız seçilen metrik hesaplanır.','Kurumsal kayıt → açık eşleme → Cube → veri zincirini deneyimlersin.','Yanlış kaynak bağı veya eksik sahiplikte düğme kapanır. Published onay değildir; bu uygulama politikası doğrudan Cube API erişimini kapsamaz.'),
+ step('Olumsuz yolu gözlemle',['KATALOGDAN_ANALIZE.md içindeki yalnız yerel eşleme deneyini uygula.','Gerçek Informatica kayıtlarını bozma; beklenen kaynak eşlemesini geri getir ve güncelle.'],'Eksik/yanlış bağda bu akış sorgu üretmez; eski rapor yeni akışın kanıtı sayılmaz.','Bileşen bağımlılığını başarılı kurulumdan ayırırsın.','Eski dashboard görünüyorsa yeni ZIP’teki Update-Experience komutunu kendi ortamında uygula.')
+ ];}
  return a.components.map(id=>guides[id]).filter((g):g is ComponentWalkthrough=>!!g);
 }
 

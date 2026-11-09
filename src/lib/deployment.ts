@@ -1,3 +1,4 @@
+import {scenarioIntegration} from './scenario-integration';
 import {preparationMarkdown} from './external-preparation';
 import {walkthroughMarkdown} from './component-walkthrough';
 import {referencePortFor,docsPortFor} from './ports';
@@ -25,7 +26,7 @@ export function buildPackageFiles(id:number,namespace:string,port:number,managed
  }
  if(id===6)files['rm6-kubernetes/managed/settings.json']=JSON.stringify(managedSettings(managed),null,2);
  const architecture=architectures.find(a=>a.id===id);if(architecture)files['rm'+id+'-kubernetes/BILESENLER.md']=componentStoryMarkdown(architecture);
- if(architecture)files['rm'+id+'-kubernetes/KESIF_REHBERI.md']=walkthroughMarkdown(architecture,port);
+ if(architecture){files['rm'+id+'-kubernetes/KESIF_REHBERI.md']=walkthroughMarkdown(architecture,port);const audit=scenarioIntegration[id];if(audit)files['rm'+id+'-kubernetes/SENARYO_BUTUNLUGU.md']='# Senaryo bütünlüğü\n\n'+audit.state+'\n\n'+audit.detail+'\n\nKurulum, kontrol ve kullanıcı akışı farklı kanıtlardır. Bu değerlendirme kod akışına dayanır; canlı uçtan uca test yerine geçmez.\n';}
  if(architecture){const ids=architecture.components.filter(id=>['infa','paid','snow','bq','dbx'].includes(id));if(ids.length)files['rm'+id+'-kubernetes/DIS_SERVIS_ON_HAZIRLIK.md']=preparationMarkdown(ids);}
  if(external)applyExternalFiles(files,architectures.find(a=>a.id===id)!,external);
  return files;

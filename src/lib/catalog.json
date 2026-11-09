@@ -298,19 +298,20 @@
         "py",
         "cli"
       ],
-      "goal": "Yerel semantic hesabı, dış Informatica ortamındaki resmî metrik tanımı ve onaya bağlamak.",
-      "flow": "PostgreSQL → dbt Core → Cube REST → Streamlit ve Python. Harici CDGC iş tanımı, sahiplik ve yayın durumunu taşır; teknik varlık eşlemesi ve manuel onay kaydı ayrı kontrol edilir. Dış org/JWT yokken governance kontrolleri denenmedi kalır.",
+      "goal": "Kurumsal katalogdan iş tanımını seçip aynı kayda açıkça eşlenmiş ortak hesapla HoReCa analizini çalıştırmak.",
+      "flow": "Kullanıcı Streamlit’te gerçek CDGC metrik kaydını seçer. Uygulama iş tanımı, sahiplik, yayın ve ACCEPTED teknik kaynak bağını yeniden doğrular; açık eşlemedeki Cube metriği dbt/PostgreSQL üzerinde hesaplanır. CDGC eksikken katalogdan analiz akışı durur. Run-Governance bağımsız doğrulama aracıdır; Cube’un yerleşik özelliği değildir.",
       "plus": [
-        "Kurumsal iş anlamı ve onay, çalışan metric hesabından ayrı gözlemlenir.",
-        "Aynı semantic temel ile OpenMetadata varyantı karşılaştırılır.",
-        "Mevcut Informatica org’u olan ortam için entegrasyon yaklaşımı gösterilir."
+        "CDGC iş tanımı ve teknik kaynak bağı kullanıcı sorgusunun girdisidir.",
+        "Seçilen kayıt her hesap öncesi tekrar doğrulanır; katalog hatasında sessiz yerel fallback yok.",
+        "İş tanımı, sorumlu, kaynak ve Cube sonucu aynı ekranda görünür."
       ],
       "minus": [
-        "CDGC org’u ve servis yetkileri dışarıdan gerekir.",
-        "CDQ ve Marketplace bu varyantta otomatik dahil sayılmaz.",
-        "Contract uygulaması ve metric eşlemesi ek geliştirme gerektirebilir."
+        "API şeması ve gerçek CDGC kayıt eşlemeleri ayrıca doğrulanmalıdır.",
+        "Yayın durumu insan onayı/sertifikası değildir; politika uygulamaya aittir.",
+        "Doğrudan Cube API yolu katalog politikasını uygulamaz.",
+        "Otomatik kök neden, tüm rol yetkileri veya üretim erişim enforcement sağlanmaz."
       ],
-      "decision": "CDGC kapsamını diğer Informatica servisleriyle karıştırmadan puanlar. Yerel servisler ve kurumsal governance ortamı ayrı sağlanır.",
+      "decision": "Yeni kullanıcı akışı CDGC’yi yalnız rapor kontrolünden çıkarıp metrik keşfi ve sorgu önkoşuluna taşır. Gerçek org üzerinde yeni dashboard akışı henüz ayrıca test edilmelidir.",
       "key": "rm-7",
       "category": "hybrid",
       "grade": 40,

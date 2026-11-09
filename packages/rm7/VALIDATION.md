@@ -1,3 +1,7 @@
+# Katalogdan analize doğrulama sınırı
+
+Yeni dashboard akışının olumlu ve olumsuz yolları sentetik CDGC API fixture’ları ve Cube çağrı takibiyle test edilir. Kullanıcının gerçek CDGC org’u üzerinde yeni dashboard akışı bu değişiklikte çalıştırılmadı. Eski SQL/Cube/governance raporları yeni kullanıcı akışının geçtiği anlamına gelmez. Yeni kanıt dashboard’dan indirilen catalog-analysis.json dosyasıdır; uygulamadaki eski rapor yükleyicisi bunu otomatik deney kontrolü saymaz.
+
 # Doğrulama — 9 Kasım 2026
 
 Windows PowerShell 7 ve Docker Desktop Kubernetes üzerinde bağımsız `komtas-rm7-check-1109` namespace'inde Deploy ve Run-Scenario çalıştırıldı. Mevcut kullanıcı namespace'leri değiştirilmedi.

@@ -50,6 +50,9 @@ Write-Rm7Object -Object @{apiVersion='v1';kind='ConfigMap';metadata=@{name='rm7-
 Invoke-Rm7Kubectl -Arguments @('apply','-f',(Join-Path $PSScriptRoot 'k8s/cube.yaml')) | Out-Host
 Invoke-Rm7Kubectl -Arguments @('-n',$Rm7Namespace,'rollout','status','deployment/cubestore','--timeout=600s') | Out-Host
 Invoke-Rm7Kubectl -Arguments @('-n',$Rm7Namespace,'rollout','status','deployment/cube','--timeout=600s') | Out-Host
+$taskGovernance=@{}
+foreach($taskFile in Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'governance') -File) { if($taskFile.Extension -in @('.py','.json','.txt')) { $taskGovernance[$taskFile.Name]=[IO.File]::ReadAllText($taskFile.FullName) } }
+Write-Rm7Object -Object @{apiVersion='v1';kind='ConfigMap';metadata=@{name='rm7-governance';namespace=$Rm7Namespace};data=$taskGovernance}
 Invoke-Rm7Kubectl -Arguments @('apply','-f',(Join-Path $PSScriptRoot 'k8s/dashboard.yaml')) | Out-Host
 Invoke-Rm7Kubectl -Arguments @('-n',$Rm7Namespace,'rollout','status','deployment/dashboard','--timeout=900s') | Out-Host
 & (Join-Path $PSScriptRoot 'Test-Cube.ps1')

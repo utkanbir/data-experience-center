@@ -1,3 +1,7 @@
+# Yeni kullanıcı akışı
+
+RM7 artık [Katalogdan analize](KATALOGDAN_ANALIZE.md) akışını kullanır. Önce bu rehberi oku. Aşağıdaki bağımsız kontrol komutları yeni dashboard akışının yerine geçmez.
+
 # Referans Mimari 7 — Cube Core + Informatica CDGC
 
 Yerel PostgreSQL → dbt Core → Cube Core/Store → Streamlit ve Python aynı metrikleri kullanır. Informatica Data Governance and Catalog (CDGC) dışarıdan sağlanır. CDGC, Cloud Data Quality, Marketplace veya Secure Agent konteyneri kurulmaz. Power BI bu mimaride yoktur.
