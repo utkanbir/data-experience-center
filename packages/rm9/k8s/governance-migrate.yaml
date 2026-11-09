@@ -1,0 +1,57 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm9-om-migrate",
+    "namespace": "komtas-rm9"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 900,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "openmetadata",
+            "image": "docker.getcollate.io/openmetadata/server:2.0.7",
+            "command": [
+              "/bin/bash",
+              "-c",
+              "./bootstrap/openmetadata-ops.sh migrate"
+            ],
+            "envFrom": [
+              {
+                "configMapRef": {
+                  "name": "rm9-om-config"
+                }
+              }
+            ],
+            "env": [
+              {
+                "name": "DB_USER_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm9-governance",
+                    "key": "database-password"
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "768Mi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "2Gi"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

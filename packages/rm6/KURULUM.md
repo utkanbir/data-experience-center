@@ -35,7 +35,7 @@ Sonra Run-Scenario ile bütün raporu üret. Harici tokeni kaldırmak için Clea
 ## Erişim
 
 PostgreSQL: Connect.ps1 / bash connect.sh → 127.0.0.1:15437, komtas_rm6, rm6_bi. Parola Get-Connection ile alınır.
-dbt docs: Connect-Docs.ps1 / bash connect-docs.sh → http://127.0.0.1:18086/static_index.html; tünel açık kalmalı.
+dbt docs: Connect.ps1 / bash connect.sh → http://127.0.0.1:18086/static_index.html; tünel açık kalmalı.
 Yönetilen servis web ekranı ve Semantic API dbt hesabından sağlanır. Python istemcisi Kubernetes Job’unda çalışır; yerel Python gerekmez. Bütün bağlantı özeti Show-Access ile yeniden gösterilir.
 
 ## Power BI kanıtı
@@ -63,3 +63,7 @@ Resmî kaynaklar: https://docs.getdbt.com/docs/use-dbt-semantic-layer/setup-sl �
 Kurulum paketini hazırla ekranında dış servisi seçip host/kimlik ve isteğe bağlı eşlemeleri doldurabilirsin. Bilgiler external-connections.json ve servisin settings.json dosyasına aktarılır; DIS_SERVISLER.md akışı açıklar. “Kurulumda bağlan” seçildiyse Deploy namespace oluşturulduktan sonra token’ı yerelde gizli olarak ister. Aynı host/kimliğe ait Secret varsa yeniden istemez; farklı bağlantı varsa sessizce değiştirmek yerine durur ve Set bağlantı scriptini kullanmanı ister. Token süresi dolmuşsa Set scriptiyle yenile. “Şimdilik yerel bileşenleri dene” seçimi dış servis adımını atlar; eksik kontroller denenmedi kalır. Bağlantı formu erişim testi veya dış hesabın kurulması değildir.
 
 Yerel-only seçiminde connection-mode.txt işareti, daha önce var olan Secret olsa bile dış API kullanımını engeller. Daha sonra Set bağlantı scriptini bilerek çalıştırmak bu işareti connect yapar; Run kontrolleri ConfigMap’i yenileyerek yeni modu kullanır. Formdan yeni paket üretmek seçilen modu tekrar uygular.
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

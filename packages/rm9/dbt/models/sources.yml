@@ -1,0 +1,15 @@
+version: 2
+sources:
+  - name: sales
+    database: sales
+    schema: raw
+    tables:
+      - name: sales_line
+  - name: reference
+    database: reference
+    schema: raw
+    tables:
+      - name: dim_date
+      - name: dim_product
+      - name: dim_outlet
+      - name: dim_promotion

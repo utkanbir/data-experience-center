@@ -1,0 +1,4 @@
+Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.
+Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.
+Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.
+Informatica CDGC harici servistir; Connect bu servisi kurmaz veya localhost tuneli acmaz. Set-InformaticaConnection.ps1 / bash set-informatica-connection.sh; JWT yalniz yerelde girilir.

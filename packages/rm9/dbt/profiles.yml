@@ -1,0 +1,13 @@
+komtas_rm9:
+  target: demo
+  outputs:
+    demo:
+      type: trino
+      method: none
+      user: rm9_builder
+      host: trino
+      port: 8080
+      http_scheme: http
+      database: models
+      schema: dwh
+      threads: 2

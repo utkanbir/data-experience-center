@@ -1,0 +1,107 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm9-catalog-fault",
+    "namespace": "komtas-rm9"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 900,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "catalog",
+            "image": "python:3.12.12-slim-bookworm",
+            "command": [
+              "sh",
+              "-c",
+              "pip install --disable-pip-version-check --no-cache-dir \"psycopg[binary]==3.2.13\" \"trino==0.336.0\" && exec python /catalog/catalog.py fault"
+            ],
+            "env": [
+              {
+                "name": "PGHOST",
+                "value": "postgres"
+              },
+              {
+                "name": "PGDATABASE",
+                "value": "komtas_rm9"
+              },
+              {
+                "name": "PGUSER",
+                "value": "rm9_bi"
+              },
+              {
+                "name": "PGPASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm9-credentials",
+                    "key": "bi-password"
+                  }
+                }
+              },
+              {
+                "name": "OM_ADMIN_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm9-governance",
+                    "key": "admin-password"
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "catalog",
+                "mountPath": "/catalog",
+                "readOnly": true
+              },
+              {
+                "name": "artifacts",
+                "mountPath": "/artifacts"
+              },
+              {
+                "name": "cube-model",
+                "mountPath": "/cube-model",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "catalog",
+            "configMap": {
+              "name": "rm9-catalog"
+            }
+          },
+          {
+            "name": "artifacts",
+            "persistentVolumeClaim": {
+              "claimName": "dbt-artifacts"
+            }
+          },
+          {
+            "name": "cube-model",
+            "configMap": {
+              "name": "rm9-cube-model"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "measures": [
+    "Sales.netRevenue",
+    "Sales.netLiters",
+    "Sales.averagePrice"
+  ],
+  "dimensions": [
+    "Sales.month",
+    "Sales.channel"
+  ],
+  "order": {
+    "Sales.month": "asc",
+    "Sales.channel": "asc"
+  },
+  "renewQuery": true
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "architecture": "rm-9",
+  "architectureVersion": "1.0",
+  "scenario": "beverage-revenue-v1",
+  "generatedAt": "2026-11-09T09:05:28.672163+00:00",
+  "namespace": "komtas-rm9-check-1109",
+  "executions": [
+    {
+      "file": "01-kanal-geliri.sql",
+      "status": "failed"
+    },
+    {
+      "file": "02-horeca-degisim.sql",
+      "status": "failed"
+    },
+    {
+      "file": "03-distributor-urun.sql",
+      "status": "failed"
+    },
+    {
+      "file": "verify.sql",
+      "status": "failed"
+    }
+  ],
+  "observation": {
+    "checks": [
+      {
+        "id": "schemas",
+        "status": "not_tested"
+      },
+      {
+        "id": "rows",
+        "status": "passed"
+      },
+      {
+        "id": "months",
+        "status": "not_tested"
+      },
+      {
+        "id": "horeca",
+        "status": "not_tested"
+      },
+      {
+        "id": "volume",
+        "status": "not_tested"
+      },
+      {
+        "id": "price",
+        "status": "not_tested"
+      },
+      {
+        "id": "bi_role",
+        "status": "not_tested"
+      },
+      {
+        "id": "no_insert",
+        "status": "not_tested"
+      },
+      {
+        "id": "dbt_models",
+        "status": "failed"
+      },
+      {
+        "id": "dbt_tests",
+        "status": "failed"
+      },
+      {
+        "id": "dbt_docs",
+        "status": "passed"
+      },
+      {
+        "id": "cube_api",
+        "status": "passed"
+      },
+      {
+        "id": "cube_sql",
+        "status": "passed"
+      },
+      {
+        "id": "cube_match",
+        "status": "passed"
+      },
+      {
+        "id": "two_consumers",
+        "status": "passed"
+      },
+      {
+        "id": "api_auth",
+        "status": "passed"
+      },
+      {
+        "id": "om_catalog",
+        "status": "passed"
+      },
+      {
+        "id": "om_owner",
+        "status": "passed"
+      },
+      {
+        "id": "om_glossary",
+        "status": "passed"
+      },
+      {
+        "id": "om_lineage",
+        "status": "passed"
+      },
+      {
+        "id": "om_metric",
+        "status": "passed"
+      },
+      {
+        "id": "om_quality",
+        "status": "passed"
+      },
+      {
+        "id": "om_product",
+        "status": "passed"
+      },
+      {
+        "id": "source_instances",
+        "status": "failed"
+      },
+      {
+        "id": "source_split",
+        "status": "not_tested"
+      },
+      {
+        "id": "federated_join",
+        "status": "failed"
+      },
+      {
+        "id": "federation_plan",
+        "status": "failed"
+      },
+      {
+        "id": "no_materialization",
+        "status": "not_tested"
+      },
+      {
+        "id": "source_readonly",
+        "status": "not_tested"
+      }
+    ],
+    "metrics": {
+      "janRevenue": null,
+      "febRevenue": null,
+      "janLiters": null,
+      "febLiters": null,
+      "change": null
+    }
+  }
+}

@@ -1,19 +1,6 @@
 [CmdletBinding()]
 param()
-Write-Host ''
-Write-Host '=== REFERANS MIMARI 2 | ERISIM REHBERI ==='
-Write-Host 'PostgreSQL: 127.0.0.1:15433 | Database: komtas_rm2 | User: rm2_bi'
-Write-Host '1. Ayri terminalde .\Connect.ps1 calistirin; terminal acik kalsin.'
-Write-Host '2. Parolayi gormek icin .\Get-Connection.ps1 calistirin.'
-Write-Host 'SQL istemcisi: DBeaver / pgAdmin / psql kullanabilirsiniz; istemci pakete dahil degildir.'
-Write-Host 'Power BI Desktop (Windows, ayrica kurulur): Veri al > PostgreSQL veritabani'
-Write-Host 'Sunucu: 127.0.0.1:15433 | Veritabani: komtas_rm2 | Kimlik: Veritabani > rm2_bi'
-Write-Host 'Parola: Get-Connection.ps1 ciktisindaki parola. Connect.ps1 tuneli acik kalmali.'
-Write-Host ''
-Write-Host 'dbt Core: CLI / Kubernetes Job; ayri bir yonetim web ekrani yoktur.'
-Write-Host 'Dokumantasyon tuneli icin ayri terminalde .\Connect-Docs.ps1 calistirin.'
-Write-Host 'Sonra dbt dokumani / model grafigi: http://127.0.0.1:18082/static_index.html'
-Write-Host 'Bu link yalniz Connect-Docs.ps1 calisirken acilir. Yerel raporda kanitlar/static_index.html de acilabilir.'
-Write-Host 'Model/testleri yeniden calistir: .\Build-Models.ps1'
-Write-Host 'dbt loglari: kubectl --context docker-desktop -n komtas-rm2 logs job/rm2-dbt'
-Write-Host 'Bu rehberi tekrar gormek icin: .\Show-Access.ps1'
+Write-Host 'Tum yerel baglantilari ac: .\Connect.ps1'
+Write-Host 'Tum adresler ve giris bilgileri: .\Get-Connections.ps1'
+Write-Host 'Tek Connect terminali acik kalsin; Ctrl+C tum oturum tunellerini kapatir.'
+& (Join-Path $PSScriptRoot 'Get-Connections.ps1') -NoSecrets

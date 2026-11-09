@@ -1,0 +1,5 @@
+postgres|PostgreSQL|postgres|15439|5432|tcp||komtas_rm8|rm8_bi
+docs|dbt dokumani|dbt-docs|18088|8080|http|/static_index.html||
+cube|Cube REST API|cube|4008|4000|http|/cubejs-api/v1/meta||
+dashboard|Streamlit|dashboard|8508|8501|http|/||
+catalog|OpenMetadata|openmetadata|18588|8585|http|/||

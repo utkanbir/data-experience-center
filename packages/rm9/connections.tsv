@@ -1,0 +1,7 @@
+postgres|PostgreSQL - satis kaynagi|postgres|15440|5432|tcp||komtas_rm9|rm9_bi
+reference|PostgreSQL - referans kaynagi|postgres-reference|16440|5432|tcp||komtas_rm9_reference|rm9_bi
+docs|dbt dokumani|dbt-docs|18089|8080|http|/static_index.html||
+cube|Cube REST API|cube|4009|4000|http|/cubejs-api/v1/meta||
+dashboard|Streamlit|dashboard|8509|8501|http|/||
+catalog|OpenMetadata|openmetadata|18589|8585|http|/||
+trino|Trino SQL|trino|18099|8080|http|/||

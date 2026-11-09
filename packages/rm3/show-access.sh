@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-printf '%s\n' '' '=== REFERANS MIMARI 3 | ERISIM REHBERI ===' 'PostgreSQL: 127.0.0.1:15434 | Database: komtas_rm3 | User: rm3_bi' '1. Ayri terminalde bash connect.sh calistirin; terminal acik kalsin.' '2. Parolayi gormek icin bash get-connection.sh calistirin.' 'SQL istemcisi: DBeaver / pgAdmin / psql; istemci pakete dahil degildir.' 'Sunucu: 127.0.0.1:15434 | Veritabani: komtas_rm3 | Kullanici: rm3_bi'
-printf '%s\n' '' 'dbt Core: CLI / Kubernetes Job; ayri yonetim web ekrani yoktur.' 'Ayri terminalde bash connect-docs.sh calistirin.' 'Sonra dokuman / model grafigi: http://127.0.0.1:18083/static_index.html' 'Link yalniz connect-docs.sh calisirken acilir. Yerel kanitlar/static_index.html de acilabilir.' 'Model/test: bash build-models.sh' 'dbt loglari: kubectl --context docker-desktop -n komtas-rm3 logs job/rm3-dbt'
-printf '%s\n' 'Rehberi tekrar gormek icin: bash show-access.sh'
-printf '%s\n' 'MetricFlow yerel CLI / Job; ortak online API veya ayri UI yok.' 'Son metrikler ve SQL: bash show-metrics.sh' 'Yeniden hesapla: bash run-metrics.sh'
+set -euo pipefail
+echo 'Tum yerel baglantilari ac: bash connect.sh'
+echo 'Tum adresler ve giris bilgileri: bash get-connections.sh'
+bash "$(dirname -- "${BASH_SOURCE[0]}")/get-connections.sh" --no-secrets

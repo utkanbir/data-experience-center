@@ -1,0 +1,8 @@
+{
+  "config.properties": "coordinator=true\nnode-scheduler.include-coordinator=true\nhttp-server.http.port=8080\ndiscovery.uri=http://localhost:8080\nquery.max-memory=768MB\nquery.max-memory-per-node=512MB\nmemory.heap-headroom-per-node=256MB\n",
+  "jvm.config": "-server\n-Xmx1536M\n-XX:+UseG1GC\n-XX:G1HeapRegionSize=32M\n-XX:+ExplicitGCInvokesConcurrent\n-XX:+ExitOnOutOfMemoryError\n-Djdk.attach.allowAttachSelf=true\n--add-opens=java.base/java.nio=ALL-UNNAMED\n",
+  "node.properties": "node.environment=rm9\nnode.data-dir=/data/trino\n",
+  "sales.properties": "connector.name=postgresql\nconnection-url=jdbc:postgresql://postgres:5432/komtas_rm9\nconnection-user=rm9_bi\nconnection-password=${ENV:RM9_PG_PASSWORD}\n",
+  "reference.properties": "connector.name=postgresql\nconnection-url=jdbc:postgresql://postgres-reference:5432/komtas_rm9_reference\nconnection-user=rm9_bi\nconnection-password=${ENV:RM9_PG_PASSWORD}\n",
+  "models.properties": "connector.name=memory\nmemory.max-data-per-node=32MB\n"
+}

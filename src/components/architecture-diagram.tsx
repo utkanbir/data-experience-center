@@ -14,9 +14,9 @@ export default function ArchitectureDiagram({components,custom=[],pgCount=1,onTe
  useEffect(()=>{const dialog=dialogRef.current;if(!dialog)return;if(expanded&&!dialog.open)dialog.showModal();else if(!expanded&&dialog.open)dialog.close();},[expanded]);
  const graph=ontology||(typeof referenceId==='number'&&!!architectures.find(a=>a.id===referenceId)?.graph);
  const all=[...technologies,...custom],has=(id:string)=>components.includes(id),find=(id:string)=>all.find(t=>t.id===id);
- const sharedConsumerReference=referenceId===4||referenceId===5||referenceId===6||referenceId===7||referenceId===8;
+ const sharedConsumerReference=referenceId===4||referenceId===5||referenceId===6||referenceId===7||referenceId===8||referenceId===9;
  const allVisible=referenceId==='all',customDiagram=referenceId===undefined;
- const platform=find(has('pg')?'pg':has('bq')?'bq':has('snow')?'snow':'dbx');
+ const platform=find(referenceId===9?'trino':has('pg')?'pg':has('bq')?'bq':has('snow')?'snow':'dbx');
  const source=find(has('pg')?'pg':has('bq')?'bq':has('snow')?'snow':'dbx');
  const semantic=find(has('cube')?'cube':has('mf')?'mf':has('paid')?'paid':'pb');
  const gov=find(has('infa')?'infa':'om'),om=find('om'),core=find('core');
@@ -26,7 +26,7 @@ export default function ArchitectureDiagram({components,custom=[],pgCount=1,onTe
  const slots:Slot[]=[
  slot('gov1','İş anlamı ve metrik kaydı','Tanım · owner · onay · sürüm',50,137,227,78,'governance',gov,has('om')||has('infa')),
  slot('gov2','Kalite ve contract','Kurallar · eşikler · ihlal',288,137,227,78,'governance',referenceId===7?core:has('om')?om:gov,has('om')||has('infa')),
- slot('gov3',(referenceId===5||referenceId===8)?'Kalite sonucu kaydı':'Observability',(referenceId===5||referenceId===8)?'SQL test sonucu · API ile kayıt':'Freshness · hacim · schema',526,137,227,78,'governance',has('om')?om:core,has('om')),
+ slot('gov3',(referenceId===5||referenceId===8||referenceId===9)?'Kalite sonucu kaydı':'Observability',(referenceId===5||referenceId===8||referenceId===9)?'SQL test sonucu · API ile kayıt':'Freshness · hacim · schema',526,137,227,78,'governance',has('om')?om:core,has('om')),
  slot('gov4','Ürün keşfi ve erişim','Yayın · erişim talebi · politika',764,137,227,78,'governance',gov,has('om')||has('infa')),
  slot('gov5','İş ve teknik metadata bağı','Kimlik · sürüm · lineage',1002,137,227,78,'governance',referenceId===7?core:has('om')?om:gov,has('om')||has('infa')),
  slot('source1','Müşteri ve dağıtım','Customer · outlet · distributor',48,286,178,80,'data',source),

@@ -19,9 +19,9 @@ Cube Core/Store v1.6.77, PostgreSQL 17.11-bookworm, Python 3.12.12-slim-bookworm
 
 Deploy sonunda Show-Access tüm bileşenleri listeler. Tünelleri ayrı terminallerde açık tut.
 - SQL: `.\Connect.ps1` / `bash connect.sh`; 127.0.0.1:15435, komtas_rm4, rm4_bi. Parola Get-Connection ile alınır.
-- dbt dokümanı: `.\Connect-Docs.ps1` / `bash connect-docs.sh`; http://127.0.0.1:18084/static_index.html.
-- Streamlit: `.\Connect-Dashboard.ps1` / `bash connect-dashboard.sh`; http://127.0.0.1:8504.
-- Cube API: `.\Connect-Cube.ps1` / `bash connect-cube.sh`; http://127.0.0.1:4004/cubejs-api/v1/meta. Web yönetim ekranı değildir; JWT gerektirir.
+- dbt dokümanı: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:18084/static_index.html.
+- Streamlit: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:8504.
+- Cube API: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:4004/cubejs-api/v1/meta. Web yönetim ekranı değildir; JWT gerektirir.
 - 5 dakikalık JWT: `.\Get-ApiToken.ps1` / `bash get-api-token.sh`. Authorization başlığında kullan; tokeni paylaşma.
 - Python tüketicisi: `.\Query-Metrics.ps1` / `bash query-metrics.sh`. Yerel Python gerekmez.
 - Cube Store: küme içi servis, ayrı UI yoktur.
@@ -47,3 +47,7 @@ Remove-Environment.ps1 / bash remove-environment.sh yalnız lab sahiplik etiketi
 ## İsteğe bağlı semantik hata deneyi
 
 `Set-MetricFault.ps1 -Mode Inject` / `bash set-metric-fault.sh inject` yalnız Cube formülünü brüt gelire çevirir; dbt modeli değişmez. Run-Scenario tekrar çalıştırıldığında dbt testleri geçerken cube_match başarısız olmalıdır. Sonra `Set-MetricFault.ps1 -Mode Restore` / `bash set-metric-fault.sh restore` ve Run-Scenario ile doğru formüle dön. Yerel tanım dosyaları değiştirilmez.
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

@@ -1,0 +1,42 @@
+{
+  "namespace": "komtas-rm2",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "service": "postgres",
+      "localPort": 15433,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm2",
+      "username": "rm2_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18082,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola",
+      "secret": "rm2-credentials",
+      "key": "bi-password"
+    }
+  ],
+  "external": [],
+  "cubeToken": false,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "Power BI Desktop haricten saglanir. PostgreSQL baglantisi yukaridadir; RM6 yonetilen semantic connector erisimi ayrica saglanir."
+  ]
+}

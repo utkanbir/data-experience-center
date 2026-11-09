@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-printf '%s\n' '=== REFERANS MIMARI 4 | ERISIM REHBERI ===' 'PostgreSQL: 127.0.0.1:15435 | DB: komtas_rm4 | User: rm4_bi' 'SQL: bash connect.sh | parola: bash get-connection.sh' 'dbt: bash build-models.sh | dokuman tuneli: bash connect-docs.sh' 'dbt dokumani: http://127.0.0.1:18084/static_index.html' 'Streamlit: bash connect-dashboard.sh | http://127.0.0.1:8504' 'Cube REST: bash connect-cube.sh | http://127.0.0.1:4004/cubejs-api/v1/meta' '5 dakikalik JWT: bash get-api-token.sh | Python: bash query-metrics.sh' 'API/iki tuketici kontrolu: bash test-cube.sh' 'Cube Store kume ici destek servisidir, ayri UI yoktur.' 'Deney: bash run-scenario.sh | Tam silme: bash remove-environment.sh'
+set -euo pipefail
+echo 'Tum yerel baglantilari ac: bash connect.sh'
+echo 'Tum adresler ve giris bilgileri: bash get-connections.sh'
+bash "$(dirname -- "${BASH_SOURCE[0]}")/get-connections.sh" --no-secrets

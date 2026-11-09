@@ -389,29 +389,31 @@
         "core",
         "cube",
         "om",
-        "py"
+        "py",
+        "cli"
       ],
       "id": 9,
       "title": "İki PostgreSQL + Trino + Cube Core",
       "goal": "İki bağımsız PostgreSQL kaynağını merkezi hub’a taşımadan ortak hesapta kullanmak.",
-      "flow": "Trino iki PostgreSQL için ayrı catalog açar. Ortak view/domain modeli üzerinden Cube Core metriği sunar; OpenMetadata kayıt ve kalite bağlantıları eklenir.",
+      "flow": "Satış PostgreSQL’i ile referans PostgreSQL’i ayrıdır. dbt-trino, models.dwh altında yalnız VIEW tanımları kurar; Trino iki catalog arasında sorgu çalıştırır. Cube ortak metrikleri Streamlit/Python’a sunar. OpenMetadata iki kaynağı ve dbt lineage/kalite kanıtını kaydeder.",
       "plus": [
         "Cross-source join ve ortak metric tanımı ayrı katmanlarda incelenir.",
         "Kaynak verileri kendi DB’lerinde kalır.",
         "Tamamı yerel Docker servisleriyle kurgulanabilir."
       ],
       "minus": [
-        "Pushdown, join maliyeti ve kaynak yükü ölçülmelidir.",
-        "Trino bağlantıları ve dbt/connector uyumu sabitlenecektir.",
-        "Federasyon veri kalitesini veya ortak anahtarları kendiliğinden düzeltmez."
+        "Trino memory catalog yalnız view metadata tutar; yeniden başlatma sonrası Build-Models gerekir.",
+        "Sorgu sırasında veri ağdan taşınır; kalıcı merkezi kopya olmaması sıfır veri hareketi veya maliyet garantisi değildir.",
+        "Trino yalnız yerel deney için kimlik doğrulamasız HTTP kullanır; enterprise auth/RLS, TLS ve HA ayrıca tasarlanmalıdır.",
+        "Federasyon anahtar uyumunu ve veri kalitesini kendiliğinden düzeltmez."
       ],
       "decision": "Merkezi hub alternatifiyle aynı veri ve hesap üzerinden karşılaştırılır. S4 veri yerleşimi tercihidir; sırf federasyon var diye ek toplam puan verilmez.",
       "key": "rm-9",
       "category": "local",
       "grade": 53.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · iki PostgreSQL + Trino"
     },
     {
       "scores": [

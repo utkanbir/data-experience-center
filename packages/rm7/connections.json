@@ -1,0 +1,71 @@
+{
+  "namespace": "komtas-rm7",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "service": "postgres",
+      "localPort": 15438,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm7",
+      "username": "rm7_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18087,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "cube",
+      "name": "Cube REST API",
+      "service": "cube",
+      "localPort": 4007,
+      "remotePort": 4000,
+      "kind": "http",
+      "path": "/cubejs-api/v1/meta",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "dashboard",
+      "name": "Streamlit",
+      "service": "dashboard",
+      "localPort": 8507,
+      "remotePort": 8501,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola",
+      "secret": "rm7-credentials",
+      "key": "bi-password"
+    }
+  ],
+  "external": [
+    {
+      "name": "Informatica CDGC",
+      "settings": "governance/settings.json",
+      "command": "Set-InformaticaConnection.ps1 / bash set-informatica-connection.sh; JWT yalniz yerelde girilir."
+    }
+  ],
+  "cubeToken": true,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.",
+    "Informatica CDGC harici servistir; Connect bu servisi kurmaz veya localhost tuneli acmaz. Set-InformaticaConnection.ps1 / bash set-informatica-connection.sh; JWT yalniz yerelde girilir."
+  ]
+}

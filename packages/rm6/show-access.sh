@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-printf '%s\n' '=== RM6 | YEREL + HARICI SERVIS ===' 'PostgreSQL: 127.0.0.1:15437 | komtas_rm6 | rm6_bi' 'SQL: bash connect.sh | parola: bash get-connection.sh' 'dbt docs: bash connect-docs.sh | http://127.0.0.1:18086/static_index.html' 'Harici dbt Semantic Layer hesap/environment/token ve veritabanina servis erisimi gerektirir. Yerel port-forward dis erisim saglamaz.' 'Proje: cloud-project | Sentetik SQL cikti: bash export-demo.sh' 'Harici baglanti: bash set-dbt-connection.sh | API: bash run-remote-checks.sh' 'Power BI Windows uzerinde ayrica kurulur; resmi dbt connector preview. powerbi/README.md' 'CSV: bash import-powerbi-result.sh result.csv' 'Deney: bash run-scenario.sh | Tam basari sart: bash run-scenario.sh --require-complete' 'Yerel token kaldir: bash clear-dbt-connection.sh | Yerel labi sil: bash remove-environment.sh'
+set -euo pipefail
+echo 'Tum yerel baglantilari ac: bash connect.sh'
+echo 'Tum adresler ve giris bilgileri: bash get-connections.sh'
+bash "$(dirname -- "${BASH_SOURCE[0]}")/get-connections.sh" --no-secrets

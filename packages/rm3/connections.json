@@ -1,0 +1,42 @@
+{
+  "namespace": "komtas-rm3",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "service": "postgres",
+      "localPort": 15434,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm3",
+      "username": "rm3_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18083,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola",
+      "secret": "rm3-credentials",
+      "key": "bi-password"
+    }
+  ],
+  "external": [],
+  "cubeToken": false,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "MetricFlow CLI: Show-Metrics.ps1 / bash show-metrics.sh; ayri web servisi yoktur."
+  ]
+}

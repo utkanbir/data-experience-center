@@ -1,0 +1,103 @@
+{
+  "namespace": "komtas-rm9",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL - satis kaynagi",
+      "service": "postgres",
+      "localPort": 15440,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm9",
+      "username": "rm9_bi"
+    },
+    {
+      "id": "reference",
+      "name": "PostgreSQL - referans kaynagi",
+      "service": "postgres-reference",
+      "localPort": 16440,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm9_reference",
+      "username": "rm9_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18089,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "cube",
+      "name": "Cube REST API",
+      "service": "cube",
+      "localPort": 4009,
+      "remotePort": 4000,
+      "kind": "http",
+      "path": "/cubejs-api/v1/meta",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "dashboard",
+      "name": "Streamlit",
+      "service": "dashboard",
+      "localPort": 8509,
+      "remotePort": 8501,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "catalog",
+      "name": "OpenMetadata",
+      "service": "openmetadata",
+      "localPort": 18589,
+      "remotePort": 8585,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "trino",
+      "name": "Trino SQL",
+      "service": "trino",
+      "localPort": 18099,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola (iki is kaynagi)",
+      "secret": "rm9-credentials",
+      "key": "bi-password"
+    },
+    {
+      "name": "OpenMetadata admin@open-metadata.org parola",
+      "secret": "rm9-governance",
+      "key": "admin-password"
+    }
+  ],
+  "external": [],
+  "cubeToken": true,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.",
+    "OpenMetadata admin: admin@open-metadata.org. Metadata PostgreSQL ve Elasticsearch kume ici destek servisleridir, kullanici UI yoktur."
+  ]
+}

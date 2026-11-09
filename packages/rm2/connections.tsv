@@ -1,0 +1,2 @@
+postgres|PostgreSQL|postgres|15433|5432|tcp||komtas_rm2|rm2_bi
+docs|dbt dokumani|dbt-docs|18082|8080|http|/static_index.html||

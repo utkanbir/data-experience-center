@@ -49,16 +49,16 @@ Deploy sonunda Show-Access aynı özeti verir. Her tünel ayrı terminalde açı
 | Bileşen | Windows / Linux | Adres |
 |---|---|---|
 | PostgreSQL | Connect.ps1 / bash connect.sh | 127.0.0.1:15439, DB komtas_rm8, user rm8_bi |
-| dbt dokümanı | Connect-Docs.ps1 / bash connect-docs.sh | http://127.0.0.1:18088/static_index.html |
-| Streamlit | Connect-Dashboard.ps1 / bash connect-dashboard.sh | http://127.0.0.1:8508 |
-| Cube API | Connect-Cube.ps1 / bash connect-cube.sh | http://127.0.0.1:4008/cubejs-api/v1/meta |
+| dbt dokümanı | Connect.ps1 / bash connect.sh | http://127.0.0.1:18088/static_index.html |
+| Streamlit | Connect.ps1 / bash connect.sh | http://127.0.0.1:8508 |
+| Cube API | Connect.ps1 / bash connect.sh | http://127.0.0.1:4008/cubejs-api/v1/meta |
 | Python | Query-Metrics.ps1 / bash query-metrics.sh | Kubernetes içindeki istemci |
-| OpenMetadata | Connect-Catalog.ps1 / bash connect-catalog.sh | http://127.0.0.1:18588 |
+| OpenMetadata | Connect.ps1 / bash connect.sh | http://127.0.0.1:18588 |
 | CDGC | Mevcut org portalın | Dış hesap; API hostu web portalı değildir |
 
-SQL parolası: Get-Connection.ps1 / bash get-connection.sh. OM girişi: Get-CatalogLogin.ps1 / bash get-catalog-login.sh. Cube kısa süreli JWT: Get-ApiToken.ps1 / bash get-api-token.sh. OM'de RM8Postgres.komtas_rm8.dwh.v_sales_detail, BeverageBusiness, üç metrik ve BeverageRevenue kaydını incele. dbt ayrı yönetim ekranı sunmaz. Destek servisleri dışarı açılmaz.
+SQL parolası: Get-Connections.ps1 / bash get-connections.sh. OM girişi: Get-Connections.ps1 / bash get-connections.sh. Cube kısa süreli JWT: Get-ApiToken.ps1 / bash get-api-token.sh. OM'de RM8Postgres.komtas_rm8.dwh.v_sales_detail, BeverageBusiness, üç metrik ve BeverageRevenue kaydını incele. dbt ayrı yönetim ekranı sunmaz. Destek servisleri dışarı açılmaz.
 
-Port doluysa `./Connect-Catalog.ps1 -Port 18589` / `bash connect-catalog.sh 18589` kullan ve http://127.0.0.1:18589 adresini aç. Docker backend/WSL relay işlemini kapatma. `docker ps --filter publish=18588` ile mevcut Docker port eşlemesini görebilirsin. Namespace izolasyonu aynı localhost tünel portunu paylaşma imkânı vermez.
+Port doluysa `./Connect.ps1 -Port 18589` / `bash connect.sh 18589` kullan ve http://127.0.0.1:18589 adresini aç. Docker backend/WSL relay işlemini kapatma. `docker ps --filter publish=18588` ile mevcut Docker port eşlemesini görebilirsin. Namespace izolasyonu aynı localhost tünel portunu paylaşma imkânı vermez.
 
 ## Hata deneyi ve sınırlar
 
@@ -83,3 +83,7 @@ CDGC istemcisi yalnız read-only bulk asset details POST çağrısını kullanı
 Kurulum paketini hazırla ekranında dış servisi seçip host/kimlik ve isteğe bağlı eşlemeleri doldurabilirsin. Bilgiler external-connections.json ve servisin settings.json dosyasına aktarılır; DIS_SERVISLER.md akışı açıklar. “Kurulumda bağlan” seçildiyse Deploy namespace oluşturulduktan sonra token’ı yerelde gizli olarak ister. Aynı host/kimliğe ait Secret varsa yeniden istemez; farklı bağlantı varsa sessizce değiştirmek yerine durur ve Set bağlantı scriptini kullanmanı ister. Token süresi dolmuşsa Set scriptiyle yenile. “Şimdilik yerel bileşenleri dene” seçimi dış servis adımını atlar; eksik kontroller denenmedi kalır. Bağlantı formu erişim testi veya dış hesabın kurulması değildir.
 
 Yerel-only seçiminde connection-mode.txt işareti, daha önce var olan Secret olsa bile dış API kullanımını engeller. Daha sonra Set bağlantı scriptini bilerek çalıştırmak bu işareti connect yapar; Run kontrolleri ConfigMap’i yenileyerek yeni modu kullanır. Formdan yeni paket üretmek seçilen modu tekrar uygular.
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

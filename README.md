@@ -144,3 +144,11 @@ Senaryo merkezindeki **Bileşenlerin görevi** sekmesi ve referans mimarinin **S
 ## Dış servis bağlantı tanımı
 
 Kurulum ekranı mimariye göre CDGC, yönetilen dbt, Snowflake, BigQuery ve Databricks alanlarını gösterir. Kamuya açık host/hesap/kimlik ve isteğe bağlı CDGC varlık eşlemeleri yalnız ilgili mimarinin dosyalarına aktarılır; token/parola/private key web formuna alınmaz. Hazır RM6–RM8 paketlerinde bağlan seçimi Deploy sırasında yerel gizli bilgi adımını etkinleştirir. Yerel-only seçimi mevcut credential olsa da dış sorguyu atlar. Hazır olmayan bulut mimarileri yalnız ortam JSON’u üretir. Power BI Desktop ayrı kullanıcı ön koşulu olarak gösterilir.
+
+## RM9 — Gerçek iki kaynak federasyonu
+
+İki fiziksel PostgreSQL’de satış ve referans boyutları ayrıdır. dbt-trino yedi VIEW kurar; Trino cross-catalog SQL yürütür; Cube ortak metrikleri, OpenMetadata teknik metadata/lineage ve kalite kaydını sunar. Kurulum, erişim ve kaynak bağımlılığı hata deneyi: [RM9 rehberi](packages/rm9/README.md). Tasarım kapsam notu ile 33 çalışma kontrolü ayrıdır. Memory catalog yeniden başlatılırsa Build-Models gerekir.
+
+## Tek bağlantı komutu
+
+RM1-RM9 paketlerinde `Connect.ps1` / `bash connect.sh` bütün yerel servis tünellerini tek terminalden açar. `Get-Connections.ps1` / `bash get-connections.sh` gerçek portları ve giriş bilgilerini tek özette verir. Port çakışmasında sonraki uygun port seçilir. Ctrl+C yalnız bu oturumun tünellerini kapatır. Harici servisler kurulmaz/tünellenmez; yapılandırma adresleri ve yerel kimlik bilgisi komutları gösterilir. Linux için util-linux/flock gerekir.

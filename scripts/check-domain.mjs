@@ -6,7 +6,7 @@ await build({entryPoints:['src/lib/domain.ts'],bundle:true,platform:'node',forma
 await build({entryPoints:['src/lib/zip.ts'],bundle:true,platform:'node',format:'esm',outfile:'.checks/zip.mjs'});
 const {architectures,technologies,evaluate,recommend,validateDraft}=await import('../.checks/domain.mjs');
 const {zipFiles}=await import('../.checks/zip.mjs');
-assert.equal(architectures.length,14);assert.equal(technologies.length,15);assert.equal(architectures.filter(a=>a.ready).length,8);
+assert.equal(architectures.length,14);assert.equal(technologies.length,15);assert.equal(architectures.filter(a=>a.ready).length,9);
 for(const a of architectures){assert.equal(a.scores.length,11);assert.equal(a.scores[3],null);assert.equal(a.grade,Math.round(a.scores.reduce((s,n)=>s+(n??0),0)/30*1000)/10);for(const c of a.components)assert(technologies.some(t=>t.id===c));}
 const base={components:['pg','core','pb'],pgCount:1,ontology:false};assert.equal(evaluate(base).scores[1],0);
 assert.equal(evaluate({...base,components:['pg','mf','cli']}).scores[1],1);

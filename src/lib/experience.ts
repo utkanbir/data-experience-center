@@ -6,7 +6,8 @@ import rm5Profile from './experience-profile-rm5.json';
 import rm6Profile from './experience-profile-rm6.json';
 import rm7Profile from './experience-profile-rm7.json';
 import rm8Profile from './experience-profile-rm8.json';
-export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;if(architecture==='rm-4')return rm4Profile;if(architecture==='rm-5')return rm5Profile;if(architecture==='rm-6')return rm6Profile;if(architecture==='rm-7')return rm7Profile;if(architecture==='rm-8')return rm8Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
+import rm9Profile from './experience-profile-rm9.json';
+export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;if(architecture==='rm-4')return rm4Profile;if(architecture==='rm-5')return rm5Profile;if(architecture==='rm-6')return rm6Profile;if(architecture==='rm-7')return rm7Profile;if(architecture==='rm-8')return rm8Profile;if(architecture==='rm-9')return rm9Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
 export {profile};
 export const executionFiles=['01-kanal-geliri.sql','02-horeca-degisim.sql','03-distributor-urun.sql','verify.sql'];
 export type ResultStatus='passed'|'failed'|'not_tested';

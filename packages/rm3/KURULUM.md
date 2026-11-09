@@ -12,11 +12,11 @@ Docker Desktop Linux containers + Kubernetes, docker-desktop context, kubectl ve
 
 ZIP'i çıkar, rm3-kubernetes klasöründe terminal aç. Windows `.\Deploy.ps1`, sonra `.\Run-Scenario.ps1`; Linux `bash deploy.sh`, sonra `bash run-scenario.sh`. Windows imza engelinde `Get-ChildItem -LiteralPath . -Filter '*.ps1' -File | Unblock-File`. AllSigned kurumsal politikası için imzalı script gerekir.
 
-Varsayılan namespace komtas-rm3, PostgreSQL yerel portu 15434. Connect.ps1 / connect.sh tüneli açıkken Get-Connection.ps1 / get-connection.sh ile BI salt okuma bağlantısını al. Web formunda parola yok; yerelde üç rastgele parola üretilir. Deploy sonunda Show-Access rehberi yazılır.
+Varsayılan namespace komtas-rm3, PostgreSQL yerel portu 15434. Connect.ps1 / connect.sh tüneli açıkken Get-Connections.ps1 / get-connections.sh ile BI salt okuma bağlantısını al. Web formunda parola yok; yerelde üç rastgele parola üretilir. Deploy sonunda Show-Access rehberi yazılır.
 
 MetricFlow çıktıları: `.\Show-Metrics.ps1` / `bash show-metrics.sh`. Yeniden model ve metrik hesabı: `.\Run-Metrics.ps1` / `bash run-metrics.sh`. Bunlar yerel CLI motorunu Kubernetes Job'unda çalıştırır; web API değildir. Çalışan sorgu: `mf query --metrics net_revenue,net_liters,average_price --group-by metric_time__month,sales_line__channel`. `--explain` SQL'i, `--csv` sonuç dosyasını üretir.
 
-Doküman/model grafiği: Connect-Docs.ps1 / connect-docs.sh tünelini ayrı terminalde açık tut, sonra http://127.0.0.1:18083/static_index.html (varsayılan port). Tünel kapalıyken link çalışmaz. Yerel raporun kanitlar/static_index.html dosyası da açılabilir.
+Doküman/model grafiği: Connect.ps1 / connect.sh tünelini ayrı terminalde açık tut, sonra http://127.0.0.1:18083/static_index.html (varsayılan port). Tünel kapalıyken link çalışmaz. Yerel raporun kanitlar/static_index.html dosyası da açılabilir.
 
 ## Senaryo ve kanıt raporu
 
@@ -37,3 +37,7 @@ Düzelt: `.\Set-MetricFault.ps1 -Mode Restore` / `bash set-metric-fault.sh resto
 Stop.ps1 / stop.sh PostgreSQL'i durdurur, veri korunur. Remove-Environment.ps1 / remove-environment.sh lab namespace, PVC, Secret ve docs servisini kaldırır; sahiplik etiketi ve yazılı namespace onayı ister. Önce yedek al. Fiziksel temizlik StorageClass reclaim politikasına bağlıdır.
 
 Kaynaklar: https://docs.getdbt.com/docs/build/metricflow-commands ve https://github.com/dbt-labs/metricflow (lisans geçmişi).
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

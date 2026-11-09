@@ -24,7 +24,11 @@ Düzeltmek için Windows: `.\Set-DemoFault.ps1 -Mode Restore`; Linux: `bash set-
 
 ## Bağlantı ve yaşam döngüsü
 
-Windows `.\Connect.ps1`, diğer terminalde `.\Get-Connection.ps1`; Linux `bash connect.sh`, diğer terminalde `bash get-connection.sh`. Kullanıcı rm2_bi, DB komtas_rm2. Tünel açık kalmalı.
+Windows `.\Connect.ps1`, diğer terminalde `.\Get-Connections.ps1`; Linux `bash connect.sh`, diğer terminalde `bash get-connections.sh`. Kullanıcı rm2_bi, DB komtas_rm2. Tünel açık kalmalı.
 Stop.ps1 / stop.sh PostgreSQL'i durdurur, veri kalır. Remove-Environment.ps1 / remove-environment.sh namespace, tüm PVC'ler ve Secret'ları kaldırır; sahiplik etiketi ve yazılı namespace onayı ister. Önce yedek alın. Diskin fiziksel temizliği StorageClass reclaim politikasına bağlıdır.
 
 Kaynaklar: https://docs.getdbt.com/docs/local/connect-data-platform/postgres-setup ve https://docs.getdbt.com/docs/build/data-tests
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

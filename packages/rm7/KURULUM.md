@@ -33,13 +33,13 @@ Deploy sonunda Show-Access çıktısı erişimi özetler. Tünel terminalini aç
 | Bileşen | Windows / Linux | Adres |
 |---|---|---|
 | PostgreSQL | Connect.ps1 / bash connect.sh | 127.0.0.1:15438, DB komtas_rm7, user rm7_bi |
-| dbt dokümanı | Connect-Docs.ps1 / bash connect-docs.sh | http://127.0.0.1:18087/static_index.html |
-| Streamlit | Connect-Dashboard.ps1 / bash connect-dashboard.sh | http://127.0.0.1:8507 |
-| Cube API | Connect-Cube.ps1 / bash connect-cube.sh | http://127.0.0.1:4007/cubejs-api/v1/meta |
+| dbt dokümanı | Connect.ps1 / bash connect.sh | http://127.0.0.1:18087/static_index.html |
+| Streamlit | Connect.ps1 / bash connect.sh | http://127.0.0.1:8507 |
+| Cube API | Connect.ps1 / bash connect.sh | http://127.0.0.1:4007/cubejs-api/v1/meta |
 | Python | Query-Metrics.ps1 / bash query-metrics.sh | Kubernetes istemcisi |
 | CDGC | Kendi org portalın | Dış hesap; API hostu UI adresi değildir |
 
-SQL parolası Get-Connection.ps1 / bash get-connection.sh ile alınır. Cube için Get-ApiToken.ps1 / bash get-api-token.sh kısa süreli token üretir; Authorization başlığı gerekir. dbt Core ayrı yönetim ekranı sunmaz. Cube Store yalnız küme içi destek servisidir.
+SQL parolası Get-Connections.ps1 / bash get-connections.sh ile alınır. Cube için Get-ApiToken.ps1 / bash get-api-token.sh kısa süreli token üretir; Authorization başlığı gerekir. dbt Core ayrı yönetim ekranı sunmaz. Cube Store yalnız küme içi destek servisidir.
 
 ## Neyi çözer, neyi çözmez?
 
@@ -63,3 +63,7 @@ Stop.ps1 / bash stop.sh yerel servisleri durdurur. Remove-Environment.ps1 / bash
 Kurulum paketini hazırla ekranında dış servisi seçip host/kimlik ve isteğe bağlı eşlemeleri doldurabilirsin. Bilgiler external-connections.json ve servisin settings.json dosyasına aktarılır; DIS_SERVISLER.md akışı açıklar. “Kurulumda bağlan” seçildiyse Deploy namespace oluşturulduktan sonra token’ı yerelde gizli olarak ister. Aynı host/kimliğe ait Secret varsa yeniden istemez; farklı bağlantı varsa sessizce değiştirmek yerine durur ve Set bağlantı scriptini kullanmanı ister. Token süresi dolmuşsa Set scriptiyle yenile. “Şimdilik yerel bileşenleri dene” seçimi dış servis adımını atlar; eksik kontroller denenmedi kalır. Bağlantı formu erişim testi veya dış hesabın kurulması değildir.
 
 Yerel-only seçiminde connection-mode.txt işareti, daha önce var olan Secret olsa bile dış API kullanımını engeller. Daha sonra Set bağlantı scriptini bilerek çalıştırmak bu işareti connect yapar; Run kontrolleri ConfigMap’i yenileyerek yeni modu kullanır. Formdan yeni paket üretmek seçilen modu tekrar uygular.
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

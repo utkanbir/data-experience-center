@@ -1,15 +1,6 @@
 [CmdletBinding()]
 param()
-Write-Host '=== RM6 | YEREL HAZIRLIK + HARICI DBT SEMANTIC LAYER ==='
-Write-Host 'PostgreSQL: 127.0.0.1:15437 | DB: komtas_rm6 | User: rm6_bi'
-Write-Host 'SQL tuneli: .\Connect.ps1 | parola: .\Get-Connection.ps1'
-Write-Host 'dbt dokumani: .\Connect-Docs.ps1 | http://127.0.0.1:18086/static_index.html'
-Write-Host 'Yerel model/semantic tanim hazirligi: .\Build-Models.ps1'
-Write-Host 'Yonetilen dbt servisi Dockerda kurulmaz. Uygun hesap, deployment environment, token ve veritabanina servis erisimi disaridan saglanir.'
-Write-Host '127.0.0.1 ve kubectl port-forward harici dbt servisine baglanti saglamaz. Guvenli erisim yolunu kendiniz saglayin; paket firewall/NodePort/LoadBalancer acmaz.'
-Write-Host 'Platforma alinacak proje: cloud-project | Sentetik veri disari cikti: .\Export-Demo.ps1'
-Write-Host 'Tokeni yalniz yerelde kaydet: .\Set-DbtConnection.ps1 | Gercek API kontrolu: .\Run-RemoteChecks.ps1'
-Write-Host 'Power BI Desktop ve resmi dbt connector/ODBC surucusu ayrica kurulur; entegrasyon preview. powerbi/README.md adimlarini izleyin.'
-Write-Host 'Power BI CSV aktar: .\Import-PowerBIResult.ps1 -Path .\result.csv'
-Write-Host 'Deney: .\Run-Scenario.ps1 | Harici kontroller dahil tam basari sart: .\Run-Scenario.ps1 -RequireComplete'
-Write-Host 'Tokeni yerelden kaldir: .\Clear-DbtConnection.ps1 | Yerel labi sil: .\Remove-Environment.ps1'
+Write-Host 'Tum yerel baglantilari ac: .\Connect.ps1'
+Write-Host 'Tum adresler ve giris bilgileri: .\Get-Connections.ps1'
+Write-Host 'Tek Connect terminali acik kalsin; Ctrl+C tum oturum tunellerini kapatir.'
+& (Join-Path $PSScriptRoot 'Get-Connections.ps1') -NoSecrets

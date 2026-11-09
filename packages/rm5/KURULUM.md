@@ -19,9 +19,9 @@ Cube Core/Store v1.6.77, PostgreSQL 17.11-bookworm, Python 3.12.12-slim-bookworm
 
 Deploy sonunda Show-Access tüm bileşenleri listeler. Tünelleri ayrı terminallerde açık tut.
 - SQL: `.\Connect.ps1` / `bash connect.sh`; 127.0.0.1:15436, komtas_rm5, rm5_bi. Parola Get-Connection ile alınır.
-- dbt dokümanı: `.\Connect-Docs.ps1` / `bash connect-docs.sh`; http://127.0.0.1:18085/static_index.html.
-- Streamlit: `.\Connect-Dashboard.ps1` / `bash connect-dashboard.sh`; http://127.0.0.1:8505.
-- Cube API: `.\Connect-Cube.ps1` / `bash connect-cube.sh`; http://127.0.0.1:4005/cubejs-api/v1/meta. Web yönetim ekranı değildir; JWT gerektirir.
+- dbt dokümanı: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:18085/static_index.html.
+- Streamlit: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:8505.
+- Cube API: `.\Connect.ps1` / `bash connect.sh`; http://127.0.0.1:4005/cubejs-api/v1/meta. Web yönetim ekranı değildir; JWT gerektirir.
 - 5 dakikalık JWT: `.\Get-ApiToken.ps1` / `bash get-api-token.sh`. Authorization başlığında kullan; tokeni paylaşma.
 - Python tüketicisi: `.\Query-Metrics.ps1` / `bash query-metrics.sh`. Yerel Python gerekmez.
 - Cube Store: küme içi servis, ayrı UI yoktur.
@@ -66,7 +66,7 @@ OpenMetadata iş tanımı ve sahipliği tutar; çalıştırılabilir metrik hesa
 
 ## Kataloğu aç
 
-`Connect-Catalog.ps1` / `bash connect-catalog.sh` ile tüneli açık tut; http://127.0.0.1:8585 adresini aç. `Get-CatalogLogin.ps1` / `bash get-catalog-login.sh` yerelde üretilmiş giriş bilgilerini gösterir. Kurulum ilk basic admin parolasını rastgele Kubernetes Secret parolasına çevirir. Parola uygulama formuna girilmez.
+`Connect.ps1` / `bash connect.sh` ile tüneli açık tut; http://127.0.0.1:8585 adresini aç. `Get-Connections.ps1` / `bash get-connections.sh` yerelde üretilmiş giriş bilgilerini gösterir. Kurulum ilk basic admin parolasını rastgele Kubernetes Secret parolasına çevirir. Parola uygulama formuna girilmez.
 Elasticsearch ve metadata PostgreSQL’i küme içi destek servisleridir; ayrı kullanıcı ekranları açılmaz.
 
 ## Governance hata deneyi
@@ -78,3 +78,7 @@ Kanıtlar: governance-checks.json ve catalog-lineage-map.json. Bu dosyalar API�
 Metrik eşleşmesi kontrolü, katalogdaki SQL tanımını ve yapılandırılmış Cube model ifadesini beklenen metric-contract.json metinleriyle karşılaştırır. Genel amaçlı SQL anlamsal eşdeğerlik analizi değildir. Runtime hesap sonuçları ayrıca bağımsız sayısal referansa karşı doğrulanır.
 
 Buradaki lineage teknik model bağımlılıklarını gösterir; iş ontolojisi veya Neo4j knowledge graph uygulaması değildir.
+
+## Tek bağlantı oturumu
+
+Kurulumdan sonra Windows `.\Connect.ps1`, Linux `bash connect.sh` bütün yerel servisleri tek terminalden bağlar. İkinci terminalde `.\Get-Connections.ps1` / `bash get-connections.sh` adresleri ve giriş bilgilerini toplu gösterir. Dolu port otomatik değiştirilir; gerçek adres için bu özeti kullanın. Ctrl+C bu oturumun bütün tünellerini kapatır. Ayrıntılar: BAGLANTILAR.md.

@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "id": "source_instances",
+      "status": "passed"
+    },
+    {
+      "id": "source_split",
+      "status": "passed"
+    },
+    {
+      "id": "federated_join",
+      "status": "passed"
+    },
+    {
+      "id": "federation_plan",
+      "status": "passed"
+    },
+    {
+      "id": "no_materialization",
+      "status": "passed"
+    },
+    {
+      "id": "source_readonly",
+      "status": "passed"
+    }
+  ],
+  "details": {
+    "instanceIdentifiers": [
+      "7706088921245524011",
+      "7706089338611535915"
+    ],
+    "sourceTables": [
+      [
+        "sales_line"
+      ],
+      [
+        "dim_date",
+        "dim_outlet",
+        "dim_product",
+        "dim_promotion"
+      ]
+    ],
+    "modelObjects": [
+      [
+        "dim_promotion",
+        "VIEW"
+      ],
+      [
+        "dim_product",
+        "VIEW"
+      ],
+      [
+        "dim_outlet",
+        "VIEW"
+      ],
+      [
+        "v_sales_detail",
+        "VIEW"
+      ],
+      [
+        "fact_sales",
+        "VIEW"
+      ],
+      [
+        "stg_sales",
+        "VIEW"
+      ],
+      [
+        "dim_date",
+        "VIEW"
+      ]
+    ]
+  }
+}

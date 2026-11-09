@@ -1,0 +1,138 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "trino",
+        "namespace": "komtas-rm9"
+      },
+      "spec": {
+        "type": "ClusterIP",
+        "selector": {
+          "app": "rm9-trino"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "trino",
+        "namespace": "komtas-rm9"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "rm9-trino"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "rm9-trino"
+            }
+          },
+          "spec": {
+            "enableServiceLinks": false,
+            "containers": [
+              {
+                "name": "trino",
+                "image": "trinodb/trino:484",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "RM9_PG_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "rm9-credentials",
+                        "key": "bi-password"
+                      }
+                    }
+                  }
+                ],
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/v1/info",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 10,
+                  "periodSeconds": 5
+                },
+                "resources": {
+                  "requests": {
+                    "cpu": "250m",
+                    "memory": "768Mi"
+                  },
+                  "limits": {
+                    "cpu": "2",
+                    "memory": "2Gi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/config.properties",
+                    "subPath": "config.properties",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/jvm.config",
+                    "subPath": "jvm.config",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/node.properties",
+                    "subPath": "node.properties",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/catalog/sales.properties",
+                    "subPath": "sales.properties",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/catalog/reference.properties",
+                    "subPath": "reference.properties",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config",
+                    "mountPath": "/etc/trino/catalog/models.properties",
+                    "subPath": "models.properties",
+                    "readOnly": true
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "config",
+                "configMap": {
+                  "name": "rm9-trino"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

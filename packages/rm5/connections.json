@@ -1,0 +1,81 @@
+{
+  "namespace": "komtas-rm5",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "service": "postgres",
+      "localPort": 15436,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm5",
+      "username": "rm5_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18085,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "cube",
+      "name": "Cube REST API",
+      "service": "cube",
+      "localPort": 4005,
+      "remotePort": 4000,
+      "kind": "http",
+      "path": "/cubejs-api/v1/meta",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "dashboard",
+      "name": "Streamlit",
+      "service": "dashboard",
+      "localPort": 8505,
+      "remotePort": 8501,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "catalog",
+      "name": "OpenMetadata",
+      "service": "openmetadata",
+      "localPort": 8585,
+      "remotePort": 8585,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola",
+      "secret": "rm5-credentials",
+      "key": "bi-password"
+    },
+    {
+      "name": "OpenMetadata admin@open-metadata.org parola",
+      "secret": "rm5-governance",
+      "key": "admin-password"
+    }
+  ],
+  "external": [],
+  "cubeToken": true,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.",
+    "OpenMetadata admin: admin@open-metadata.org. Metadata PostgreSQL ve Elasticsearch kume ici destek servisleridir, kullanici UI yoktur."
+  ]
+}

@@ -16,6 +16,6 @@ export const productLogos:Record<string,{file:string;label:string;wide?:boolean}
  dbx:{file:'dbx',label:'Databricks'}
 };
 export function logoIdsForSlot(slot:string,techId:string|undefined,components:string[]){
- const ids=slot==='execution'?['pg','bq','snow','dbx']:['gov1','gov5','products'].includes(slot)?['infa','om']:[techId==='sql-role'?'pg':techId??''];
+ const ids=slot==='execution'?(techId==='trino'?['trino']:['pg','bq','snow','dbx']):['gov1','gov5','products'].includes(slot)?['infa','om']:[techId==='sql-role'?'pg':techId??''];
  return ids.filter(id=>components.includes(id)&&!!productLogos[id]);
 }
