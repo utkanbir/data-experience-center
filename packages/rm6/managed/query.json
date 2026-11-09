@@ -1,0 +1,16 @@
+{
+  "metrics": [
+    "net_revenue",
+    "net_liters",
+    "average_price"
+  ],
+  "groupBy": [
+    {
+      "name": "metric_time",
+      "grain": "MONTH"
+    },
+    {
+      "name": "sales_line__channel"
+    }
+  ]
+}

@@ -3,7 +3,8 @@ import rm2Profile from './experience-profile-rm2.json';
 import rm3Profile from './experience-profile-rm3.json';
 import rm4Profile from './experience-profile-rm4.json';
 import rm5Profile from './experience-profile-rm5.json';
-export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;if(architecture==='rm-4')return rm4Profile;if(architecture==='rm-5')return rm5Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
+import rm6Profile from './experience-profile-rm6.json';
+export function getExperienceProfile(architecture:string){if(architecture==='rm-1')return profile;if(architecture==='rm-2')return rm2Profile;if(architecture==='rm-3')return rm3Profile;if(architecture==='rm-4')return rm4Profile;if(architecture==='rm-5')return rm5Profile;if(architecture==='rm-6')return rm6Profile;throw Error('Bu mimarinin deney raporu henüz desteklenmiyor.');}
 export {profile};
 export const executionFiles=['01-kanal-geliri.sql','02-horeca-degisim.sql','03-distributor-urun.sql','verify.sql'];
 export type ResultStatus='passed'|'failed'|'not_tested';

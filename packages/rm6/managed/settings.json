@@ -1,0 +1,6 @@
+{
+  "host": "",
+  "environmentId": "",
+  "tokenSource": "Kubernetes Secret rm6-dbt-service; configured locally",
+  "remoteRuntimeVerified": false
+}

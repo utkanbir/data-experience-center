@@ -1,0 +1,44 @@
+version: 2
+semantic_models:
+  - name: sales
+    model: ref('v_sales_detail')
+    defaults:
+      agg_time_dimension: sale_date
+    entities:
+      - name: sales_line
+        type: primary
+        expr: sales_line_key
+    dimensions:
+      - name: sale_date
+        type: time
+        expr: date_key
+        type_params:
+          time_granularity: day
+      - name: channel
+        type: categorical
+      - name: country
+        type: categorical
+    measures:
+      - name: revenue_amount
+        agg: sum
+        expr: gross_revenue_eur - discount_amount_eur - return_amount_eur
+      - name: volume_amount
+        agg: sum
+        expr: net_volume_liters
+metrics:
+  - name: net_revenue
+    label: Net Revenue EUR
+    type: simple
+    type_params:
+      measure: revenue_amount
+  - name: net_liters
+    label: Net Liters
+    type: simple
+    type_params:
+      measure: volume_amount
+  - name: average_price
+    label: Average Price EUR per Liter
+    type: ratio
+    type_params:
+      numerator: net_revenue
+      denominator: net_liters

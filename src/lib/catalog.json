@@ -252,24 +252,24 @@
         "cli"
       ],
       "goal": "Ücretli yönetilen semantic servis ve API’leri, yerel motor alternatiflerinden ayrı değerlendirmek.",
-      "flow": "dbt modelleri PostgreSQL üzerinde hazırlanır. Yönetilen dbt Semantic servisi hesaplama taleplerini platforma gönderir. Power BI/Python bağlantıları desteklenen erişim yöntemiyle doğrulanır.",
+      "flow": "Yerel dbt Core, PostgreSQL modellerini ve semantic manifesti hazırlar. Hesap/environment/token ve PostgreSQL’e güvenli erişim sağlandığında gerçek yönetilen dbt API’si sorgulanır. Python sonucu ve kullanıcı kaynaklı Power BI CSV kanıtı ayrı değerlendirilir.",
       "plus": [
         "Yönetilen semantic API ve tüketici entegrasyonları ayrı test edilir.",
         "Metrik tanımı iki tüketicide tekrar yazılmadan kullanılabilir.",
         "Yerel motor geliştirme yükü ile servis bağımlılığı karşılaştırılır."
       ],
       "minus": [
-        "dbt hesabı/planı, token ve PostgreSQL’e servis erişimi gereklidir.",
-        "Yönetilen servis Docker imajı gibi yerel kurulmaz.",
-        "Core ve MetricFlow’dan farklı abonelik/erişim bağımlılığı vardır."
+        "Yönetilen servis için hesap, deployment environment, token ve PostgreSQL’e servis erişimi dışarıdan sağlanır.",
+        "127.0.0.1 / port-forward dbt platformuna erişim sağlamaz; yönetilen servis Docker’da kurulmaz.",
+        "Power BI entegrasyonu preview; CSV kullanıcı kanıtıdır, otomatik connector testi değildir."
       ],
-      "decision": "Bu senaryo korunur; açık kaynak senaryolarının yerine geçmez. Harici hesap ve ağ erişimi sağlanmadan hazır lab sayılmaz.",
+      "decision": "Yerel hazırlık çalıştırılabilir. Harici hesap ve erişim verilmeden yönetilen servis veya Power BI doğrulanmış sayılmaz; eksik kontroller raporda denenmedi olarak kalır.",
       "key": "rm-6",
       "category": "hybrid",
       "grade": 23.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Yerel paket hazır · harici erişim gerekli"
     },
     {
       "id": 7,

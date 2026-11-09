@@ -1,0 +1,107 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm6-managed",
+    "namespace": "komtas-rm6"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 600,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "managed",
+            "image": "python:3.12.12-slim-bookworm",
+            "command": [
+              "python",
+              "/managed/verify.py"
+            ],
+            "env": [
+              {
+                "name": "DBT_SL_TOKEN",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm6-dbt-service",
+                    "key": "api-token",
+                    "optional": true
+                  }
+                }
+              },
+              {
+                "name": "DBT_SL_HOST",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm6-dbt-service",
+                    "key": "host",
+                    "optional": true
+                  }
+                }
+              },
+              {
+                "name": "DBT_SL_ENVIRONMENT_ID",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm6-dbt-service",
+                    "key": "environment-id",
+                    "optional": true
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "256Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "managed",
+                "mountPath": "/managed",
+                "readOnly": true
+              },
+              {
+                "name": "artifacts",
+                "mountPath": "/artifacts"
+              },
+              {
+                "name": "powerbi",
+                "mountPath": "/powerbi",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "managed",
+            "configMap": {
+              "name": "rm6-managed"
+            }
+          },
+          {
+            "name": "artifacts",
+            "persistentVolumeClaim": {
+              "claimName": "dbt-artifacts"
+            }
+          },
+          {
+            "name": "powerbi",
+            "configMap": {
+              "name": "rm6-powerbi-export",
+              "optional": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -2,6 +2,12 @@
 
 Bağımsız React + TypeScript + Vite web uygulaması ve Node.js API sunucusu. ChatGPT, OpenAI Sites, Cloudflare Workers veya bir oturum açma sistemine bağımlı değildir.
 
+## Senaryo merkezi ve paketler
+
+`/#scenarios`: senaryo seç, mimari uyumunu ve ilgili katmanları karşılaştır. Yeni senaryoyu metinle veya DOCX/PPTX/XLSX/CSV/MD/TXT yükleyerek oluştur; ihtiyaçları gözden geçirip kaydet. İsteğe bağlı LLM kendi API anahtarını kullanır. Ayrıntılar: [Senaryo merkezi](docs/SCENARIO_CENTER.md).
+
+RM1–RM5 yerel, RM6 yerel hazırlık + dış dbt servisi paketleri hazırdır. Özel senaryo JSON bağlamı ZIP’e eklenir; çalışan deney ortak sentetik referans lab olarak kalır. RM6 dış hesabı/token ve ağ erişimi olmadan dış servis kanıtları denenmedi görünür.
+
 ## Başlatma
 
 Node.js 22.13 veya üstü gerekir; CI ve Docker Node.js 24 kullanır.
