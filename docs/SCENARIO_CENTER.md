@@ -29,3 +29,5 @@ Anahtar yalnız sekme belleğinde tutulur. Kaydetme, yalnız senaryo metni, ihti
 ## Ekran düzeni
 
 Senaryo merkezi, referans mimari listesi ve mimari ayrıntısı ekran yüksekliğine sığan çalışma alanlarıdır. Ana çizim içerik kaydırılırken görünür kalır; mimari listesi ve okuma alanı kendi içinde kayar. Senaryo değerlendirmesi, ihtiyaç/kaynaklar, Komtaş katkısı ve kurulum ayrı sekmelerde açılır. Yeni senaryo düzenleyicisi bağımsız bir pencere açar. Dar ekranda mimari sıralaması seçim kutusuyla erişilir. Ana referans mimari satır seçimiyle önizlenir; “Ayrıntıları aç” mimarinin çalışma ekranına geçer. Uzun tanıtım alanı kaldırılmıştır.
+
+Çizimler ekran yüksekliğine göre daha geniş açılır. Yerel +/− kontrolleri yalnız çizimi ölçekler; Sığdır varsayılan sığdırmayı geri getirir. Tam ekran görünümü etkileşimli çizimi, filtreleri ve ürün ayrıntılarını korur; Esc ile kapanır. Büyük çizim kendi alanında kaydırılır, tarayıcı yakınlaştırması gerekmez.
