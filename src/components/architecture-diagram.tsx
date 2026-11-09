@@ -14,7 +14,7 @@ export default function ArchitectureDiagram({components,custom=[],pgCount=1,onTe
  useEffect(()=>{const dialog=dialogRef.current;if(!dialog)return;if(expanded&&!dialog.open)dialog.showModal();else if(!expanded&&dialog.open)dialog.close();},[expanded]);
  const graph=ontology||(typeof referenceId==='number'&&!!architectures.find(a=>a.id===referenceId)?.graph);
  const all=[...technologies,...custom],has=(id:string)=>components.includes(id),find=(id:string)=>all.find(t=>t.id===id);
- const sharedConsumerReference=referenceId===4||referenceId===5||referenceId===6;
+ const sharedConsumerReference=referenceId===4||referenceId===5||referenceId===6||referenceId===7;
  const allVisible=referenceId==='all',customDiagram=referenceId===undefined;
  const platform=find(has('pg')?'pg':has('bq')?'bq':has('snow')?'snow':'dbx');
  const source=find(has('pg')?'pg':has('bq')?'bq':has('snow')?'snow':'dbx');
@@ -25,10 +25,10 @@ export default function ArchitectureDiagram({components,custom=[],pgCount=1,onTe
  function slot(id:string,name:string,body:string,x:number,y:number,w:number,h:number,layer:string,tech?:Technology,active=knownTech(tech)):Slot{return {id,name,body,x,y,w,h,layer,tech,active:allVisible||active};}
  const slots:Slot[]=[
  slot('gov1','İş anlamı ve metrik kaydı','Tanım · owner · onay · sürüm',50,137,227,78,'governance',gov,has('om')||has('infa')),
- slot('gov2','Kalite ve contract','Kurallar · eşikler · ihlal',288,137,227,78,'governance',has('om')?om:gov,has('om')||has('infa')),
+ slot('gov2','Kalite ve contract','Kurallar · eşikler · ihlal',288,137,227,78,'governance',referenceId===7?core:has('om')?om:gov,has('om')||has('infa')),
  slot('gov3',referenceId===5?'Kalite sonucu kaydı':'Observability',referenceId===5?'SQL test sonucu · API ile kayıt':'Freshness · hacim · schema',526,137,227,78,'governance',has('om')?om:core,has('om')),
  slot('gov4','Ürün keşfi ve erişim','Yayın · erişim talebi · politika',764,137,227,78,'governance',gov,has('om')||has('infa')),
- slot('gov5','İş ve teknik metadata bağı','Kimlik · sürüm · lineage',1002,137,227,78,'governance',has('om')?om:gov,has('om')||has('infa')),
+ slot('gov5','İş ve teknik metadata bağı','Kimlik · sürüm · lineage',1002,137,227,78,'governance',referenceId===7?core:has('om')?om:gov,has('om')||has('infa')),
  slot('source1','Müşteri ve dağıtım','Customer · outlet · distributor',48,286,178,80,'data',source),
  slot('source2','Sipariş, fatura ve iade','Order · invoice · return',48,378,178,80,'data',has('pg')?find('pg'):find('snow'),has('pg')&&pgCount===2||has('bq')&&has('snow')),
  slot('source3','Ürün, fiyat ve promosyon','Product · price · promotion',48,470,178,90,'data',undefined,false),
@@ -42,7 +42,7 @@ export default function ArchitectureDiagram({components,custom=[],pgCount=1,onTe
  slot('metric','Executable metrik','Ortak hesaplama · boyut · join',797,276,192,137,'semantic',semantic,!!semantic&&knownTech(semantic)),
  slot('graph','Ontology ve graph','Türler · ilişkiler · eşlemeler\nGraph: gerçek varlık örnekleri',797,431,192,139,'context',find('neo')),
  slot('bi','BI ve raporlama','Ortak metrikleri tüketir',1022,276,220,137,'consumption',has('pb')?find('pb'):has('py')?find('py'):find('cli')),
- slot('ai',sharedConsumerReference?'Python API tüketicisi':'AI agent ve API',sharedConsumerReference?(referenceId===6?'Yönetilen dbt API · harici erişim':'Cube REST · ortak metrik hesabı'):'Metrik + ilişki + kaynak kanıtı',1022,431,220,139,'consumption',sharedConsumerReference?find('cli'):has('py')?find('py'):find('cli'),sharedConsumerReference?has('cli'):has('py')||has('paid')&&has('cli')),
+ slot('ai',sharedConsumerReference?'Python API tüketicisi':'AI agent ve API',sharedConsumerReference?(referenceId===6?'Yönetilen dbt API · harici erişim':'Cube REST · ortak metrik hesabı'):'Metrik + ilişki + kaynak kanıtı',1022,431,220,139,'consumption',sharedConsumerReference?find(has('cli')?'cli':'py'):has('py')?find('py'):find('cli'),sharedConsumerReference?(has('cli')||has('py')):has('py')||has('paid')&&has('cli')),
  slot('engineering','Veri modelleme','Logical / physical model',49,619,288,56,'engineering',has('core')?core:sql,has('pg')||has('core')),
  slot('git','Git ve CI/CD','Versiyon · test · deploy',348,619,288,56,'engineering',undefined,false),
  slot('contract','Data contract kontrolleri','Schema · compatibility · kalite',647,619,288,56,'engineering',has('om')?om:core,has('om')||has('core')),

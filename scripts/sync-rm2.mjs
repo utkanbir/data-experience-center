@@ -9,7 +9,7 @@ async function collect(dir){
   else if(entry.isFile()&&['.ps1','.sh','.md','.html','.sql','.json','.yml','.yaml','.py','.csv','.js','.txt'].includes(path.extname(entry.name)))files[path.relative(root,full).split(path.sep).join('/')]=await fs.readFile(full,'utf8');
  }
 }
-for(const id of [2,3,4,5,6]){
+for(const id of [2,3,4,5,6,7]){
  root=path.resolve('packages/rm'+id);files={};await collect(root);
  await fs.writeFile('src/lib/rm'+id+'-template.json',JSON.stringify(files,null,2)+'\n');
  await fs.writeFile('src/lib/experience-profile-rm'+id+'.json',files['report-profile.json']);

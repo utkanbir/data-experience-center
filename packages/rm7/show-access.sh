@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+printf '%s\n' '=== REFERANS MIMARI 7 | ERISIM REHBERI ===' 'PostgreSQL: 127.0.0.1:15438 | DB: komtas_rm7 | User: rm7_bi' 'SQL: bash connect.sh | parola: bash get-connection.sh' 'dbt: bash build-models.sh | dokuman tuneli: bash connect-docs.sh' 'dbt dokumani: http://127.0.0.1:18087/static_index.html' 'Streamlit: bash connect-dashboard.sh | http://127.0.0.1:8507' 'Cube REST: bash connect-cube.sh | http://127.0.0.1:4007/cubejs-api/v1/meta' '5 dakikalik JWT: bash get-api-token.sh | Python: bash query-metrics.sh' 'API/iki tuketici kontrolu: bash test-cube.sh' 'Cube Store kume ici destek servisidir, ayri UI yoktur.' 'Deney: bash run-scenario.sh | Tam silme: bash remove-environment.sh'
+
+printf '%s\n' 'Informatica CDGC: harici org portalinizi kendi erisiminizle acin. API hostu web arayuzu degildir.'
+printf '%s\n' 'Baglanti: Set-InformaticaConnection.ps1 / bash set-informatica-connection.sh; varliklar: governance/settings.json; kontrol: Run-Governance.ps1 / bash run-governance.sh'

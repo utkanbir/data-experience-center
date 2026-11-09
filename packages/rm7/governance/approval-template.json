@@ -1,0 +1,5 @@
+{
+  "source": "manual_workflow_record",
+  "records": [],
+  "notice": "Populate from actual workflow tickets. Syntax/version consistency is checked; workflow execution and approver authority are not independently verified."
+}

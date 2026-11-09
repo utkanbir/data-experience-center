@@ -128,3 +128,7 @@ RM3 paketinde dbt Core 1.10.15, dbt-postgres 1.9.1, dbt-metricflow 0.11.0 ve Met
 RM4: PostgreSQL + dbt Core + authenticated Cube Core REST service + Cube Store + Streamlit/Python consumers. Lifecycle scripts, SQL/API reference checks and offline HTML/JSON evidence are included under packages/rm4. See VALIDATION.md for measured scope.
 
 RM5: OpenMetadata governance extension with PostgreSQL metadata, dbt manifest lineage, business terms, metric ownership, SQL quality results and demo data-product registration. Includes an ownership fault experiment and independent governance evidence. See packages/rm5/VALIDATION.md.
+
+## Referans Mimari 7 — harici Informatica CDGC
+
+Yerel PostgreSQL, dbt Core, Cube Core/Store ve Streamlit/Python paketi hazır. CDGC dış org/JWT ve gerçek varlık eşlemesi ister; yerel Docker servisi olarak kurulmaz. Yedi bağımsız governance kontrolü, erişim yokken denenmedi kalır. Published insan onayı değildir; manuel workflow kaydının sürüm/tarih tutarlılığı ayrıca ölçülür. Kurulum, erişim, rapor ve silme adımları: packages/rm7/README.md.

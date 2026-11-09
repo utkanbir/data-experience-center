@@ -295,10 +295,11 @@
         "core",
         "cube",
         "infa",
-        "py"
+        "py",
+        "cli"
       ],
       "goal": "Yerel semantic hesabı, dış Informatica ortamındaki resmî metrik tanımı ve onaya bağlamak.",
-      "flow": "Cube Core ortak hesapları sunar. Informatica CDGC iş terimi, metric kaydı, owner ve onayı taşır. İş/teknik kimlik eşlemesi bu lab için ayrıca tasarlanır.",
+      "flow": "PostgreSQL → dbt Core → Cube REST → Streamlit ve Python. Harici CDGC iş tanımı, sahiplik ve yayın durumunu taşır; teknik varlık eşlemesi ve manuel onay kaydı ayrı kontrol edilir. Dış org/JWT yokken governance kontrolleri denenmedi kalır.",
       "plus": [
         "Kurumsal iş anlamı ve onay, çalışan metric hesabından ayrı gözlemlenir.",
         "Aynı semantic temel ile OpenMetadata varyantı karşılaştırılır.",
@@ -313,9 +314,9 @@
       "key": "rm-7",
       "category": "hybrid",
       "grade": 40,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Yerel paket hazır · dış CDGC erişimi gerekli"
     },
     {
       "id": 8,

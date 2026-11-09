@@ -1,0 +1,129 @@
+{
+  "namespace": "komtas-rm7-check-1109",
+  "architecture": "rm-7",
+  "architectureVersion": "1.0",
+  "generatedAt": "2026-11-09T06:37:30.5145570Z",
+  "schemaVersion": 1,
+  "executions": [
+    {
+      "file": "01-kanal-geliri.sql",
+      "status": "passed"
+    },
+    {
+      "file": "02-horeca-degisim.sql",
+      "status": "passed"
+    },
+    {
+      "file": "03-distributor-urun.sql",
+      "status": "passed"
+    },
+    {
+      "file": "verify.sql",
+      "status": "passed"
+    }
+  ],
+  "observation": {
+    "checks": [
+      {
+        "id": "schemas",
+        "status": "passed"
+      },
+      {
+        "id": "rows",
+        "status": "passed"
+      },
+      {
+        "id": "months",
+        "status": "passed"
+      },
+      {
+        "id": "horeca",
+        "status": "passed"
+      },
+      {
+        "id": "volume",
+        "status": "passed"
+      },
+      {
+        "id": "price",
+        "status": "passed"
+      },
+      {
+        "id": "dbt_models",
+        "status": "passed"
+      },
+      {
+        "id": "dbt_tests",
+        "status": "passed"
+      },
+      {
+        "id": "cube_api",
+        "status": "passed"
+      },
+      {
+        "id": "cube_sql",
+        "status": "passed"
+      },
+      {
+        "id": "cube_match",
+        "status": "passed"
+      },
+      {
+        "id": "two_consumers",
+        "status": "passed"
+      },
+      {
+        "id": "api_auth",
+        "status": "passed"
+      },
+      {
+        "id": "dbt_docs",
+        "status": "passed"
+      },
+      {
+        "id": "bi_role",
+        "status": "passed"
+      },
+      {
+        "id": "cdgc_assets",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_definition",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_owner",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_published",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_binding",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_product",
+        "status": "not_tested"
+      },
+      {
+        "id": "cdgc_approval",
+        "status": "not_tested"
+      },
+      {
+        "id": "no_insert",
+        "status": "passed"
+      }
+    ],
+    "metrics": {
+      "janRevenue": 8164.8,
+      "febRevenue": 3628.8,
+      "janLiters": 1844.64,
+      "febLiters": 819.84,
+      "change": -4536
+    }
+  },
+  "scenario": "beverage-revenue-v1"
+}

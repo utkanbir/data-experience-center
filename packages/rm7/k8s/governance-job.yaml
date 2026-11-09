@@ -1,0 +1,108 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm7-governance",
+    "namespace": "komtas-rm7"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 300,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "governance",
+            "image": "python:3.12.12-slim-bookworm",
+            "command": [
+              "python",
+              "/governance/verify.py"
+            ],
+            "env": [
+              {
+                "name": "INFA_TOKEN",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm7-informatica",
+                    "key": "api-token",
+                    "optional": true
+                  }
+                }
+              },
+              {
+                "name": "INFA_HOST",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm7-informatica",
+                    "key": "api-host",
+                    "optional": true
+                  }
+                }
+              },
+              {
+                "name": "INFA_ORG",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm7-informatica",
+                    "key": "org-id",
+                    "optional": true
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "governance",
+                "mountPath": "/governance",
+                "readOnly": true
+              },
+              {
+                "name": "artifacts",
+                "mountPath": "/artifacts"
+              },
+              {
+                "name": "cube-model",
+                "mountPath": "/cube-model",
+                "readOnly": true
+              },
+              {
+                "name": "approval",
+                "mountPath": "/approval",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "governance",
+            "configMap": {
+              "name": "rm7-governance"
+            }
+          },
+          {
+            "name": "artifacts",
+            "persistentVolumeClaim": {
+              "claimName": "dbt-artifacts"
+            }
+          },
+          {
+            "name": "cube-model",
+            "configMap": {
+              "name": "rm7-cube-model"
+            }
+          },
+          {
+            "name": "approval",
+            "configMap": {
+              "name": "rm7-approval",
+              "optional": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}
