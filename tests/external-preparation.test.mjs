@@ -11,3 +11,5 @@ test('RM7 and RM8 include the same full governance prerequisites with or without
 test('RM6 requires real external deployment and future cloud profiles remain plans',()=>{assert.match(buildPackageFiles(6,'komtas-prep-test',15500)['rm6-kubernetes/DIS_SERVIS_ON_HAZIRLIK.md'],/port-forward/);for(const id of ['snow','bq','dbx'])assert.match(preparations[id].intro,/otomatik deploy paketi henüz yok/);});
 
 test('Informatica instructions name the observed menu path and distinguish Metric from Business Term',()=>{const md=preparationMarkdown(['infa']);for(const text of ['New → Business Glossary → Metric → Create','Business Term seçili','Name / ad','Description / açıklama','Üç adı tek kayıt içine yazma'])assert(md.includes(text),text);});
+
+test('Informatica network preparation distinguishes portal, agent and loopback access',()=>{const md=preparationMarkdown(['infa']);for(const text of ['Administrator → Runtime Environments','başka makinedeyse','container/VM','--address 127.0.0.1','Get-NetTCPConnection','Test-NetConnection','Test Connection','DEC_RM7_PostgreSQL','veritabanını internete açma'])assert(md.includes(text),text);});
