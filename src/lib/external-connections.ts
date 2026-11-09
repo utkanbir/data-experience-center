@@ -1,3 +1,4 @@
+import {preparationMarkdown} from './external-preparation';
 import {Architecture} from './domain';
 import {managedSettings} from './managed';
 
@@ -47,6 +48,7 @@ export function applyExternalFiles(files:Record<string,string>,a:Architecture,se
   }
   if(service.id==='infa'||service.id==='paid'){files[root+'external/mode.txt']=service.mode+'\n';files[root+'external/host.txt']=(v.apiHost||v.host||'')+'\n';files[root+'external/identity.txt']=(v.orgId||v.environmentId||'')+'\n';}
  }
- files[root+'DIS_SERVISLER.md']='# Dış servis bağlantıları\n\n'+plan.services.map(s=>'## '+s.name+'\n\nSeçim: '+(s.mode==='connect'?'Kurulumda bağlan':'Sonra sağla')+'.\n\n'+s.credentialHandling+'\n\n'+(s.automaticDeployment&&s.mode==='connect'?'Deploy namespace oluşturulduktan sonra gizli bilgiyi yerelde ister. Aynı host/kimliğe ait Secret varsa tekrar sormaz. Süresi dolmuş token için Set bağlantı scriptini yeniden çalıştır.':'Dış servis ve eksik eşlemeler sağlanana kadar ilgili kanıtlar denenmedi kalır.')+'\n').join('\n')+plan.desktopPrerequisites.join('\n')+'\nBu dosyalar bağlantı testi yapmaz. Yerel port-forward bulut servisinin yerel veritabanına erişimini sağlamaz.\n';
+ files[root+'DIS_SERVIS_ON_HAZIRLIK.md']=preparationMarkdown(plan.services.map(s=>s.id));
+ files[root+'DIS_SERVISLER.md']='# Dış servis bağlantıları\n\nÖnce [Dış servis ön hazırlığı](DIS_SERVIS_ON_HAZIRLIK.md) adımlarını uygula.\n\n'+plan.services.map(s=>'## '+s.name+'\n\nSeçim: '+(s.mode==='connect'?'Kurulumda bağlan':'Sonra sağla')+'.\n\n'+s.credentialHandling+'\n\n'+(s.automaticDeployment&&s.mode==='connect'?'Deploy namespace oluşturulduktan sonra gizli bilgiyi yerelde ister. Aynı host/kimliğe ait Secret varsa tekrar sormaz. Süresi dolmuş token için Set bağlantı scriptini yeniden çalıştır.':'Dış servis ve eksik eşlemeler sağlanana kadar ilgili kanıtlar denenmedi kalır.')+'\n').join('\n')+plan.desktopPrerequisites.join('\n')+'\nBu dosyalar bağlantı testi yapmaz. Yerel port-forward bulut servisinin yerel veritabanına erişimini sağlamaz.\n';
  return plan;
 }
