@@ -1,3 +1,4 @@
+import {walkthroughMarkdown} from './component-walkthrough';
 import {referencePortFor,docsPortFor} from './ports';
 import {architectures} from './domain';
 import {componentStoryMarkdown} from './component-story';
@@ -23,6 +24,7 @@ export function buildPackageFiles(id:number,namespace:string,port:number,managed
  }
  if(id===6)files['rm6-kubernetes/managed/settings.json']=JSON.stringify(managedSettings(managed),null,2);
  const architecture=architectures.find(a=>a.id===id);if(architecture)files['rm'+id+'-kubernetes/BILESENLER.md']=componentStoryMarkdown(architecture);
+ if(architecture)files['rm'+id+'-kubernetes/KESIF_REHBERI.md']=walkthroughMarkdown(architecture,port);
  if(external)applyExternalFiles(files,architectures.find(a=>a.id===id)!,external);
  return files;
 }
