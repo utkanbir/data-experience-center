@@ -1,0 +1,95 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm10-scenario",
+    "namespace": "komtas-rm10"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 900,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "catalog",
+            "image": "python:3.12.12-slim-bookworm",
+            "command": [
+              "sh",
+              "-c",
+              "pip install --disable-pip-version-check --no-cache-dir \"psycopg[binary]==3.2.13\" && exec python /experience/scenario.py"
+            ],
+            "env": [
+              {
+                "name": "PGHOST",
+                "value": "postgres"
+              },
+              {
+                "name": "PGDATABASE",
+                "value": "komtas_rm10"
+              },
+              {
+                "name": "PGUSER",
+                "value": "rm10_bi"
+              },
+              {
+                "name": "PGPASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm10-credentials",
+                    "key": "bi-password"
+                  }
+                }
+              },
+              {
+                "name": "NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "artifacts",
+                "mountPath": "/artifacts"
+              },
+              {
+                "name": "experience",
+                "mountPath": "/experience",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "artifacts",
+            "persistentVolumeClaim": {
+              "claimName": "dbt-artifacts"
+            }
+          },
+          {
+            "name": "experience",
+            "configMap": {
+              "name": "rm10-experience"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

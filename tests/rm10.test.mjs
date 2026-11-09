@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+await build({entryPoints:['src/lib/deployment.ts','src/lib/experience.ts','src/lib/component-story.ts','src/lib/domain.ts','src/lib/value-proposition.ts'],bundle:true,platform:'node',format:'esm',outdir:'.checks/rm10'});
+const {buildPackageFiles}=await import('../.checks/rm10/deployment.js');
+const {getExperienceProfile,validateExperience,experienceSummary,layerStatus}=await import('../.checks/rm10/experience.js');
+const {componentStories}=await import('../.checks/rm10/component-story.js');
+const {architectures}=await import('../.checks/rm10/domain.js');
+const {getValueMapping}=await import('../.checks/rm10/value-proposition.js');
+test('RM10 separates ontology definitions from sourced graph instances and requires eight graph controls',()=>{
+ const f=buildPackageFiles(10,'komtas-graph-test',15466),r='rm10-kubernetes/',model=JSON.parse(f[r+'graph/ontology.json']);
+ assert.equal(model.classes.length,7);assert.equal(model.relations.length,5);assert(model.classes.every(c=>c.source&&c.key));
+ assert(f[r+'sql/seed.sql'].includes('raw.dim_customer'));assert(f[r+'sql/seed.sql'].includes('customer_key'));
+ assert(f[r+'graph/graph.py'].includes('session.execute_write(load)'));assert(f[r+'graph/graph.py'].includes('context_totals'));
+ assert(f[r+'Run-Scenario.ps1'].includes('Verify-Graph.ps1'));assert(!f[r+'Run-Scenario.ps1'].includes('Sync-Graph.ps1'));
+ assert(f[r+'Deploy.ps1'].includes('Sync-Graph.ps1'));assert(f[r+'Restore-Graph.ps1'].includes('Sync-Graph.ps1'));
+ const p=getExperienceProfile('rm-10');assert.equal(p.checks.length,31);assert.equal(p.checks.filter(c=>/^(graph_|ontology_)/.test(c[0])).length,8);
+ assert.equal(JSON.parse(f[r+'connections.json']).services.length,7);assert.equal(JSON.parse(f[r+'connections.json']).services.find(s=>s.id==='catalog').localPort,18590);
+ assert(f[r+'graph/inspect.cypher']);assert(!f[r+'trino/config.json']);assert(!f[r+'cloud-project/dbt_project.yml']);
+});
+test('RM10 can fail graph context while all metric SQL and governance checks pass',()=>{
+ const p=getExperienceProfile('rm-10'),a=architectures.find(a=>a.id===10);
+ const result={schemaVersion:1,architecture:p.architecture,architectureVersion:p.architectureVersion,scenario:p.scenario,namespace:'komtas-graph-test',generatedAt:new Date().toISOString(),executions:['01-kanal-geliri.sql','02-horeca-degisim.sql','03-distributor-urun.sql','verify.sql'].map(file=>({file,status:'passed'})),observation:{checks:p.checks.map(([id])=>({id,status:'passed'})),metrics:{janRevenue:8164.8,febRevenue:3628.8,janLiters:1844.64,febLiters:819.84,change:-4536}}};
+ assert.deepEqual(experienceSummary(validateExperience(result)),{passed:35,failed:0,pending:0,total:35});
+ for(const id of ['graph_relationships','graph_freshness','graph_paths','graph_metric_context'])result.observation.checks.find(c=>c.id===id).status='failed';
+ assert.deepEqual(experienceSummary(validateExperience(result)),{passed:31,failed:4,pending:0,total:35});
+ assert.equal(layerStatus(p.layers.find(l=>l.name==='Ontology ve knowledge graph'),result),'failed');
+ assert(getValueMapping(a,result)[1].evidence.includes('Graph: 4/8'));assert.equal(getValueMapping(a,result)[2].status,'Kapsam dışı');
+ assert(componentStories(a).find(s=>s.id==='neo').boundary.includes('OWL'));
+});
+test('offline graph report renders query rows as text rather than executable markup',async()=>{
+ const payload={customerOutletDistributorPaths:[{customerName:'<img src=x onerror=alert(1)>',outletName:'Outlet 1',distributorName:'Distributor 1',outlet:'rm10:outlet:1'}],contextByMonthOutletProduct:[{month:'2025-01-01',outletName:'Outlet 1',distributorName:'Distributor 1',productName:'Water',netRevenue:8164.8,netLiters:1844.64}],limit:'İlişki nedensellik değildir.'};
+ const html=(await fs.readFile('packages/rm10/report-template.html','utf8')).replace('__GRAPH_RESULTS_BASE64__',Buffer.from(JSON.stringify(payload)).toString('base64'));
+ const script=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('graph-context-result'));
+ const cells=[],target={children:[],append(n){this.children.push(n);}};
+ const node=tag=>{const n={children:[],textContent:'',append(c){this.children.push(c);}};if(tag==='td')cells.push(n);return n;};
+ new vm.Script(script).runInNewContext({document:{getElementById:()=>target,createElement:node},TextDecoder,Uint8Array,atob},{timeout:1000});
+ assert.equal(cells.length,10);assert.equal(cells[0].textContent,payload.customerOutletDistributorPaths[0].customerName);assert(cells.some(c=>c.textContent==='8164.8'));
+});

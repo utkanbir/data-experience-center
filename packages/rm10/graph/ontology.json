@@ -1,0 +1,75 @@
+{
+  "id": "beverage-ontology-v1",
+  "version": "1.0",
+  "description": "Açık property graph kavram modeli. OWL reasoner veya otomatik kimlik uzlaştırma değildir.",
+  "identityPolicy": "rm10:<class>:<source-primary-key>; sentetik müşteri kimliği kaynakta açıkça tanımlıdır.",
+  "classes": [
+    {
+      "name": "Customer",
+      "source": "raw.dim_customer",
+      "key": "customer_key"
+    },
+    {
+      "name": "Outlet",
+      "source": "raw.dim_outlet",
+      "key": "outlet_key"
+    },
+    {
+      "name": "Distributor",
+      "source": "raw.dim_outlet",
+      "key": "distributor_key"
+    },
+    {
+      "name": "Product",
+      "source": "raw.dim_product",
+      "key": "product_key"
+    },
+    {
+      "name": "Promotion",
+      "source": "raw.dim_promotion",
+      "key": "promotion_key"
+    },
+    {
+      "name": "Sale",
+      "source": "dwh.v_sales_detail",
+      "key": "sales_line_key"
+    },
+    {
+      "name": "Metric",
+      "source": "cube/schema/Sales.js",
+      "key": "Sales.netRevenue"
+    }
+  ],
+  "relations": [
+    {
+      "name": "OWNS_OUTLET",
+      "domain": "Customer",
+      "range": "Outlet"
+    },
+    {
+      "name": "SERVED_BY",
+      "domain": "Outlet",
+      "range": "Distributor"
+    },
+    {
+      "name": "AT_OUTLET",
+      "domain": "Sale",
+      "range": "Outlet"
+    },
+    {
+      "name": "OF_PRODUCT",
+      "domain": "Sale",
+      "range": "Product"
+    },
+    {
+      "name": "WITH_PROMOTION",
+      "domain": "Sale",
+      "range": "Promotion"
+    }
+  ],
+  "metric": {
+    "id": "Sales.netRevenue",
+    "source": "dwh.v_sales_detail",
+    "meaning": "Net gelir = brüt - iskonto - iade. EUR."
+  }
+}

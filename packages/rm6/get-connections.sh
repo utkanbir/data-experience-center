@@ -11,7 +11,7 @@ while IFS='|' read -r task_id task_name task_remote task_port task_target task_k
   if [[ -n "$task_saved" ]]; then task_port="${task_saved%%|*}";task_status="${task_saved#*|}"; fi
  fi
  printf '\n--- %s [%s]\n' "$task_name" "$task_status"
- if [[ "$task_kind" == http ]]; then printf 'http://127.0.0.1:%s%s\n' "$task_port" "$task_path"; else printf '127.0.0.1:%s\n' "$task_port"; fi
+ if [[ "$task_kind" == http ]]; then printf 'http://127.0.0.1:%s%s\n' "$task_port" "$task_path"; elif [[ "$task_id" == neo4j-bolt ]]; then printf 'bolt://127.0.0.1:%s\n' "$task_port"; else printf '127.0.0.1:%s\n' "$task_port"; fi
  [[ -z "$task_db" ]] || printf 'Database: %s | User: %s\n' "$task_db" "$task_user"
  if [[ "$task_id" == trino ]]; then printf 'JDBC: jdbc:trino://127.0.0.1:%s/models/dwh | user rm9_reader | yerel HTTP, auth yok\n' "$task_port"; fi
 done < "$task_dir/connections.tsv"

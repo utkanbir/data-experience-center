@@ -438,13 +438,14 @@
         "cube",
         "om",
         "neo",
-        "py"
+        "py",
+        "cli"
       ],
       "id": 10,
       "title": "Yerel ontology + Neo4j graph",
       "graph": true,
       "goal": "Ortak metriklerle birlikte varlık türleri, gerçek ilişkiler ve kaynak kanıtlarını sorgulamak.",
-      "flow": "Ontology Customer/Outlet/Distributor/Product/Promotion ilişkilerini tanımlar. Python yükleyici PostgreSQL kayıtlarını Neo4j Community graph’ına taşır. Metrik Cube Core’dan, ilişki sonucu Neo4j’den alınır.",
+      "flow": "Tek PostgreSQL kaynak ve dbt ambar modellerini tutar. Cube ortak metrik hesabını sunar. Açık ontology.json yedi kavram ve beş ilişki türünü tanımlar; Python yükleyici gerçek kaynak kimliklerini Neo4j Community’ye aktarır. Graph müşteri → outlet → distribütör ve satış → ürün/promosyon bağlamını sorgular. OpenMetadata tanım/owner ve teknik lineage kaydını tutar. Bu varyantta Trino veya LLM yoktur.",
       "plus": [
         "Ontology modeli ile gerçek instance graph ayrı doğrulanır.",
         "Çok adımlı ilişki soruları kaynak kimlikleriyle yanıtlanır.",
@@ -453,15 +454,17 @@
       "minus": [
         "Kimlik uzlaştırma, graph güncelliği ve provenance yükü oluşur.",
         "Graph ilişkisi nedensellik kanıtı değildir.",
-        "Bu varyantta LLM/agent yoktur; S11 otomatik kazanılmaz."
+        "Bu varyantta LLM/agent yoktur; S11 otomatik kazanılmaz.",
+        "Açık property graph modeli OWL reasoner veya otomatik kimlik uzlaştırma değildir.",
+        "Graph ayrı bir kopyadır; kaynak değişince açık Sync-Graph gerekir. Hash farkı raporda başarısızdır."
       ],
       "decision": "Önce graph’ın kendi katkısı ölçülür. Agent ve harici LLM erişimi sonraki ayrı varyant olarak ele alınabilir.",
       "key": "rm-10",
       "category": "local",
       "grade": 63.3,
-      "ready": false,
+      "ready": true,
       "version": "1.0",
-      "status": "Kurulum planı"
+      "status": "Paket hazır · ontology + gerçek Neo4j graph"
     },
     {
       "scores": [

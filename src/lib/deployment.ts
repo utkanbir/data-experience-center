@@ -10,11 +10,12 @@ import rm6 from './rm6-template.json';
 import rm7 from './rm7-template.json';
 import rm8 from './rm8-template.json';
 import rm9 from './rm9-template.json';
+import rm10 from './rm10-template.json';
 import {managedSettings,ManagedSettings} from './managed';
 import {applyExternalFiles,ExternalSetup} from './external-connections';
 export function buildPackageFiles(id:number,namespace:string,port:number,managed?:ManagedSettings,external?:ExternalSetup):Record<string,string>{
  if(!/^komtas-[a-z0-9](?:[a-z0-9-]{0,38}[a-z0-9])?$/.test(namespace)||!Number.isInteger(port)||port<1024||port>65535)throw Error('Geçersiz paket ayarı.');
- const template=id===1?rm1:id===2?rm2:id===3?rm3:id===4?rm4:id===5?rm5:id===6?rm6:id===7?rm7:id===8?rm8:id===9?rm9:null;if(!template)throw Error('Bu mimarinin paketi henüz hazır değil.');
+ const template=id===1?rm1:id===2?rm2:id===3?rm3:id===4?rm4:id===5?rm5:id===6?rm6:id===7?rm7:id===8?rm8:id===9?rm9:id===10?rm10:null;if(!template)throw Error('Bu mimarinin paketi henüz hazır değil.');
  const files:Record<string,string>={};
  for(const [path,text]of Object.entries(template)){
   const source=id===9?text.replaceAll('16440','__REFERENCE_PORT__').replaceAll('15440','__DATABASE_PORT__').replaceAll('18089','__DOCS_PORT__'):text;

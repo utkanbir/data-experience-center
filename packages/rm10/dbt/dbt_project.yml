@@ -1,0 +1,12 @@
+name: komtas_rm10
+version: '1.0'
+config-version: 2
+profile: komtas_rm10
+model-paths: [models]
+test-paths: [tests]
+models:
+  komtas_rm10:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

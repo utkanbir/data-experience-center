@@ -1,0 +1,7 @@
+postgres|PostgreSQL|postgres|15441|5432|tcp||komtas_rm10|rm10_bi
+docs|dbt dokumani|dbt-docs|18090|8080|http|/static_index.html||
+cube|Cube REST API|cube|4010|4000|http|/cubejs-api/v1/meta||
+dashboard|Streamlit|dashboard|8510|8501|http|/||
+catalog|OpenMetadata|openmetadata|18590|8585|http|/||
+neo4j-browser|Neo4j Browser|neo4j|17484|7474|http|/browser/||
+neo4j-bolt|Neo4j Bolt|neo4j|17697|7687|tcp||neo4j|neo4j

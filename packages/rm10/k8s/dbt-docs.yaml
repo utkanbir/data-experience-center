@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbt-docs
+  namespace: komtas-rm10
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rm10-dbt-docs
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rm10-dbt-docs
+    spec:
+      containers:
+        - name: docs
+          image: python:3.12.12-slim-bookworm
+          command: [python, -m, http.server, '8080', --bind, 0.0.0.0, --directory, /artifacts]
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 2
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          volumeMounts:
+            - name: artifacts
+              mountPath: /artifacts
+              readOnly: true
+      volumes:
+        - name: artifacts
+          persistentVolumeClaim:
+            claimName: dbt-artifacts
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbt-docs
+  namespace: komtas-rm10
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: rm10-dbt-docs
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

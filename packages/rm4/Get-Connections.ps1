@@ -11,6 +11,7 @@ foreach($taskItem in $taskPlan.services){
  $taskStatus=if($taskRuntime){$taskRuntime.status}else{'Connect henuz calistirilmadi'}
  Write-Host ('--- '+$taskItem.name+' ['+$taskStatus+']')
  $taskAddress=if($taskItem.kind -eq 'http'){'http://127.0.0.1:'+ $taskPort + $taskItem.path}else{'127.0.0.1:'+ $taskPort}
+ if($taskItem.id -eq 'neo4j-bolt'){$taskAddress='bolt://127.0.0.1:'+$taskPort}
  Write-Host $taskAddress
  if($taskItem.database){Write-Host ('Database: '+$taskItem.database+' | User: '+$taskItem.username)}
  if($taskItem.id -eq 'trino'){Write-Host ('JDBC: jdbc:trino://127.0.0.1:'+$taskPort+'/models/dwh | user rm9_reader | yerel HTTP, auth yok')}

@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cubestore
+  namespace: komtas-rm10
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: rm10-cubestore}
+  template:
+    metadata:
+      labels: {app: rm10-cubestore}
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: cubestore
+          image: cubejs/cubestore:v1.6.77
+          ports: [{containerPort: 3030}]
+          readinessProbe:
+            tcpSocket: {port: 3030}
+            periodSeconds: 5
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: cubestore, namespace: komtas-rm10}
+spec:
+  type: ClusterIP
+  selector: {app: rm10-cubestore}
+  ports: [{port: 3030, targetPort: 3030}]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: cube, namespace: komtas-rm10}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: rm10-cube}
+  template:
+    metadata:
+      labels: {app: rm10-cube}
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: cube
+          image: cubejs/cube:v1.6.77
+          ports: [{name: http, containerPort: 4000}]
+          env:
+            - {name: NODE_ENV, value: production}
+            - {name: CUBEJS_DEV_MODE, value: 'false'}
+            - {name: CUBEJS_DB_TYPE, value: postgres}
+            - {name: CUBEJS_DB_HOST, value: postgres}
+            - {name: CUBEJS_DB_NAME, value: komtas_rm10}
+            - {name: CUBEJS_DB_USER, value: rm10_bi}
+            - name: CUBEJS_DB_PASS
+              valueFrom:
+                secretKeyRef: {name: rm10-credentials, key: bi-password}
+            - {name: CUBEJS_CUBESTORE_HOST, value: cubestore}
+            - {name: CUBEJS_REFRESH_WORKER, value: 'true'}
+            - {name: CUBEJS_TELEMETRY, value: 'false'}
+
+            - name: CUBEJS_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rm10-api
+                  key: api-secret
+          readinessProbe:
+            httpGet: {path: /readyz, port: http}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests: {cpu: 250m, memory: 256Mi}
+            limits: {cpu: '2', memory: 1Gi}
+          volumeMounts:
+            - {name: model, mountPath: /cube/conf/schema/Sales.js, subPath: Sales.js, readOnly: true}
+            - {name: config, mountPath: /cube/conf/cube.js, subPath: cube.js, readOnly: true}
+      volumes:
+        - name: model
+          configMap: {name: rm10-cube-model}
+        - name: config
+          configMap: {name: rm10-cube-config}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: cube, namespace: komtas-rm10}
+spec:
+  type: ClusterIP
+  selector: {app: rm10-cube}
+  ports: [{name: http, port: 4000, targetPort: http}]

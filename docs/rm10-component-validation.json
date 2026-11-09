@@ -1,0 +1,55 @@
+{
+  "namespace": "komtas-rm10-check-1109",
+  "graphChecks": [
+    {
+      "id": "ontology_definition",
+      "status": "passed"
+    },
+    {
+      "id": "graph_entities",
+      "status": "passed"
+    },
+    {
+      "id": "graph_relationships",
+      "status": "passed"
+    },
+    {
+      "id": "graph_provenance",
+      "status": "passed"
+    },
+    {
+      "id": "graph_freshness",
+      "status": "passed"
+    },
+    {
+      "id": "graph_paths",
+      "status": "passed"
+    },
+    {
+      "id": "graph_metric_context",
+      "status": "passed"
+    },
+    {
+      "id": "graph_model_binding",
+      "status": "passed"
+    }
+  ],
+  "cubeChecks": {
+    "cube_api": "passed",
+    "cube_sql": "passed",
+    "cube_match": "passed",
+    "two_consumers": "passed",
+    "api_auth": "passed"
+  },
+  "catalogChecks": {
+    "om_catalog": "passed",
+    "om_owner": "passed",
+    "om_glossary": "passed",
+    "om_lineage": "passed",
+    "om_metric": "passed",
+    "om_quality": "passed",
+    "om_product": "passed"
+  },
+  "fullScenarioVerified": false,
+  "limitation": "Kubernetes TLS/watch timeouts during concurrent local RM9/RM10 workloads; isolated RM10 services stopped to release memory."
+}

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: dashboard, namespace: komtas-rm10}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: rm10-dashboard}
+  template:
+    metadata:
+      labels: {app: rm10-dashboard}
+    spec:
+      containers:
+        - name: dashboard
+          image: python:3.12.12-slim-bookworm
+          command: [sh, -c, 'pip install --disable-pip-version-check --no-cache-dir -r /consumer/requirements.txt && exec streamlit run /consumer/dashboard.py --server.address=0.0.0.0 --server.port=8501 --browser.gatherUsageStats=false']
+          env:
+            - name: CUBEJS_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rm10-api
+                  key: api-secret
+          ports: [{name: http, containerPort: 8501}]
+          startupProbe:
+            httpGet: {path: /_stcore/health, port: http}
+            failureThreshold: 120
+            periodSeconds: 5
+          readinessProbe:
+            httpGet: {path: /_stcore/health, port: http}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+          volumeMounts:
+            - {name: consumer, mountPath: /consumer, readOnly: true}
+      volumes:
+        - name: consumer
+          configMap: {name: rm10-consumers}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: dashboard, namespace: komtas-rm10}
+spec:
+  type: ClusterIP
+  selector: {app: rm10-dashboard}
+  ports: [{name: http, port: 8501, targetPort: http}]

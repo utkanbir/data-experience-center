@@ -1,0 +1,5 @@
+Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.
+Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.
+Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.
+OpenMetadata admin: admin@open-metadata.org. Metadata PostgreSQL ve Elasticsearch kume ici destek servisleridir, kullanici UI yoktur.
+Neo4j Browser icinde Bolt URI alanina ozetin Neo4j Bolt adresini girin. Kullanici neo4j; parola toplu ozette. Graph sync acik komutla yapilir; LLM/agent yoktur.

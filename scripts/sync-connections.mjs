@@ -1,24 +1,27 @@
 import fs from 'node:fs/promises';
 const shared=Object.fromEntries(await Promise.all(['Connect.ps1','Get-Connections.ps1','connect.sh','get-connections.sh'].map(async name=>[name,await fs.readFile('packages/shared/'+name,'utf8')])));
 const first=JSON.parse(await fs.readFile('src/lib/rm1-template.json','utf8'));
-for(let id=1;id<=9;id++){
+for(let id=1;id<=10;id++){
  const prefix='packages/rm'+id+'/',pg=15431+id;
  const services=[{id:'postgres',name:'PostgreSQL'+(id===9?' - satis kaynagi':''),service:'postgres',localPort:pg,remotePort:5432,kind:'tcp',path:'',database:'komtas_rm'+id,username:'rm'+id+'_bi'}];
  const http=(key,name,service,port,remote,path='/')=>services.push({id:key,name,service,localPort:port,remotePort:remote,kind:'http',path,database:'',username:''});
  if(id===9)services.push({id:'reference',name:'PostgreSQL - referans kaynagi',service:'postgres-reference',localPort:16440,remotePort:5432,kind:'tcp',path:'',database:'komtas_rm9_reference',username:'rm9_bi'});
  if(id>=2)http('docs','dbt dokumani','dbt-docs',18080+id,8080,'/static_index.html');
- const cube=[4,5,7,8,9].includes(id),om=[5,8,9].includes(id);
+ const cube=[4,5,7,8,9,10].includes(id),om=[5,8,9,10].includes(id);
  if(cube){http('cube','Cube REST API','cube',4000+id,4000,'/cubejs-api/v1/meta');http('dashboard','Streamlit','dashboard',8500+id,8501);}
- if(om)http('catalog','OpenMetadata','openmetadata',id===9?18589:id===8?18588:8585,8585);
+ if(om)http('catalog','OpenMetadata','openmetadata',id===10?18590:id===9?18589:id===8?18588:8585,8585);
+ if(id===10){http('neo4j-browser','Neo4j Browser','neo4j',17484,7474,'/browser/');services.push({id:'neo4j-bolt',name:'Neo4j Bolt',service:'neo4j',localPort:17697,remotePort:7687,kind:'tcp',path:'',database:'neo4j',username:'neo4j'});}
  if(id===9)http('trino','Trino SQL','trino',18099,8080);
  const credentials=[{name:'PostgreSQL parola'+(id===9?' (iki is kaynagi)':''),secret:'rm'+id+'-credentials',key:'bi-password'}];
  if(om)credentials.push({name:'OpenMetadata admin@open-metadata.org parola',secret:'rm'+id+'-governance',key:'admin-password'});
+ if(id===10)credentials.push({name:'Neo4j neo4j parola',secret:'rm10-graph',key:'password'});
  const external=id===6?[{name:'Yonetilen dbt Semantic',settings:'managed/settings.json',command:'Set-DbtConnection.ps1 / bash set-dbt-connection.sh; token yalniz yerelde girilir.'}]:[7,8].includes(id)?[{name:'Informatica CDGC',settings:id===8?'cdgc/settings.json':'governance/settings.json',command:'Set-InformaticaConnection.ps1 / bash set-informatica-connection.sh; JWT yalniz yerelde girilir.'}]:[];
  const notes=['Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.','Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.'];
  if(id<=2||id===6)notes.push('Power BI Desktop haricten saglanir. PostgreSQL baglantisi yukaridadir; RM6 yonetilen semantic connector erisimi ayrica saglanir.');
  if(id===3)notes.push('MetricFlow CLI: Show-Metrics.ps1 / bash show-metrics.sh; ayri web servisi yoktur.');
  if(cube)notes.push('Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.');
  if(om)notes.push('OpenMetadata admin: admin@open-metadata.org. Metadata PostgreSQL ve Elasticsearch kume ici destek servisleridir, kullanici UI yoktur.');
+ if(id===10)notes.push('Neo4j Browser icinde Bolt URI alanina ozetin Neo4j Bolt adresini girin. Kullanici neo4j; parola toplu ozette. Graph sync acik komutla yapilir; LLM/agent yoktur.');
  for(const e of external)notes.push(e.name+' harici servistir; Connect bu servisi kurmaz veya localhost tuneli acmaz. '+e.command);
  const plan={namespace:'komtas-rm'+id,context:'docker-desktop',services,credentials,external,cubeToken:cube,notes};
  const files={};

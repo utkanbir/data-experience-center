@@ -1,0 +1,115 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "rm10-graph-verify",
+    "namespace": "komtas-rm10"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 600,
+    "template": {
+      "spec": {
+        "enableServiceLinks": false,
+        "restartPolicy": "Never",
+        "containers": [
+          {
+            "name": "graph",
+            "image": "python:3.12.12-slim-bookworm",
+            "command": [
+              "sh",
+              "-c",
+              "pip install --disable-pip-version-check --no-cache-dir \"psycopg[binary]==3.2.13\" \"neo4j==6.0.3\" && exec python /graph/graph.py verify"
+            ],
+            "env": [
+              {
+                "name": "PGPASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm10-credentials",
+                    "key": "bi-password"
+                  }
+                }
+              },
+              {
+                "name": "NEO4J_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm10-graph",
+                    "key": "password"
+                  }
+                }
+              },
+              {
+                "name": "CUBEJS_API_SECRET",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "rm10-api",
+                    "key": "api-secret"
+                  }
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "512Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "graph",
+                "mountPath": "/graph",
+                "readOnly": true
+              },
+              {
+                "name": "artifacts",
+                "mountPath": "/artifacts"
+              },
+              {
+                "name": "consumer",
+                "mountPath": "/consumer",
+                "readOnly": true
+              },
+              {
+                "name": "model",
+                "mountPath": "/cube-model",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "graph",
+            "configMap": {
+              "name": "rm10-graph-code"
+            }
+          },
+          {
+            "name": "artifacts",
+            "persistentVolumeClaim": {
+              "claimName": "dbt-artifacts"
+            }
+          },
+          {
+            "name": "consumer",
+            "configMap": {
+              "name": "rm10-consumers"
+            }
+          },
+          {
+            "name": "model",
+            "configMap": {
+              "name": "rm10-cube-model"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

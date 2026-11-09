@@ -152,3 +152,7 @@ Kurulum ekranı mimariye göre CDGC, yönetilen dbt, Snowflake, BigQuery ve Data
 ## Tek bağlantı komutu
 
 RM1-RM9 paketlerinde `Connect.ps1` / `bash connect.sh` bütün yerel servis tünellerini tek terminalden açar. `Get-Connections.ps1` / `bash get-connections.sh` gerçek portları ve giriş bilgilerini tek özette verir. Port çakışmasında sonraki uygun port seçilir. Ctrl+C yalnız bu oturumun tünellerini kapatır. Harici servisler kurulmaz/tünellenmez; yapılandırma adresleri ve yerel kimlik bilgisi komutları gösterilir. Linux için util-linux/flock gerekir.
+
+## RM10 — Ontology ve Neo4j
+
+Tek PostgreSQL + dbt + Cube + OpenMetadata temeline Neo4j ilişki bağlamı eklenir. Açık kavram modeli, kaynak kimliği, provenance, graph güncelliği ve Cube/graph uzlaştırması sekiz graph kontrolüyle ölçülür. LLM/agent veya federasyon bu varyantta yoktur. Kurulum: [RM10 rehberi](packages/rm10/README.md). Tek Connect ve Get-Connections akışı bu pakette de geçerlidir.

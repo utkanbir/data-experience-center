@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 await build({entryPoints:['src/lib/deployment.ts'],bundle:true,platform:'node',format:'esm',outfile:'.checks/connections.mjs'});
 const {buildPackageFiles}=await import('../.checks/connections.mjs');
-test('all nine packages expose one connection session and one credentials summary',()=>{
- const counts=[1,2,2,4,5,2,4,5,7];
- for(let id=1;id<=9;id++){
+test('all ten packages expose one connection session and one credentials summary',()=>{
+ const counts=[1,2,2,4,5,2,4,5,7,7];
+ for(let id=1;id<=10;id++){
   const f=buildPackageFiles(id,'komtas-unified-test',15500),r='rm'+id+'-kubernetes/',p=JSON.parse(f[r+'connections.json']);
   assert.equal(p.namespace,'komtas-unified-test');assert.equal(p.services.length,counts[id-1]);
   assert.equal(p.services[0].localPort,15500);

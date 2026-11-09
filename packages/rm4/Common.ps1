@@ -4,7 +4,7 @@ $Rm4Context = 'docker-desktop'
 
 function Invoke-Rm4Kubectl {
     param([string[]]$Arguments,[string]$InputText)
-    $taskExecutable=(Get-Command kubectl -ErrorAction Stop).Source
+    $taskExecutable=Get-Command kubectl -ErrorAction Stop
     for($taskAttempt=1;$taskAttempt -le 4;$taskAttempt++){
         $taskErrorFile=[IO.Path]::GetTempFileName()
         $taskPreviousPreference=$ErrorActionPreference

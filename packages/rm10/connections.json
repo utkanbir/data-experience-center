@@ -1,0 +1,109 @@
+{
+  "namespace": "komtas-rm10",
+  "context": "docker-desktop",
+  "services": [
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "service": "postgres",
+      "localPort": 15441,
+      "remotePort": 5432,
+      "kind": "tcp",
+      "path": "",
+      "database": "komtas_rm10",
+      "username": "rm10_bi"
+    },
+    {
+      "id": "docs",
+      "name": "dbt dokumani",
+      "service": "dbt-docs",
+      "localPort": 18090,
+      "remotePort": 8080,
+      "kind": "http",
+      "path": "/static_index.html",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "cube",
+      "name": "Cube REST API",
+      "service": "cube",
+      "localPort": 4010,
+      "remotePort": 4000,
+      "kind": "http",
+      "path": "/cubejs-api/v1/meta",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "dashboard",
+      "name": "Streamlit",
+      "service": "dashboard",
+      "localPort": 8510,
+      "remotePort": 8501,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "catalog",
+      "name": "OpenMetadata",
+      "service": "openmetadata",
+      "localPort": 18590,
+      "remotePort": 8585,
+      "kind": "http",
+      "path": "/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "neo4j-browser",
+      "name": "Neo4j Browser",
+      "service": "neo4j",
+      "localPort": 17484,
+      "remotePort": 7474,
+      "kind": "http",
+      "path": "/browser/",
+      "database": "",
+      "username": ""
+    },
+    {
+      "id": "neo4j-bolt",
+      "name": "Neo4j Bolt",
+      "service": "neo4j",
+      "localPort": 17697,
+      "remotePort": 7687,
+      "kind": "tcp",
+      "path": "",
+      "database": "neo4j",
+      "username": "neo4j"
+    }
+  ],
+  "credentials": [
+    {
+      "name": "PostgreSQL parola",
+      "secret": "rm10-credentials",
+      "key": "bi-password"
+    },
+    {
+      "name": "OpenMetadata admin@open-metadata.org parola",
+      "secret": "rm10-governance",
+      "key": "admin-password"
+    },
+    {
+      "name": "Neo4j neo4j parola",
+      "secret": "rm10-graph",
+      "key": "password"
+    }
+  ],
+  "external": [],
+  "cubeToken": true,
+  "notes": [
+    "Connect tum yerel tunelleri acar; dolu portta 30 sonraki port denenir. Gercek adresleri bu ozet gosterir.",
+    "Ctrl+C yalniz bu Connect oturumunun actigi tunelleri kapatir; Kubernetes servislerini silmez.",
+    "Cube API JWT ister. Cube Store kume ici destek servisidir, kullanici UI yoktur.",
+    "OpenMetadata admin: admin@open-metadata.org. Metadata PostgreSQL ve Elasticsearch kume ici destek servisleridir, kullanici UI yoktur.",
+    "Neo4j Browser icinde Bolt URI alanina ozetin Neo4j Bolt adresini girin. Kullanici neo4j; parola toplu ozette. Graph sync acik komutla yapilir; LLM/agent yoktur."
+  ]
+}
