@@ -25,3 +25,7 @@ Anahtar yalnız sekme belleğinde tutulur. Kaydetme, yalnız senaryo metni, ihti
 ## Doğrulama
 
 40 Node testi: katalog ve paket sınırları, senaryo puanlama/kısıtlar, OOXML metin çıkarma, formülün çalıştırılmaması, DTD/boyut reddi, LLM alıntı kontrolü ve same-origin API. LLM protokol testleri sahte taşıyıcı kullanır; gerçek kullanıcı anahtarıyla sağlayıcı çağrısı yapılmadı. Tarayıcıda senaryo değiştirme, RM4 seçimi, metinden taslak, kayıt, anahtar eksikliği ve Word yükleme akışı kontrol edildi.
+
+## Ekran düzeni
+
+Senaryo merkezi, referans mimari listesi ve mimari ayrıntısı ekran yüksekliğine sığan çalışma alanlarıdır. Ana çizim içerik kaydırılırken görünür kalır; mimari listesi ve okuma alanı kendi içinde kayar. Senaryo değerlendirmesi, ihtiyaç/kaynaklar, Komtaş katkısı ve kurulum ayrı sekmelerde açılır. Yeni senaryo düzenleyicisi bağımsız bir pencere açar. Dar ekranda mimari sıralaması seçim kutusuyla erişilir. Ana referans mimari satır seçimiyle önizlenir; “Ayrıntıları aç” mimarinin çalışma ekranına geçer. Uzun tanıtım alanı kaldırılmıştır.
